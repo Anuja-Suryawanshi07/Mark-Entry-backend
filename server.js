@@ -8,6 +8,7 @@ const updateUser = require("./routes/userRoutes/updateuser");
 const deleteUser = require("./routes/userRoutes/deleteuser");
 
 const roleRoutes = require("./routes/roleRoutes/index");
+const batchRoutes = require("./routes/batchRoutes/index");
 
 // middlewares
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use("/user",deleteUser);
 
 
 app.use("/roles", roleRoutes);
+app.use("/batch", batchRoutes);
 
 
 app.listen(PORT, () => {

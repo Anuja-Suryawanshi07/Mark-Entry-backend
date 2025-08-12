@@ -10,9 +10,14 @@ const getAllStaff = require("./routes/staffRoutes/getallstaff");
 const addStaff = require("./routes/staffRoutes/addstaff");
 const updateStaff = require("./routes/staffRoutes/updatestaff");
 const deleteStaff = require("./routes/staffRoutes/deletestaff");
+const getMarks = require("./routes/marksRoutes/getMarks");
+const addMarks = require("./routes/marksRoutes/addMarks");
+const updateMarks = require("./routes/marksRoutes/updateMarks");
+const deleteMarks = require("./routes/marksRoutes/deleteMarks");
 
-const roleRoutes = require("./routes/roleRoutes/index");
-const batchRoutes = require("./routes/batchRoutes/index");
+
+//const roleRoutes = require("./routes/roleRoutes/index");
+//const batchRoutes = require("./routes/batchRoutes/index");
 
 // middlewares
 app.use(express.json());
@@ -31,8 +36,14 @@ app.use("/staff",addStaff);
 app.use("/staff",updateStaff);
 app.use("/staff",deleteStaff);
 
-app.use("/roles", roleRoutes);
-app.use("/batch", batchRoutes);
+//marks routes
+app.use("/marks",getMarks);
+app.use("/marks",addMarks);
+app.use("/marks",updateMarks);
+app.use("/marks",deleteMarks);
+
+//app.use("/roles", roleRoutes);
+//app.use("/batch", batchRoutes);
 
 
 app.listen(PORT, () => {

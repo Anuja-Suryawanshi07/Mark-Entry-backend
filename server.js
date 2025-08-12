@@ -19,6 +19,9 @@ const deleteMarks = require("./routes/marksRoutes/deleteMarks");
 //const roleRoutes = require("./routes/roleRoutes/index");
 //const batchRoutes = require("./routes/batchRoutes/index");
 
+const courseRoutes = require("./routes/courseRoutes/index");
+const moduleRoutes = require("./routes/moduleRoutes/index");
+
 // middlewares
 app.use(express.json());
 
@@ -44,6 +47,9 @@ app.use("/marks",deleteMarks);
 
 //app.use("/roles", roleRoutes);
 //app.use("/batch", batchRoutes);
+
+app.use("/course", courseRoutes);
+app.use("/module", moduleRoutes);
 
 
 app.listen(PORT, () => {

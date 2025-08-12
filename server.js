@@ -7,6 +7,8 @@ const addUser = require("./routes/userRoutes/adduser");
 const updateUser = require("./routes/userRoutes/updateuser");
 const deleteUser = require("./routes/userRoutes/deleteuser");
 
+const roleRoutes = require("./routes/roleRoutes/index");
+
 // middlewares
 app.use(express.json());
 
@@ -16,6 +18,9 @@ app.use("/users", getAllUsers);
 app.use("/users", addUser);
 app.use("/user",updateUser);
 app.use("/user",deleteUser);
+
+
+app.use("/roles", roleRoutes);
 
 
 app.listen(PORT, () => {

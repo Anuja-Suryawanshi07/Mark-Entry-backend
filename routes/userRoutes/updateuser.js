@@ -1,0 +1,44 @@
+const express = require("express");
+const pool = require("../../config/db");
+const router = express.Router();
+const { successResponse, errorResponse } = require("../../utils/apiResponse");
+const { USER_TABLE } = require("../../config");
+
+
+
+// PUT: update an user by Id
+//http://localhost:7777/user/update-user/8
+
+router.put("/update-user/:userId", (req, res) => {
+  const { userId } = req.params;
+  const { userid, firstname, lastname, mobilenumber, email, password } =
+    req.body;
+
+  const sql = `UPDATE ${ USER_TABLE }
+                SET user_id = ?, first_name = ?, last_name = ?, mobile_number = ?, email = ?, password = ?
+                WHERE user_id = ?`;
+
+  pool.query(
+    sql,
+    [userid, firstname, lastname, mobilenumber, email, password, userId],
+    (error, result) => {
+      if (error) {
+        return res.send(error);
+      }
+      console.log("result: ", result);
+
+      if (result.affectedRows === 0) {
+        return res.send({
+          status: "Success",
+          message: "No User found with this ID: " + userid,
+        });
+      }
+      return res.send({
+        status: "Success",
+        message: "User details updated Successfully with ID: " + userid,
+      });
+    }
+  );
+});
+
+module.exports = router;

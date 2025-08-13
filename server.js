@@ -1,56 +1,30 @@
 const express = require("express");
 const app = express();
 const { PORT} = require("./config");
-const testRoutes = require("./routes/testRoutes");
-const getAllUsers = require("./routes/userRoutes/getallusers");
-const addUsers = require("./routes/userRoutes/addusers");
-const updateUsers = require("./routes/userRoutes/updateusers");
-const deleteUsers = require("./routes/userRoutes/deleteusers");
-const getAllStaff = require("./routes/staffRoutes/getallstaff");
-const addStaff = require("./routes/staffRoutes/addstaff");
-const updateStaff = require("./routes/staffRoutes/updatestaff");
-const deleteStaff = require("./routes/staffRoutes/deletestaff");
-const getMarks = require("./routes/marksRoutes/getMarks");
-const addMarks = require("./routes/marksRoutes/addMarks");
-const updateMarks = require("./routes/marksRoutes/updateMarks");
-const deleteMarks = require("./routes/marksRoutes/deleteMarks");
 
-
-//const roleRoutes = require("./routes/roleRoutes/index");
-//const batchRoutes = require("./routes/batchRoutes/index");
-
+const roleRoutes = require("./routes/roleRoutes/index");
+const batchRoutes = require("./routes/batchRoutes/index");
 const courseRoutes = require("./routes/courseRoutes/index");
 const moduleRoutes = require("./routes/moduleRoutes/index");
+const userRoutes = require("./routes/userRoutes/index");
+const staffRoutes = require("./routes/staffRoutes/index");
+const marksRoutes = require("./routes/marksRoutes/index");
+const student_groupRoutes = require("./routes/student_groupRoutes/index");
+const studentRoutes = require("./routes/studentRoutes/index");
 
-// middlewares
+// middlewaresgit
 app.use(express.json());
 
 //routes
-//user routes
-app.use("/", testRoutes);
-app.use("/users", getAllUsers);
-app.use("/users", addUsers);
-app.use("/users",updateUsers);
-app.use("/users",deleteUsers);
-
-//staff routes
-app.use("/staff",getAllStaff);
-app.use("/staff",addStaff);
-app.use("/staff",updateStaff);
-app.use("/staff",deleteStaff);
-
-//marks routes
-app.use("/marks",getMarks);
-app.use("/marks",addMarks);
-app.use("/marks",updateMarks);
-app.use("/marks",deleteMarks);
-
-//app.use("/roles", roleRoutes);
-//app.use("/batch", batchRoutes);
-
+app.use("/roles", roleRoutes);
+app.use("/batch", batchRoutes);
 app.use("/course", courseRoutes);
 app.use("/module", moduleRoutes);
-
+app.use("/staff", staffRoutes);
+app.use("/marks", marksRoutes);
+app.use("/student_group", student_groupRoutes);
+app.use("/student", studentRoutes);
+app.use("/user", userRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server Started at http://localhost:${PORT}`);

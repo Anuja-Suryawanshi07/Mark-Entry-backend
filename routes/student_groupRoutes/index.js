@@ -1,21 +1,18 @@
-
 const express = require("express");
 const router = express.Router();
 
-//student_group
 
-const allstudentgroup = require("./allstudentsgroup");
-const addstudentgroup = require("./addstudentgroup");
-const updatestudentgroup = require("./updatestudentgroup");
+
+const addStudentGroupRoutes = require("./addstudentgroup");
+const allstudentsgroupRoutes = require("./allstudentsgroup");
+const updatestudentGroup = require("./updatestudentgroup");
 const deletestudentgroup = require("./deletestudentgroup");
 
 
-router.use(allstudentgroup);
-router.use(addstudentgroup);
-router.use(updatestudentgroup);
+router.use(addStudentGroupRoutes);
+router.use(allstudentsgroupRoutes);
+router.use(updatestudentGroup);
 router.use(deletestudentgroup);
 
+
 module.exports = router;
-
-
-

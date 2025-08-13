@@ -12,7 +12,7 @@ const marksRoutes = require("./routes/marksRoutes/index");
 const student_groupRoutes = require("./routes/student_groupRoutes/index");
 const studentRoutes = require("./routes/studentRoutes/index");
 
-// middlewaresgit
+// middleware
 app.use(express.json());
 
 //routes

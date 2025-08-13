@@ -13,13 +13,13 @@ router.delete("/delete-users/:userId",(req,res) => {
                 WHERE user_id = ?`;
   pool.query(sql, [userId], (error, result) => {
     if (error) {
-      return res.send(error);
+      return res.send(errorResponse(error));
     }
     console.log("result:", result);
 
     if (result.affectedRows === 0) {
       return res.send({
-        status: "Success",
+        status: "Error",
         message: "No User Found with ID: " + userId,
       });
     }

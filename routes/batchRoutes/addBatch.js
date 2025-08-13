@@ -1,0 +1,25 @@
+const express = require("express");
+const router = express.Router();
+const pool = require("../../config/db");
+const { successResponse, errorResponse } = require("../../utils/apiResponse");
+const { BATCH_TABLE } = require("../../config");
+
+router.post("/add-batch", (req, res) => {
+  const { batchName, isActive } = req.body;
+  const sql = `INSERT INTO ${BATCH_TABLE} ( batch_name, is_active ) VALUES (?, ?)`;
+  pool.query(sql, [batchName, isActive], (error, result) => {
+    if (error) {
+      return res
+        .status(500)
+        .json(errorResponse("An error occurred while adding the user."));
+    }
+    return res.status(201).json(
+      successResponse({
+        message: "Batch added successfully.",
+        roleId: result.insertId,
+      })
+    );
+  });
+});
+
+module.exports = router;

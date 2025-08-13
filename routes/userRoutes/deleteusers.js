@@ -5,9 +5,9 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { USER_TABLE } = require("../../config");
 
 // DELETE: delete an user
-//http://localhost:7777/user/delete-user/8
+//http://localhost:7777/users/delete-users/7
 
-router.delete("/delete-user/:userId",(req,res) => {
+router.delete("/delete-users/:userId",(req,res) => {
   const { userId } = req.params;
   const sql = `DELETE FROM ${ USER_TABLE }
                 WHERE user_id = ?`;

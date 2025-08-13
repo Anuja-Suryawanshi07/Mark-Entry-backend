@@ -6,7 +6,7 @@ const { USER_TABLE } = require("../../config");
 
 
 // GET all users
-//http://localhost:7777/users/all-users
+//http://localhost:7777/user/all-users
 
 router.get("/all-users", (req, res) => {
   const sql = `SELECT * FROM ${USER_TABLE}`;

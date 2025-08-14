@@ -4,6 +4,8 @@ const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { BATCH_TABLE } = require("../../config");
 
+//http://localhost:7777/batch/add-batch
+
 router.post("/add-batch", (req, res) => {
   let { batchName, isActive } = req.body;
   const sql = `INSERT INTO ${BATCH_TABLE} ( batch_name, is_active ) VALUES (?, ?)`;

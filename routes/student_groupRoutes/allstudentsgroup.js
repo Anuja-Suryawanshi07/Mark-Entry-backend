@@ -5,6 +5,7 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
 // GET all student groups
 // http://localhost:7777/student-groups/get-all-groups
+
 router.get("/get-all-groups", (req, res) => {
   const sql = `SELECT * FROM student_group`;
 

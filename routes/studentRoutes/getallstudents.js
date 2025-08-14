@@ -5,7 +5,8 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { STUDENT_TABLE } = require("../../config");
 
 // GET all students
-// http://localhost:7777/students/all-students
+// http://localhost:7777/student/get-all-students
+
 router.get("/get-all-students", (req, res) => {
   const sql = `SELECT * FROM ${STUDENT_TABLE}`;
 

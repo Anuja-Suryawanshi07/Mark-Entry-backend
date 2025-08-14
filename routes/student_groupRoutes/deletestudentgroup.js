@@ -4,7 +4,8 @@ const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
 // DELETE: delete a student group by group_id
-// Example: DELETE http://localhost:7777/student-groups/delete-group/3
+// http://localhost:7777/student-groups/delete-group/11
+
 router.delete("/delete-group/:groupId", (req, res) => {
   const { groupId } = req.params;
 

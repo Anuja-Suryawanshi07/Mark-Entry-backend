@@ -5,7 +5,7 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { COURSE_TABLE } = require("../../config");
 
 
-// GET all users
+// GET all Courses
 //http://localhost:7777/course/all-courses
 
 router.get("/all-courses", (req, res) => {

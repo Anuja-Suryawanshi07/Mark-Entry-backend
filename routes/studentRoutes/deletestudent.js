@@ -4,7 +4,8 @@ const router = express.Router();
 const { STUDENT_TABLE } = require("../../config"); // Make sure STUDENT_TABLE = 'student' in config
 
 // DELETE: delete a student
-// Example: http://localhost:7777/student/delete-student/8
+// http://localhost:7777/student/delete-student/6
+
 router.delete("/delete-student/:studentId", (req, res) => {
   const { studentId } = req.params;
 

@@ -4,9 +4,17 @@ const getallstudent = require("./getallstudents");
 const addstudent = require("./addstudent");
 const updatestudent = require("./updatestudent");
 const deletestudent = require("./deletestudent");
+const loginstudent = require("./loginstudent");
+const registerstudent = require("./registerstudent");
+const getMarksByStudentId = require("./getMarksByStudentId");
+// const getStudentGroupsByCourseId = require("./getStudentGroupsByCourseId");
 
 router.use(getallstudent);
 router.use(addstudent);
 router.use(updatestudent);
 router.use(deletestudent);
+router.use(loginstudent);
+router.use(registerstudent);
+router.use(getMarksByStudentId);
+//router.use(getStudentGroupsByCourseId);
 module.exports = router;

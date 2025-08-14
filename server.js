@@ -22,10 +22,16 @@ app.use("/course", courseRoutes);
 app.use("/module", moduleRoutes);
 app.use("/staff", staffRoutes);
 app.use("/marks", marksRoutes);
-app.use("/student-groups", studentGroupRoutes);
+
+app.use("/student-group", student_groupRoutes);
+=======
+
 app.use("/student", studentRoutes);
 app.use("/user", userRoutes);
 
+
+
+=======
 
 
 app.listen(PORT, () => {

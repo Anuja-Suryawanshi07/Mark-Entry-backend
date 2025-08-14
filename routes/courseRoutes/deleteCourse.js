@@ -3,30 +3,32 @@ const pool = require("../../config/db");
 const router = express.Router();
 
 const { COURSE_TABLE } = require("../../config");
+const { errorResponse, successResponse } = require("../../utils/apiResponse");
 
 // DELETE: delete an user
 //http://localhost:7777/course/delete-course/7
 
-router.delete("/delete-course/:courseId",(req,res) => {
+router.delete("/delete-course/:courseId", (req, res) => {
   const { courseId } = req.params;
-  const sql = `DELETE FROM ${ COURSE_TABLE }
+  
+  courseId = Number.parseInt(courseId);
+  if (courseId === NaN || courseId < 0) {
+    return res.status(400).send(errorResponse("Invalid course Id"))
+  }
+
+  const sql = `DELETE FROM ${COURSE_TABLE}
                 WHERE course_id = ?`;
   pool.query(sql, [courseId], (error, result) => {
     if (error) {
-      return res.send(error);
+      return res.status(500).send(errorResponse(error));
     }
     console.log("result:", result);
 
     if (result.affectedRows === 0) {
-      return res.send({
-        status: "Success",
-        message: "No course Found with ID: " + courseId,
-      });
+      return res.status(404).send(errorResponse("No course Found with ID: " + courseId));
     }
-    return res.send({
-      status: "Success",
-      message: " Course DELETED Successfully with ID: " + courseId,
-    });
+    return res.status(200).send(successResponse(
+      " Course DELETED Successfully with ID: " + courseId));
   });
 });
 

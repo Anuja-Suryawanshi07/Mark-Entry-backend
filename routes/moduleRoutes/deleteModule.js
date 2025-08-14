@@ -9,24 +9,26 @@ const { MODULE_TABLE } = require("../../config");
 
 router.delete("/delete-module/:moduleId",(req,res) => {
   const { moduleId } = req.params;
+
+   moduleId = Number.parseInt(moduleId);
+  if (moduleId === NaN || moduleId < 0) {
+    return res.status(400).send(errorResponse("Invalid module Id"))
+  }
+
   const sql = `DELETE FROM ${ MODULE_TABLE }
                 WHERE module_id = ?`;
   pool.query(sql, [moduleId], (error, result) => {
     if (error) {
-      return res.send(error);
+      return res.status(500).send(error);
     }
     console.log("result:", result);
 
-    if (result.affectedRows === 0) {
-      return res.send({
-        status: "Success",
-        message: "No Module Found with ID: " + moduleId,
-      });
+     if (result.affectedRows === 0) {
+      return res.status(404).send(errorResponse("No Module Found with ID: " + moduleId));
     }
-    return res.send({
-      status: "Success",
-      message: " Module DELETED Successfully with ID: " + moduleId,
-    });
+    return res.status(200).send(successResponse(
+      " Module DELETED Successfully with ID: " + moduleId));
+  
   });
 });
 

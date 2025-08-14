@@ -5,18 +5,29 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { BATCH_TABLE } = require("../../config");
 
 router.post("/add-batch", (req, res) => {
-  const { batchName, isActive } = req.body;
+  let { batchName, isActive } = req.body;
   const sql = `INSERT INTO ${BATCH_TABLE} ( batch_name, is_active ) VALUES (?, ?)`;
+
+  if (!batchName) {
+    return res
+      .status(400)
+      .json(errorResponse("Batch Name field should not empty."));
+  }
+
+  if (typeof isActive === "undefined" || isActive === null || isActive === "") {
+    isActive = 0;
+  }
+
   pool.query(sql, [batchName, isActive], (error, result) => {
     if (error) {
       return res
         .status(500)
-        .json(errorResponse("An error occurred while adding the user."));
+        .json(errorResponse("An error occurred while adding the batch."));
     }
     return res.status(201).json(
       successResponse({
         message: "Batch added successfully.",
-        roleId: result.insertId,
+        batchId: result.insertId,
       })
     );
   });

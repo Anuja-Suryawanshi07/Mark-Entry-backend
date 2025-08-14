@@ -9,7 +9,7 @@ const moduleRoutes = require("./routes/moduleRoutes/index");
 const userRoutes = require("./routes/userRoutes/index");
 const staffRoutes = require("./routes/staffRoutes/index");
 const marksRoutes = require("./routes/marksRoutes/index");
-const student_groupRoutes = require("./routes/student_groupRoutes/index");
+const studentGroupRoutes = require("./routes/student_groupRoutes");
 const studentRoutes = require("./routes/studentRoutes/index");
 
 // middleware
@@ -22,11 +22,23 @@ app.use("/course", courseRoutes);
 app.use("/module", moduleRoutes);
 app.use("/staff", staffRoutes);
 app.use("/marks", marksRoutes);
+
 app.use("/student-group", student_groupRoutes);
+=======
+
 app.use("/student", studentRoutes);
 app.use("/user", userRoutes);
+
+
+
+=======
 
 
 app.listen(PORT, () => {
     console.log(`Server Started at http://localhost:${PORT}`);
 })
+
+
+
+
+

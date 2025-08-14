@@ -4,8 +4,14 @@ const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
 // GET all student groups
+
 // http://localhost:7777/student-groups/get-all-group
 router.get("/get-all-group", (req, res) => {
+=======
+
+
+router.get("/get-all-groups", (req, res) => {
+
   const sql = `SELECT * FROM student_group`;
 
   pool.query(sql, (error, results) => {

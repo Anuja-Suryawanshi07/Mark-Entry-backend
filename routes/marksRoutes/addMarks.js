@@ -8,6 +8,19 @@ const { MARKS_TABLE } = require("../../config");
 
 //http://localhost:7777/marks/add-marks
 
+/*
+  {
+    "markId": 6,
+    "studentId": 5,
+    "moduleId": 1,
+    "labTestMarks": 18,
+    "mcqMarks": 22,
+    "assignmentMarks": 20,
+    "totalMarks": 60,
+   "examDate": "2025-08-05"
+}
+ */
+
 router.post("/add-marks", (req,res) => {
     const { markId, studentId, moduleId, labTestMarks, mcqMarks, assignmentMarks, totalMarks, examDate } = req.body;
 

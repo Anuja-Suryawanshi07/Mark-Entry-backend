@@ -13,33 +13,36 @@ const { COURSE_TABLE } = require("../../config");
 //             "course_name": "DMC",
 //             "batch_id": 1
 //         },
-        // {
-           
-        //     "course_name": "DBDA",
-        //     "batch_id": 1
-        // }
+// {
+
+//     "course_name": "DBDA",
+//     "batch_id": 1
+// }
 
 router.post("/add-course", (req, res) => {
-  
+
   const { course_name, batch_id } = req.body;
-  
-  if(typeof course_name !== "string" || course_name=== ""){
-    return res.status(400).json({message:"invalid course name"})
+
+  if (typeof course_name !== "string" || course_name === "") {
+    return res.status(400).json(errorResponse("Invalid course name"))
   }
 
-  const sql = `INSERT INTO ${ COURSE_TABLE } (  course_name, batch_id ) VALUES (?, ?)`;
+  batch_id = Number.parseInt(batch_id);
+  if (batch_id === NaN || batch_id < 0) {
+    return res.status(400).send(errorResponse("Invalid Batch Id"))// 400 means client ne bad request send ki ex. batch_id client ne number send krna chahiye , string or other type beje to allow nahi karenga
+  }
+
+
+  const sql = `INSERT INTO ${COURSE_TABLE} (  course_name, batch_id ) VALUES (?, ?)`;
 
   pool.query(
-    sql,
-    [course_name, batch_id],
-    (error, result) => {
+    sql, [course_name, batch_id], (error, result) => {
       if (error) {
-        return res.send(error);
+        return res.status(500).send(errorResponse(error));
       }
-      return res.status(201).send({
-        status: " Success",
-        message: "User added Successfully with ID: " + result.insertId,
-      });
+      return res.status(201).send(
+        successResponse( "Course added Successfully with ID: " + result.insertId)
+      );
     }
   );
 });

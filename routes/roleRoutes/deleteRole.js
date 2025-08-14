@@ -4,6 +4,8 @@ const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { ROLE_TABLE } = require("../../config");
 
+//http://localhost:7777/roles/delete-role/6
+
 router.delete("/delete-role/:roleId", (req, res) => {
   const { roleId } = req.params;
 

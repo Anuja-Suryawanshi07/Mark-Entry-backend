@@ -5,7 +5,7 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { MODULE_TABLE } = require("../../config");
 
 // POST: add new course
-//http://localhost:7777/modules/add-module
+//http://localhost:7777/module/add-module
 //  {
 //             "course_id": 1,
 //             "course_name": "DMC",

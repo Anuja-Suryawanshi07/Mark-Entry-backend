@@ -5,7 +5,8 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { STUDENT_TABLE, USER_TABLE } = require("../../config");
 
 // PUT: update a student by Id
-// Example: PUT http://localhost:7777/student/update-student/8
+//http://localhost:7777/student/update-student/5
+
 router.put("/update-student/:studentId", (req, res) => {
   const { studentId } = req.params;
   const { roll_number, prn_number, group_id, user_id } = req.body;

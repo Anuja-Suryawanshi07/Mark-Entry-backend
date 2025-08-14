@@ -6,7 +6,7 @@ const { COURSE_TABLE } = require("../../config");
 
 
 // PUT: update an user by Id
-//http://localhost:7777/courses/update-course/3
+//http://localhost:7777/course/update-course/7
 
 router.put("/update-course/:courseId", (req, res) => {
   const { courseId } = req.params;
@@ -33,7 +33,7 @@ router.put("/update-course/:courseId", (req, res) => {
       }
       return res.send({
         status: "Success",
-        message: "User details updated Successfully with ID: " + courseId,
+        message: "Course details updated Successfully with ID: " + courseId,
       });
     }
   );

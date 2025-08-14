@@ -7,6 +7,14 @@ const { STAFF_TABLE } = require("../../config");
 // POST: add new Staff
 
 //http://localhost:7777/staff/add-staff
+/*
+  {
+    "staffid": 6,
+    "userid": 7,
+    "roleid": 2,
+    "courseid": 3
+}
+ */
 
 router.post("/add-staff", (req,res) => {
     const { staffid, userid, roleid, courseid } = req.body;

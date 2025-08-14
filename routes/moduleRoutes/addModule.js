@@ -24,7 +24,7 @@ router.post("/add-module", (req, res) => {
     }
     return res.status(201).send({
       status: " Success",
-      message: "User added Successfully with ID: " + result.insertId,
+      message: "Module added Successfully with ID: " + result.insertId,
     });
   });
 });

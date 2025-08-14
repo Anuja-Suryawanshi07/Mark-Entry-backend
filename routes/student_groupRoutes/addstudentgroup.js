@@ -5,6 +5,15 @@ const pool = require('../../config/db');
 const { successResponse, errorResponse } = require('../../utils/apiResponse');
 
 // Your existing route here:
+
+//http://localhost:7777/student-groups/add-student-group
+/*
+  {
+    "group_id": 11,
+    "group_name": "W3",
+    "course_id": 4
+  }
+*/
 router.post("/add-student-group", (req, res) => {
   const { group_name, course_id } = req.body;
 

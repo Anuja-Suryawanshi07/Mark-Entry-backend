@@ -33,7 +33,7 @@ router.put("/update-module/:moduleId", (req, res) => {
       }
       return res.send({
         status: "Success",
-        message: "User details updated Successfully with ID: " + moduleId,
+        message: "Module details updated Successfully with ID: " + moduleId,
       });
     }
   );

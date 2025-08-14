@@ -4,7 +4,9 @@ const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
 // PUT: update a student group by group_id
-// Example: PUT http://localhost:7777/student-groups/update-group/3
+
+// http://localhost:7777/student-groups/update-group/11
+
 router.put("/update-group/:groupId", (req, res) => {
   const { groupId } = req.params;
   const { group_name, course_id } = req.body;

@@ -5,7 +5,7 @@ const router = express.Router();
 const { COURSE_TABLE } = require("../../config");
 
 // DELETE: delete an user
-//http://localhost:7777/course/delete-course/3
+//http://localhost:7777/course/delete-course/7
 
 router.delete("/delete-course/:courseId",(req,res) => {
   const { courseId } = req.params;
@@ -25,7 +25,7 @@ router.delete("/delete-course/:courseId",(req,res) => {
     }
     return res.send({
       status: "Success",
-      message: " User DELETED Successfully with ID: " + courseId,
+      message: " Course DELETED Successfully with ID: " + courseId,
     });
   });
 });

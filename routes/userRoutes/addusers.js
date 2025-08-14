@@ -6,7 +6,7 @@ const { USER_TABLE } = require("../../config");
 
 
 // POST: add new user
-//http://localhost:7777/users/add-user
+//http://localhost:7777/user/add-user
 
  /*
        {
@@ -16,7 +16,7 @@ const { USER_TABLE } = require("../../config");
          "email": "abc12367@gmail.com",
          "password": "abc12367"
          }
-         */
+  */
 
 router.post("/add-user", (req, res) => {
   const { firstname, lastname, mobilenumber, email, password } = req.body;

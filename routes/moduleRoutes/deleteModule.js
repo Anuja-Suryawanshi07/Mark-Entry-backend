@@ -5,7 +5,7 @@ const router = express.Router();
 const { MODULE_TABLE } = require("../../config");
 
 // DELETE: delete an user
-//http://localhost:7777/module/delete-module/3
+//http://localhost:7777/module/delete-module/2
 
 router.delete("/delete-module/:moduleId",(req,res) => {
   const { moduleId } = req.params;

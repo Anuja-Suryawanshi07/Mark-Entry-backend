@@ -4,19 +4,13 @@ const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { BATCH_TABLE } = require("../../config");
 
-http://localhost:7777/batch/update-batch/7
-
-router.put("/update-batch/:batchId", (req, res) => {
+router.put("/update-batch-status/:batchId", (req, res) => {
   const { batchId } = req.params;
-  const { batchName, isActive } = req.body;
+  const { isActive } = req.body;
 
-  if (!batchName) {
-    return res.status(400).json(errorResponse("Batch Name field should not empty."));
-  }
+  const sql = `UPDATE ${BATCH_TABLE} SET is_active = ? WHERE batch_id = ?`;
 
-  const sql = `UPDATE ${BATCH_TABLE} SET batch_name = ?, is_active = ? WHERE batch_id = ?`;
-
-  pool.query(sql, [batchName, isActive, batchId], (error, result) => {
+  pool.query(sql, [isActive, batchId], (error, result) => {
     if (error) {
       // return res.send(error)
       return res
@@ -32,7 +26,7 @@ router.put("/update-batch/:batchId", (req, res) => {
 
     return res.status(200).json(
       successResponse({
-        message: "Batch updated successfully.",
+        message: "Batch Status updated successfully.",
         batchId: batchId,
       })
     );

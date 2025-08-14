@@ -13,13 +13,13 @@ router.get("/all-modules", (req, res) => {
 
   pool.query(sql, (error, results) => {
     if (error) {
-      return res.send(errorResponse(error));
+      return res.status(500).send(errorResponse(error)); // 500 means vo jiska reason apne ko pata nahi
     }
 
     if (results.length === 0) {
-      return res.send(successResponse("No Such Module."));
+      return res.status(404).send(errorResponse("No Such Module.")); // 404 means not found
     }
-    return res.send(successResponse(results));
+    return res.status(200).send(successResponse(results)); // 200 means success 
   });
 });
 

@@ -12,6 +12,22 @@ router.put("/update-module/:moduleId", (req, res) => {
   const { moduleId } = req.params;
   const {  module_name, course_id } = req.body;
 
+
+  moduleId = Number.parseInt(moduleId);
+  if (moduleId === NaN || moduleId < 0) {
+    return res.status(400).send(errorResponse("Invalid module Id"))
+  }
+
+
+  if (typeof module_name !== "string" || module_name === "") {
+    return res.status(400).json(errorResponse("invalid module name"))
+  }
+
+  course_id = Number.parseInt(course_id);
+  if (course_id === NaN || course_id < 0) {
+    return res.status(400).send(errorResponse("Invalid course_id" ))
+  }
+
   const sql = `UPDATE ${ MODULE_TABLE }
                 SET  module_name = ?, course_id = ?
                 WHERE module_id = ?`;
@@ -21,20 +37,15 @@ router.put("/update-module/:moduleId", (req, res) => {
     [ module_name, course_id, moduleId],
     (error, result) => {
       if (error) {
-        return res.send(error);
+        return res.status(500).send(errorResponse(error));
       }
       console.log("result: ", result);
 
       if (result.affectedRows === 0) {
-        return res.send({
-          status: "Success",
-          message: "No Module found with this ID: " + moduleId,
-        });
+        return res.status(404).send(errorResponse("No Module found with this ID: " + moduleId));
       }
-      return res.send({
-        status: "Success",
-        message: "Module details updated Successfully with ID: " + moduleId,
-      });
+      return res.status(200).send(successResponse("Module details updated Successfully with ID: " + moduleId));
+    
     }
   );
 });

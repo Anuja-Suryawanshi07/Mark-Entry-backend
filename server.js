@@ -22,9 +22,10 @@ app.use("/course", courseRoutes);
 app.use("/module", moduleRoutes);
 app.use("/staff", staffRoutes);
 app.use("/marks", marksRoutes);
-app.use("/student_group", student_groupRoutes);
+app.use("/student-group", student_groupRoutes);
 app.use("/student", studentRoutes);
 app.use("/user", userRoutes);
+
 
 app.listen(PORT, () => {
     console.log(`Server Started at http://localhost:${PORT}`);

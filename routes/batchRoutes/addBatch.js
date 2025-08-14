@@ -22,6 +22,7 @@ router.post("/add-batch", (req, res) => {
 
   pool.query(sql, [batchName, isActive], (error, result) => {
     if (error) {
+      console.error(error);
       return res
         .status(500)
         .json(errorResponse("An error occurred while adding the batch."));

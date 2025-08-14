@@ -22,7 +22,10 @@ const { COURSE_TABLE } = require("../../config");
 router.post("/add-course", (req, res) => {
   
   const { course_name, batch_id } = req.body;
-     
+  
+  if(typeof course_name !== "string" || course_name=== ""){
+    return res.status(400).json({message:"invalid course name"})
+  }
 
   const sql = `INSERT INTO ${ COURSE_TABLE } (  course_name, batch_id ) VALUES (?, ?)`;
 

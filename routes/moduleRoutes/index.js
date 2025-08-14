@@ -7,9 +7,9 @@ const addModule = require("./addModule");
 const updateModule = require("./updateModule");
 const deleteModule = require("./deleteModule");
 
-router.use("/", getAllModule);
-router.use("/", addModule);
-router.use("/", updateModule);
-router.use("/", deleteModule);
+router.use(getAllModule);
+router.use(addModule);
+router.use(updateModule);
+router.use(deleteModule);
 
 module.exports = router;

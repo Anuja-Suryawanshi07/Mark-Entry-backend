@@ -4,6 +4,14 @@ const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { ROLE_TABLE } = require("../../config");
 
+//http://localhost:7777/roles/add-role
+/*
+  {
+    "roleId": 7,
+    "roleName": "Mentor"
+  }
+ */
+
 router.post("/add-role", (req, res) => {
   const { roleName } = req.body;
   const sql = `INSERT INTO ${ROLE_TABLE} ( role_name ) VALUES (?)`;

@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const { PORT} = require("./config");
+const { PORT } = require("./config");
 
 const roleRoutes = require("./routes/roleRoutes/index");
 const batchRoutes = require("./routes/batchRoutes/index");
@@ -23,22 +23,11 @@ app.use("/module", moduleRoutes);
 app.use("/staff", staffRoutes);
 app.use("/marks", marksRoutes);
 
-app.use("/student-group", student_groupRoutes);
-=======
+app.use("/student-group", studentGroupRoutes);
 
 app.use("/student", studentRoutes);
 app.use("/user", userRoutes);
 
-
-
-=======
-
-
 app.listen(PORT, () => {
-    console.log(`Server Started at http://localhost:${PORT}`);
-})
-
-
-
-
-
+  console.log(`Server Started at http://localhost:${PORT}`);
+});

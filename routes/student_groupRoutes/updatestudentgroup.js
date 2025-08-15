@@ -6,7 +6,6 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 // PUT: update a student group by group_id
 
 // Example: PUT http://localhost:7777/student-groups/update-group/11
-=======
 
 
 router.put("/update-group/:groupId", (req, res) => {

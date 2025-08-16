@@ -21,7 +21,7 @@ router.post("/add-module", (req, res) => {
   }
 
   course_id = Number.parseInt(course_id);
-  if (course_id === NaN || course_id < 0) {
+  if (Number.isNaN(course_id) || course_id < 0) {
     return res.status(400).send(errorResponse("Invalid Course Id"))
   }
 

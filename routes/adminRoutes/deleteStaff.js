@@ -2,21 +2,21 @@ const express = require("express");
 const pool = require("../../config/db");
 const router = express.Router();
 
-const { staff_TABLE } = require("../../config");
+const { STAFF_TABLE } = require("../../config");
 const { errorResponse, successResponse } = require("../../utils/apiResponse");
 
 // DELETE: delete an user
 //http://localhost:7777/admin/delete-staff/7
 
 router.delete("/delete-staff/:staffId", (req, res) => {
-  const { staffId } = req.params;
+  let { staffId } = req.params;
   
   staffId = Number.parseInt(staffId);
-  if (staffId === NaN || staffId < 0) {
+  if (Number.isNaN(staffId) || staffId < 0) {
     return res.status(400).send(errorResponse("Invalid staff Id"))
   }
 
-  const sql = `DELETE FROM ${staff_TABLE}
+  const sql = `DELETE FROM ${STAFF_TABLE}
                 WHERE staff_id = ?`;
   pool.query(sql, [staffId], (error, result) => {
     if (error) {

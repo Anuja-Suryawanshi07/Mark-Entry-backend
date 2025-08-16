@@ -2,14 +2,14 @@ const express = require("express");
 const pool = require("../../config/db");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const { STUDENT_TABLE, USER_TABLE } = require("../../config");
+const { STUDENT_TABLE } = require("../../config");
 
 // PUT: update a student by Id
 //http://localhost:7777/student/update-student/5
 
 router.put("/add-student-to-course", (req, res) => {
 
-  const { student_id, course_id } = req.body;
+  let { student_id, course_id } = req.body;
 
   if ( !student_id || !course_id) {
     return res.send(errorResponse("All fields are required"));
@@ -17,12 +17,12 @@ router.put("/add-student-to-course", (req, res) => {
 
 
     course_id = Number.parseInt(course_id);
-    if (course_id === NaN || course_id < 0) {
+    if (Number.isNaN(course_id) || course_id < 0) {
         return res.status(400).send(errorResponse("Invalid course Id"))
     }
 
     student_id = Number.parseInt(student_id);
-    if (student_id === NaN || student_id < 0) {
+    if (Number.isNaN(student_id) || student_id < 0) {
         return res.status(400).send(errorResponse("Invalid role Id"))
     }                 
   
@@ -40,10 +40,10 @@ router.put("/add-student-to-course", (req, res) => {
       }
 
       if (result.affectedRows === 0) {
-        return res.send(errorResponse(`No Student found with this ID: ${studentId}`));
+        return res.send(errorResponse(`No Student found with this ID: ${student_id}`));
       }
 
-      return res.send(successResponse(`Student details updated successfully with ID: ${studentId}`));
+      return res.send(successResponse(`Student details updated successfully with ID: ${student_id}`));
     });
   
 });

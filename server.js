@@ -11,6 +11,7 @@ const staffRoutes = require("./routes/staffRoutes/index");
 const marksRoutes = require("./routes/marksRoutes/index");
 const studentGroupRoutes = require("./routes/student_groupRoutes");
 const studentRoutes = require("./routes/studentRoutes/index");
+const adminRoutes = require("./routes/adminRoutes");
 
 // middleware
 app.use(express.json());
@@ -25,6 +26,7 @@ app.use("/marks", marksRoutes);
 app.use("/student-groups", studentGroupRoutes);
 app.use("/student", studentRoutes);
 app.use("/user", userRoutes);
+app.use("/admin", adminRoutes);
 
 
 

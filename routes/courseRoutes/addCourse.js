@@ -28,7 +28,7 @@ router.post("/add-course", (req, res) => {
   }
 
   batch_id = Number.parseInt(batch_id);
-  if (batch_id === NaN || batch_id < 0) {
+  if (Number.isNaN(batch_id) || batch_id < 0) {
     return res.status(400).send(errorResponse("Invalid Batch Id"))// 400 means client ne bad request send ki ex. batch_id client ne number send krna chahiye , string or other type beje to allow nahi karenga
   }
 

@@ -11,27 +11,25 @@ const { STAFF_TABLE } = require("../../config");
 
 router.post("/add-staff", (req, res) => {
 
-  const { user_id, role_id, course_id } = req.body;
-
-  
+  let { user_id, role_id, course_id } = req.body;
 
   user_id = Number.parseInt(user_id);
-  if (user_id === NaN || user_id < 0) {
+  if (Number.isNaN(user_id) || user_id < 0) {
     return res.status(400).send(errorResponse("Invalid user Id"))// 400 means client ne bad request send ki ex. user_id client ne number send krna chahiye , string or other type beje to allow nahi karenga
   }
 
   role_id = Number.parseInt(role_id);
-  if (role_id === NaN || role_id < 0) {
+  if (Number.isNaN(role_id) || role_id < 0) {
     return res.status(400).send(errorResponse("Invalid role Id"))
   }
 
   course_id = Number.parseInt(course_id);
-  if (course_id === NaN || course_id < 0) {
+  if (Number.isNaN(course_id) || course_id < 0) {
     return res.status(400).send(errorResponse("Invalid course Id"))
   }
 
 
-  const sql = `INSERT INTO ${STAFF_TABLE} (  user_id, role_id, course_id ) VALUES (?, ?)`;
+  const sql = `INSERT INTO ${STAFF_TABLE} (  user_id, role_id, course_id ) VALUES (?, ?, ?)`;
 
   pool.query(
     sql, [user_id, role_id, course_id], (error, result) => {

@@ -15,7 +15,7 @@ router.put("/update-course/:courseId", (req, res) => {
 
 
   courseId = Number.parseInt(courseId);
-  if (courseId === NaN || courseId < 0) {
+  if (Number.isNaN(courseId) || courseId < 0) {
     return res.status(400).send(errorResponse("Invalid course Id"))
   }
 
@@ -25,7 +25,7 @@ router.put("/update-course/:courseId", (req, res) => {
   }
 
   batch_id = Number.parseInt(batch_id);
-  if (batch_id === NaN || batch_id < 0) {
+  if (Number.isNaN(batch_id) || batch_id < 0) {
     return res.status(400).send(errorResponse("Invalid Batch Id"))
   }
   

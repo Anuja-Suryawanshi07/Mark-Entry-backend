@@ -14,7 +14,7 @@ router.get("/get-module/:moduleId", (req, res) => {
 
 
   moduleId = Number.parseInt(moduleId);
-  if (moduleId === NaN || moduleId < 0) {
+  if (Number.isNaN(moduleId) || moduleId < 0) {
     return res.status(400).send(errorResponse("Invalid module Id"))
   }
 

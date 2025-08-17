@@ -62,7 +62,7 @@ if (typeof course_name !==’string’ || course_name===””) return error res
 Batch_id should be positive integer
 In code
 batch_id = Number.parseInt(batch_id);
-if(batch_id === NaN || batch_id<0) return error response
+if(Number.isNaN(batch_id) || batch_id<0) return error response
 
 
 

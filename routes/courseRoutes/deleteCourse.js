@@ -12,7 +12,7 @@ router.delete("/delete-course/:courseId", (req, res) => {
   const { courseId } = req.params;
   
   courseId = Number.parseInt(courseId);
-  if (courseId === NaN || courseId < 0) {
+  if (Number.isNaN(courseId) || courseId < 0) {
     return res.status(400).send(errorResponse("Invalid course Id"))
   }
 

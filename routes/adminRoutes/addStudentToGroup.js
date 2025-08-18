@@ -7,18 +7,18 @@ const { STUDENT_TABLE } = require("../../config");
 // PUT: update a student by Id
 //http://localhost:7777/student/update-student/5
 
-router.put("/add-student-to-course", (req, res) => {
+router.put("/add-student-to-group", (req, res) => {
 
-  let { student_id, course_id } = req.body;
+  let { student_id, group_id } = req.body;
 
-  if ( !student_id || !course_id) {
+  if ( !student_id || !group_id) {
     return res.send(errorResponse("All fields are required"));
   }
 
 
-    course_id = Number.parseInt(course_id);
-    if (Number.isNaN(course_id) || course_id < 0) {
-        return res.status(400).send(errorResponse("Invalid course Id"))
+    group_id = Number.parseInt(group_id);
+    if (Number.isNaN(group_id) || group_id < 0) {
+        return res.status(400).send(errorResponse("Invalid group Id"))
     }
 
     student_id = Number.parseInt(student_id);
@@ -30,11 +30,11 @@ router.put("/add-student-to-course", (req, res) => {
     // Update student record
     const updateSql = `
       UPDATE ${STUDENT_TABLE}
-      SET course_id = ?
+      SET group_id = ?
       WHERE student_id = ?
     `;
 
-    pool.query(updateSql, [course_id, student_id], (error, result) => {
+    pool.query(updateSql, [group_id, student_id], (error, result) => {
       if (error) {
         return res.send(errorResponse(error));
       }

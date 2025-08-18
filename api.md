@@ -33,6 +33,7 @@ http://localhost:7777/staff/all-staff ----> All staff
 http://localhost:7777/staff/add-staff ----> Add staff
 http://localhost:7777/staff/update-staff/6 ----> Update staff
 http://localhost:7777/staff/delete-staff/6 ----> Delete staff
+http://localhost:7777/staff/dashboard ----> staff dashboard
 
 student_group Routes api
 http://localhost:7777/student-groups/get-all-groups ----> All student groups
@@ -51,3 +52,5 @@ http://localhost:7777/user/all-users ----> All users
 http://localhost:7777/user/add-user ----> Add user
 http://localhost:7777/user/update-users/6 ----> Update user
 http://localhost:7777/user/delete-users/7 ----> Delete user
+http://localhost:7777/user/register ----> Register user
+http://localhost:7777/user/login ----> user Login

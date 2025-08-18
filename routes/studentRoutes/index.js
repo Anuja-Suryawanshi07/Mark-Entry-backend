@@ -7,6 +7,7 @@ const deletestudent = require("./deletestudent");
 const loginstudent = require("./loginstudent");
 const registerstudent = require("./registerstudent");
 const getMarksByStudentId = require("./getMarksByStudentId");
+const dashboard = require("./dashboard");
 // const getStudentGroupsByCourseId = require("./getStudentGroupsByCourseId");
 
 router.use(getallstudent);
@@ -16,5 +17,6 @@ router.use(deletestudent);
 router.use(loginstudent);
 router.use(registerstudent);
 router.use(getMarksByStudentId);
+router.use(dashboard);
 //router.use(getStudentGroupsByCourseId);
 module.exports = router;

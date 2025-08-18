@@ -1,250 +1,151 @@
 mysql> use marksentryportal;
-Database changed
 
-mysql> CREATE TABLE `user` (
-    ->   `user\_id` INT AUTO_INCREMENT PRIMARY KEY,
-    ->   `first\_name` VARCHAR(45) NOT NULL,
-    ->   `last\_name` VARCHAR(45) NOT NULL,
-    ->   `mobile\_number` VARCHAR(15) NOT NULL,
-    ->   `email` VARCHAR(45) NOT NULL,
-    ->   `password` VARCHAR(45) NOT NULL
-    -> );
+CREATE TABLE user (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(45) NOT NULL,
+    last_name VARCHAR(45) NOT NULL,
+    mobile_number VARCHAR(15) NOT NULL UNIQUE,
+    email VARCHAR(60) NOT NULL UNIQUE,
+    password VARCHAR(60) NOT NULL,
+    role_id INT,
+    FOREIGN KEY (role_id) REFERENCES role(role_id)
+);
 
-mysql> ALTER TABLE `user`
-    -> MODIFY COLUMN `mobile_number` VARCHAR(15) NOT NULL UNIQUE,
-    -> MODIFY COLUMN `email` VARCHAR(60) NOT NULL UNIQUE,
-    -> MODIFY COLUMN `password` VARCHAR(60) NOT NULL;
-Query OK, 0 rows affected (0.17 sec)
+INSERT INTO user (first_name, last_name, mobile_number, email, password, role_id) VALUES
+('Amit', 'Sharma', '9876543210', 'amit.sharma@example.com', 'password123', 1),   
+('Priya', 'Patil', '9876543211', 'priya.patil@example.com', 'password123', 2),  
+('Sneha', 'Kulkarni', '9876543212', 'sneha.kulkarni@example.com', 'password123', 3), 
+('Ravi', 'Verma', '9876543213', 'ravi.verma@example.com', 'password123', 4),   
+('Karan', 'Deshmukh', '9876543214', 'karan.deshmukh@example.com', 'password123', 5); 
 
-mysql> INSERT INTO `user` (`first\_name`, `last\_name`, `mobile\_number`, `email`, `password`) VALUES
-    -> ('Amit', 'Sharma', '9876543210', 'amit.sharma@example.com', 'Pass@123'),
-    -> ('Priya', 'Verma', '9123456789', 'priya.verma@example.com', 'Priya!2024'),
-    -> ('Ravi', 'Patil', '9988776655', 'ravi.patil@example.com', 'Ravi#456'),
-    -> ('Sneha', 'Rao', '9012345678', 'sneha.rao@example.com', 'Sneha@789'),
-    -> ('Karan', 'Mehta', '9765432109', 'karan.mehta@example.com', 'Karan123$');
+CREATE TABLE role (
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(45) NOT NULL
+);
 
-mysql> select * from user;
-+---------+------------+-----------+---------------+-------------------------+------------+
-| user_id | first_name | last_name | mobile_number | email                   | password   |
-+---------+------------+-----------+---------------+-------------------------+------------+
-|       1 | Amit       | Sharma    | 9876543210    | amit.sharma@example.com | Pass@123   |
-|       2 | Priya      | Verma     | 9123456789    | priya.verma@example.com | Priya!2024 |
-|       3 | Ravi       | Patil     | 9988776655    | ravi.patil@example.com  | Ravi#456   |
-|       4 | Sneha      | Rao       | 9012345678    | sneha.rao@example.com   | Sneha@789  |
-|       5 | Karan      | Mehta     | 9765432109    | karan.mehta@example.com | Karan123$  |
-+---------+------------+-----------+---------------+-------------------------+------------+
+INSERT INTO role (role_name) VALUES
+('Student'),
+('Staff'),
+('Admin'),
+('Coordinator'),
+('Mentor');
 
-mysql> CREATE TABLE `role` (
-    ->   `role\_id` INT AUTO_INCREMENT PRIMARY KEY,
-    ->   `role\_name` VARCHAR(45) NOT NULL
-    -> );
-mysql> INSERT INTO `role` (`role\_name`) VALUES
-    -> ('Mentor'),
-    -> ('Lab-Mentor'),
-    -> ('Admin'),
-    -> ('Teacher'),
-    -> ('Student');
+CREATE TABLE batch (
+    batch_id INT AUTO_INCREMENT PRIMARY KEY,
+    batch_name VARCHAR(45) NOT NULL,
+    is_active TINYINT NOT NULL
+);
 
-mysql> select * from role;
-+---------+------------+
-| role_id | role_name  |
-+---------+------------+
-|       1 | Mentor     |
-|       2 | Lab-Mentor |
-|       3 | Admin      |
-|       4 | Teacher    |
-|       5 | Student    |
-+---------+------------+
+INSERT INTO batch (batch_name, is_active) VALUES
+('0923', 1),
+('0323', 1),
+('0924', 1),
+('0325', 0),
+('0324', 1);
 
-mysql> CREATE TABLE `batch` (
-    ->   `batch\_id` INT AUTO_INCREMENT PRIMARY KEY,
-    ->   `batch\_name` VARCHAR(45) NOT NULL,
-    ->   `is\_active` TINYINT NOT NULL
-    -> );
-mysql> INSERT INTO `batch` (`batch\_name`, `is\_active`) VALUES
-    -> ( 0923, 1),
-    -> ( 0323, 1),
-    -> ( 0924, 1),
-    -> ( 0325, 0),
-    -> ( 0324, 1);
+CREATE TABLE course (
+    course_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_name VARCHAR(45) NOT NULL,
+    batch_id INT NOT NULL,
+    FOREIGN KEY (batch_id) REFERENCES batch(batch_id)
+);
 
-mysql> select * from batch;
-+----------+------------+-----------+
-| batch_id | batch_name | is_active |
-+----------+------------+-----------+
-|        1 | 923        |         1 |
-|        2 | 323        |         1 |
-|        3 | 924        |         1 |
-|        4 | 325        |         0 |
-|        5 | 324        |         1 |
-+----------+------------+-----------+
+INSERT INTO course (course_name, batch_id) VALUES
+('PG-DAC', 1),
+('PG-DMC', 2),
+('PG-DBDA', 3),
+('PG-DITISS', 4),
+('PG-DESD', 5);
 
-mysql> CREATE TABLE `course` (
-    ->   `course\_id` INT AUTO_INCREMENT PRIMARY KEY,
-    ->   `course\_name` VARCHAR(45) NOT NULL,
-    ->   `batch\_id` INT NOT NULL,
-    ->   FOREIGN KEY (`batch\_id`) REFERENCES `batch`(`batch\_id`)
-    -> );
+CREATE TABLE student_group (
+    group_id INT AUTO_INCREMENT PRIMARY KEY,
+    group_name VARCHAR(45) NOT NULL,
+    course_id INT NOT NULL,
+    FOREIGN KEY (course_id) REFERENCES course(course_id)
+);
 
-mysql> INSERT INTO `course` (`course\_name`, `batch\_id`) VALUES
-    -> ('PG-DAC', 1),
-    -> ('PG-DMC', 2),
-    -> ('PG-DBDA', 3),
-    -> ('PG-DITISS', 4),
-    -> ('PG-DESD', 5);
+INSERT INTO student_group (group_name, course_id) VALUES
+('W1', 1),
+('W2', 1),
+('W1', 2),
+('W3', 3),
+('W1', 4);
 
-mysql> select * from course;
-+-----------+-------------+----------+
-| course_id | course_name | batch_id |
-+-----------+-------------+----------+
-|         1 | PG-DAC      |        1 |
-|         2 | PG-DMC      |        2 |
-|         3 | PG-DBDA     |        3 |
-|         4 | PG-DITISS   |        4 |
-|         5 | PG-DESD     |        5 |
-+-----------+-------------+----------+
+CREATE TABLE student (
+    student_id INT AUTO_INCREMENT PRIMARY KEY,
+    roll_number INT NOT NULL,
+    prn_number INT NOT NULL,
+    group_id INT NOT NULL,
+    user_id INT NOT NULL,
+    created_at DATE NOT NULL,
+    updated_at DATE NOT NULL,
+    FOREIGN KEY (group_id) REFERENCES `group`(group_id),
+    FOREIGN KEY (user_id) REFERENCES user(user_id)
+);
 
-mysql> CREATE TABLE `student\_group` (
-    ->   `group\_id` INT AUTO_INCREMENT PRIMARY KEY,
-    ->   `group\_name` VARCHAR(45) NOT NULL,
-    ->   `course\_id` INT NOT NULL,
-    ->   FOREIGN KEY (`course\_id`) REFERENCES `course`(`course\_id`)
-    -> );
-
-mysql> INSERT INTO `student\_group` (`group\_name`, `course\_id`) VALUES
-    -> ('W1', 1),  -- W1 for PG-DAC
-    -> ('W2', 1),  -- W2 for PG-DAC
-    -> ('W1', 2),  -- W1 for PG-DMC
-    -> ('W3', 3),  -- W3 for PG-DBDA
-    -> ('W1', 4);  -- W1 for PG-DITISS
-
-mysql> select * from student_group;
-+----------+------------+-----------+
-| group_id | group_name | course_id |
-+----------+------------+-----------+
-|        1 | W1         |         1 |
-|        2 | W2         |         1 |
-|        3 | W1         |         2 |
-|        4 | W3         |         3 |
-|        5 | W1         |         4 |
-|        6 | W1         |         1 |
-|        7 | W2         |         1 |
-|        8 | W1         |         2 |
-|        9 | W3         |         3 |
-|       10 | W2         |         4 |
-+----------+------------+-----------+
+INSERT INTO student (roll_number, prn_number, group_id, user_id, created_at, updated_at) VALUES
+(101, 500001, 1, 1, '2025-08-05', '2025-08-05'),
+(102, 500002, 2, 2, '2025-08-05', '2025-08-05'),
+(103, 500003, 3, 3, '2025-08-05', '2025-08-05'),
+(104, 500004, 4, 4, '2025-08-05', '2025-08-05'),
+(105, 500005, 5, 5, '2025-08-05', '2025-08-05');
 
 
-mysql> CREATE TABLE `student` (
-    ->   `student\_id` INT AUTO_INCREMENT PRIMARY KEY,
-    ->   `roll\_number` INT NOT NULL,
-    ->   `prn\_number` INT NOT NULL,
-    ->   `group\_id` INT NOT NULL,
-    ->   `user\_id` INT NOT NULL,
-    ->   `created\_at` DATE NOT NULL,
-    ->   `updated\_at` DATE NOT NULL,
-    ->   FOREIGN KEY (`group\_id`) REFERENCES `group`(`group\_id`),
-    ->   FOREIGN KEY (`user\_id`) REFERENCES `user`(`user\_id`)
-    -> );
+CREATE TABLE staff (
+    staff_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    role_id INT NOT NULL,
+    course_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (role_id) REFERENCES role(role_id),
+    FOREIGN KEY (course_id) REFERENCES course(course_id)
+);
 
-mysql> INSERT INTO `student` (`roll\_number`, `prn\_number`, `group\_id`, `user\_id`, `created\_at`, `updated\_at`) VALUES
-    -> (101, 500001, 1, 1, '2025-08-05', '2025-08-05'),
-    -> (102, 500002, 2, 2, '2025-08-05', '2025-08-05'),
-    -> (103, 500003, 3, 3, '2025-08-05', '2025-08-05'),
-    -> (104, 500004, 4, 4, '2025-08-05', '2025-08-05'),
-    -> (105, 500005, 5, 5, '2025-08-05', '2025-08-05');
+INSERT INTO staff (user_id, role_id, course_id) VALUES
+(1, 1, 1),
+(2, 2, 1),
+(3, 4, 2),
+(4, 3, 3),
+(5, 4, 4);
 
-mysql> select * from student;
-+------------+-------------+------------+----------+---------+------------+------------+
-| student_id | roll_number | prn_number | group_id | user_id | created_at | updated_at |
-+------------+-------------+------------+----------+---------+------------+------------+
-|          1 |         101 |     500001 |        1 |       1 | 2025-08-05 | 2025-08-05 |
-|          2 |         102 |     500002 |        2 |       2 | 2025-08-05 | 2025-08-05 |
-|          3 |         103 |     500003 |        3 |       3 | 2025-08-05 | 2025-08-05 |
-|          4 |         104 |     500004 |        4 |       4 | 2025-08-05 | 2025-08-05 |
-|          5 |         105 |     500005 |        5 |       5 | 2025-08-05 | 2025-08-05 |
-+------------+-------------+------------+----------+---------+------------+------------+
+CREATE TABLE module (
+    module_id INT AUTO_INCREMENT PRIMARY KEY,
+    module_name VARCHAR(45) NOT NULL,
+    course_id INT NOT NULL,
+    FOREIGN KEY (course_id) REFERENCES course(course_id)
+);
 
-mysql> CREATE TABLE `staff` (
-    ->   `staff\_id` INT AUTO_INCREMENT PRIMARY KEY,
-    ->   `user\_id` INT NOT NULL,
-    ->   `role\_id` INT NOT NULL,
-    ->   `course\_id` INT NOT NULL,
-    ->   FOREIGN KEY (`user\_id`) REFERENCES `user`(`user\_id`),
-    ->   FOREIGN KEY (`role\_id`) REFERENCES `role`(`role\_id`),
-    ->   FOREIGN KEY (`course\_id`) REFERENCES `course`(`course\_id`)
-    -> );
+INSERT INTO module (module_name, course_id) VALUES
+('Core Java', 1),
+('DBMS', 2),
+('DSA', 3),
+('Advance Java', 4),
+('Python', 5);
 
-mysql> INSERT INTO `staff` (`user\_id`, `role\_id`, `course\_id`) VALUES
-    -> (1, 1, 1),  -- Amit as Mentor for PG-DAC
-    -> (2, 2, 1),  -- Priya as Lab-Mentor for PG-DAC
-    -> (3, 4, 2),  -- Ravi as Teacher for PG-DMC
-    -> (4, 3, 3),  -- Sneha as Admin for PG-DBDA
-    -> (5, 4, 4);  -- Karan as Teacher for PG-DITISS
+CREATE TABLE marks (
+    mark_id INT NOT NULL AUTO_INCREMENT,
+    student_id INT NOT NULL,
+    staff_id INT NOT NULL,
+    module_id INT NOT NULL,
+    theory_marks INT NOT NULL,
+    lab_marks INT NOT NULL,
+    IA_1 INT NOT NULL,
+    IA_2 INT NOT NULL,
+    start_date DATE NOT NULL,
+    till_date DATE NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    PRIMARY KEY (mark_id),
+    CONSTRAINT fk_marks_student FOREIGN KEY (student_id) REFERENCES student(student_id),
+    CONSTRAINT fk_marks_staff FOREIGN KEY (staff_id) REFERENCES staff(staff_id),
+    CONSTRAINT fk_marks_module FOREIGN KEY (module_id) REFERENCES module(module_id)
+);
 
-mysql> select * from staff;
-+----------+---------+---------+-----------+
-| staff_id | user_id | role_id | course_id |
-+----------+---------+---------+-----------+
-|        1 |       1 |       1 |         1 |
-|        2 |       2 |       2 |         1 |
-|        3 |       3 |       4 |         2 |
-|        4 |       4 |       3 |         3 |
-|        5 |       5 |       4 |         4 |
-+----------+---------+---------+-----------+
+INSERT INTO marks 
+(student_id, staff_id, module_id, theory_marks, lab_marks, IA_1, IA_2, start_date, till_date, status)
+VALUES
+(1, 1, 1, 45, 40, 18, 20, '2025-08-01', '2025-08-10', 'Completed'),
+(2, 2, 3, 50, 42, 20, 19, '2025-08-05', '2025-08-15', 'Completed'),
+(3, 3, 5, 38, 35, 15, 18, '2025-08-07', '2025-08-17', 'In Progress'),
+(4, 4, 6, 47, 44, 19, 20, '2025-08-09', '2025-08-19', 'Completed'),
+(5, 5, 4, 40, 39, 16, 17, '2025-08-12', '2025-08-22', 'Pending');
 
-
-mysql> CREATE TABLE `module` (
-    ->   `module\_id` INT AUTO_INCREMENT PRIMARY KEY,
-    ->   `module\_name` VARCHAR(45) NOT NULL,
-    ->   `course\_id` INT NOT NULL,
-    ->   FOREIGN KEY (`course\_id`) REFERENCES `course`(`course\_id`)
-    -> );
-
-mysql> INSERT INTO `module` (`module\_name`, `course\_id`) VALUES
-    -> ('Core Java', 1),       -- For PG-DAC
-    -> ('DBMS', 2),            -- For PG-DMC
-    -> ('DSA', 3),             -- For PG-DBDA
-    -> ('Advance Java', 4),    -- For PG-DITISS
-    -> ('Python', 5);          -- For PG-DESD
-
-mysql> select * from module;
-+-----------+--------------+-----------+
-| module_id | module_name  | course_id |
-+-----------+--------------+-----------+
-|         1 | Core Java    |         1 |
-|         2 | DBMS         |         2 |
-|         3 | DSA          |         3 |
-|         4 | Advance Java |         4 |
-|         5 | Python       |         5 |
-+-----------+--------------+-----------+
-
-mysql> CREATE TABLE `marks` (
-    ->   `mark\_id` INT AUTO_INCREMENT PRIMARY KEY,
-    ->   `student\_id` INT NOT NULL,
-    ->   `module\_id` INT NOT NULL,
-    ->   `lab\_test\_marks` INT NOT NULL,
-    ->   `mcq\_marks` INT NOT NULL,
-    ->   `assignment\_marks` INT NOT NULL,
-    ->   `total\_marks` INT NOT NULL,
-    ->   `exam\_date` DATE NOT NULL,
-    ->   FOREIGN KEY (`student\_id`) REFERENCES `student`(`student\_id`),
-    ->   FOREIGN KEY (`module\_id`) REFERENCES `module`(`module\_id`)
-    -> );
-mysql> INSERT INTO `marks` (`student\_id`, `module\_id`, `lab\_test\_marks`, `mcq\_marks`, `assignment\_marks`, `total\_marks`, `exam\_date`) VALUES
-    -> (1, 1, 18, 22, 20, 60, '2025-08-05'),  -- Core Java
-    -> (2, 2, 20, 19, 21, 60, '2025-08-05'),  -- DBMS
-    -> (3, 3, 17, 20, 18, 55, '2025-08-05'),  -- DSA
-    -> (4, 4, 15, 18, 17, 50, '2025-08-05'),  -- Advance Java
-    -> (5, 5, 22, 23, 25, 70, '2025-08-05');  -- Python
-
-mysql> select * from marks;
-+---------+------------+-----------+----------------+-----------+------------------+-------------+------------+
-| mark_id | student_id | module_id | lab_test_marks | mcq_marks | assignment_marks | total_marks | exam_date  |
-+---------+------------+-----------+----------------+-----------+------------------+-------------+------------+
-|       1 |          1 |         1 |             18 |        22 |               20 |          60 | 2025-08-05 |
-|       2 |          2 |         2 |             20 |        19 |               21 |          60 | 2025-08-05 |
-|       3 |          3 |         3 |             17 |        20 |               18 |          55 | 2025-08-05 |
-|       4 |          4 |         4 |             15 |        18 |               17 |          50 | 2025-08-05 |
-|       5 |          5 |         5 |             22 |        23 |               25 |          70 | 2025-08-05 |
-+---------+------------+-----------+----------------+-----------+------------------+-------------+------------+

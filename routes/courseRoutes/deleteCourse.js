@@ -9,7 +9,7 @@ const { errorResponse, successResponse } = require("../../utils/apiResponse");
 //http://localhost:7777/course/delete-course/7
 
 router.delete("/delete-course/:courseId", (req, res) => {
-  const { courseId } = req.params;
+  let { courseId } = req.params;
   
   courseId = Number.parseInt(courseId);
   if (Number.isNaN(courseId) || courseId < 0) {

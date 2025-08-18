@@ -10,7 +10,7 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 //http://localhost:7777/course/get-course/7
 
 router.get("/get-course/:courseId", (req, res) => {
-  const { courseId } = req.params;
+  let { courseId } = req.params;
 
 
   courseId = Number.parseInt(courseId);

@@ -10,8 +10,8 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 //http://localhost:7777/course/update-course/7
 
 router.put("/update-course/:courseId", (req, res) => {
-  const { courseId } = req.params;
-  const { course_name, batch_id } = req.body;
+  let { courseId } = req.params;
+  let { course_name, batch_id } = req.body;
 
 
   courseId = Number.parseInt(courseId);

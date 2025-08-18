@@ -2,6 +2,7 @@ const express = require("express");
 const pool = require("../../config/db");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
+const { STUDENT_GROUP_TABLE } = require("../../config");
 
 // DELETE: delete a student group by group_id
 // http://localhost:7777/student-groups/delete-group/11
@@ -9,7 +10,7 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 router.delete("/delete-group/:groupId", (req, res) => {
   const { groupId } = req.params;
 
-  const deleteSql = `DELETE FROM student_group WHERE group_id = ?`;
+  const deleteSql = `DELETE FROM ${ STUDENT_GROUP_TABLE} WHERE group_id = ?`;
 
   pool.query(deleteSql, [groupId], (error, result) => {
     if (error) {

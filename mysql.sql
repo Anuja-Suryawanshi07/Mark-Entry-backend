@@ -43,6 +43,49 @@ INSERT INTO batch (batch_name, is_active) VALUES
 ('0325', 0),
 ('0324', 1);
 
+CREATE TABLE user (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(45) NOT NULL,
+    last_name VARCHAR(45) NOT NULL,
+    mobile_number VARCHAR(15) NOT NULL UNIQUE,
+    email VARCHAR(60) NOT NULL UNIQUE,
+    password VARCHAR(60) NOT NULL,
+    role_id INT,
+    FOREIGN KEY (role_id) REFERENCES role(role_id)
+);
+
+INSERT INTO user (first_name, last_name, mobile_number, email, password, role_id) VALUES
+('Amit', 'Sharma', '9876543210', 'amit.sharma@example.com', 'password123', 1),   
+('Priya', 'Patil', '9876543211', 'priya.patil@example.com', 'password123', 2),  
+('Sneha', 'Kulkarni', '9876543212', 'sneha.kulkarni@example.com', 'password123', 3), 
+('Ravi', 'Verma', '9876543213', 'ravi.verma@example.com', 'password123', 4),   
+('Karan', 'Deshmukh', '9876543214', 'karan.deshmukh@example.com', 'password123', 5); 
+
+CREATE TABLE role (
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(45) NOT NULL
+);
+
+INSERT INTO role (role_name) VALUES
+('Student'),
+('Staff'),
+('Admin'),
+('Coordinator'),
+('Mentor');
+
+CREATE TABLE batch (
+    batch_id INT AUTO_INCREMENT PRIMARY KEY,
+    batch_name VARCHAR(45) NOT NULL,
+    is_active TINYINT NOT NULL
+);
+
+INSERT INTO batch (batch_name, is_active) VALUES
+('0923', 1),
+('0323', 1),
+('0924', 1),
+('0325', 0),
+('0324', 1);
+
 CREATE TABLE course (
     course_id INT AUTO_INCREMENT PRIMARY KEY,
     course_name VARCHAR(45) NOT NULL,
@@ -115,36 +158,50 @@ CREATE TABLE module (
     FOREIGN KEY (course_id) REFERENCES course(course_id)
 );
 
-INSERT INTO module (module_name, course_id) VALUES
-('Core Java', 1),
-('DBMS', 2),
-('DSA', 3),
-('Advance Java', 4),
-('Python', 5);
+mysql> INSERT INTO `module` (`module\_name`, `course\_id`) VALUES
+    -> ('Core Java', 1),       -- For PG-DAC
+    -> ('DBMS', 2),            -- For PG-DMC
+    -> ('DSA', 3),             -- For PG-DBDA
+    -> ('Advance Java', 4),    -- For PG-DITISS
+    -> ('Python', 5);          -- For PG-DESD
 
-CREATE TABLE marks (
-    mark_id INT NOT NULL AUTO_INCREMENT,
-    student_id INT NOT NULL,
-    staff_id INT NOT NULL,
-    module_id INT NOT NULL,
-    theory_marks INT NOT NULL,
-    lab_marks INT NOT NULL,
-    IA_1 INT NOT NULL,
-    IA_2 INT NOT NULL,
-    start_date DATE NOT NULL,
-    till_date DATE NOT NULL,
-    status VARCHAR(20) NOT NULL,
-    PRIMARY KEY (mark_id),
-    CONSTRAINT fk_marks_student FOREIGN KEY (student_id) REFERENCES student(student_id),
-    CONSTRAINT fk_marks_staff FOREIGN KEY (staff_id) REFERENCES staff(staff_id),
-    CONSTRAINT fk_marks_module FOREIGN KEY (module_id) REFERENCES module(module_id)
-);
+mysql> select * from module;
++-----------+--------------+-----------+
+| module_id | module_name  | course_id |
++-----------+--------------+-----------+
+|         1 | Core Java    |         1 |
+|         2 | DBMS         |         2 |
+|         3 | DSA          |         3 |
+|         4 | Advance Java |         4 |
+|         5 | Python       |         5 |
++-----------+--------------+-----------+
 
-INSERT INTO marks 
-(student_id, staff_id, module_id, theory_marks, lab_marks, IA_1, IA_2, start_date, till_date, status)
-VALUES
-(1, 1, 1, 45, 40, 18, 20, '2025-08-01', '2025-08-10', 'Completed'),
-(2, 2, 3, 50, 42, 20, 19, '2025-08-05', '2025-08-15', 'Completed'),
-(3, 3, 5, 38, 35, 15, 18, '2025-08-07', '2025-08-17', 'In Progress'),
-(4, 4, 6, 47, 44, 19, 20, '2025-08-09', '2025-08-19', 'Completed'),
-(5, 5, 4, 40, 39, 16, 17, '2025-08-12', '2025-08-22', 'Pending');
+mysql> CREATE TABLE `marks` (
+    ->   `mark\_id` INT AUTO_INCREMENT PRIMARY KEY,
+    ->   `student\_id` INT NOT NULL,
+    ->   `module\_id` INT NOT NULL,
+    ->   `lab\_test\_marks` INT NOT NULL,
+    ->   `mcq\_marks` INT NOT NULL,
+    ->   `assignment\_marks` INT NOT NULL,
+    ->   `total\_marks` INT NOT NULL,
+    ->   `exam\_date` DATE NOT NULL,
+    ->   FOREIGN KEY (`student\_id`) REFERENCES `student`(`student\_id`),
+    ->   FOREIGN KEY (`module\_id`) REFERENCES `module`(`module\_id`)
+    -> );
+mysql> INSERT INTO `marks` (`student\_id`, `module\_id`, `lab\_test\_marks`, `mcq\_marks`, `assignment\_marks`, `total\_marks`, `exam\_date`) VALUES
+    -> (1, 1, 18, 22, 20, 60, '2025-08-05'),  -- Core Java
+    -> (2, 2, 20, 19, 21, 60, '2025-08-05'),  -- DBMS
+    -> (3, 3, 17, 20, 18, 55, '2025-08-05'),  -- DSA
+    -> (4, 4, 15, 18, 17, 50, '2025-08-05'),  -- Advance Java
+    -> (5, 5, 22, 23, 25, 70, '2025-08-05');  -- Python
+
+mysql> select * from marks;
++---------+------------+-----------+----------------+-----------+------------------+-------------+------------+
+| mark_id | student_id | module_id | lab_test_marks | mcq_marks | assignment_marks | total_marks | exam_date  |
++---------+------------+-----------+----------------+-----------+------------------+-------------+------------+
+|       1 |          1 |         1 |             18 |        22 |               20 |          60 | 2025-08-05 |
+|       2 |          2 |         2 |             20 |        19 |               21 |          60 | 2025-08-05 |
+|       3 |          3 |         3 |             17 |        20 |               18 |          55 | 2025-08-05 |
+|       4 |          4 |         4 |             15 |        18 |               17 |          50 | 2025-08-05 |
+|       5 |          5 |         5 |             22 |        23 |               25 |          70 | 2025-08-05 |
++---------+------------+-----------+----------------+-----------+------------------+-------------+------------+

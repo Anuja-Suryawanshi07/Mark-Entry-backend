@@ -2,7 +2,7 @@ const express = require("express");
 const pool = require("../../config/db");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { STUDENT_GROUP_TABLE } = require("../../config");
 // PUT: update a student group by group_id
 
 // Example: PUT http://localhost:7777/student-groups/update-group/11
@@ -27,7 +27,7 @@ router.put("/update-group/:groupId", (req, res) => {
 
     // Step 2: Update student_group record
     const updateSql = `
-      UPDATE student_group
+      UPDATE ${ STUDENT_GROUP_TABLE}
       SET group_name = ?, course_id = ?
       WHERE group_id = ?
     `;

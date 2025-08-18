@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-
 const pool = require('../../config/db');
 const { successResponse, errorResponse } = require('../../utils/apiResponse');
+const { STUDENT_GROUP_TABLE } = require("../../config");
 
 // Your existing route here:
 
@@ -32,7 +32,7 @@ router.post("/add-student-group", (req, res) => {
       return res.status(400).send(errorResponse("Invalid course_id. Course does not exist."));
     }
 
-    const insertSql = `INSERT INTO student_group (group_name, course_id) VALUES (?, ?)`;
+    const insertSql = `INSERT INTO ${ STUDENT_GROUP_TABLE } (group_name, course_id) VALUES (?, ?)`;
 
     pool.query(insertSql, [group_name, course_id], (error, result) => {
       if (error) {

@@ -1,9 +1,11 @@
 const express = require("express");
 const pool = require("../../config/db"); // adjust path if needed
 const router = express.Router();
+const { STUDENT_TABLE } = require("../../config");
 
 // GET marks of a student by studentId
 // URL: /student/show-mark/:studentId
+
 router.get("/marks/:studentId", (req, res) => {
   const { studentId } = req.params;
 
@@ -22,7 +24,7 @@ router.get("/marks/:studentId", (req, res) => {
     m.assignment_marks,
     m.total_marks,
     m.exam_date
-  FROM student AS s
+  FROM ${STUDENT_TABLE} AS s
   LEFT JOIN marks AS m ON s.student_id = m.student_id
   LEFT JOIN module AS mod_table ON m.module_id = mod_table.module_id
   WHERE s.student_id = ?

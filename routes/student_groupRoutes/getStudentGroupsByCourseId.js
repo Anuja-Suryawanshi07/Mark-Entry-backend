@@ -2,13 +2,13 @@ const express = require("express");
 const pool = require("../../config/db");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { STUDENT_GROUP_TABLE } = require("../../config");
 // GET all student groups by course ID
 // Example: GET http://localhost:7777/student_groups/course/1
 router.get("/course/:courseId", (req, res) => {
   const { courseId } = req.params;
 
-  const sql = `SELECT * FROM student_group WHERE course_id = ?`;
+  const sql = `SELECT * FROM ${ STUDENT_GROUP_TABLE } WHERE course_id = ?`;
 
   pool.query(sql, [courseId], (error, results) => {
     if (error) {

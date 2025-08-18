@@ -2,6 +2,7 @@
 const express = require("express");
 const pool = require("../../config/db");
 const router = express.Router();
+const { STUDENT_TABLE } = require("../../config");
 
 // POST: add new student
 //http://localhost:7777/student/add-student
@@ -22,7 +23,7 @@ router.post("/add-student", (req, res) => {
   const { roll_number, prn_number, group_id, user_id } = req.body;
 
   const sql = `
-    INSERT INTO student 
+    INSERT INTO ${STUDENT_TABLE}
     (roll_number, prn_number, group_id, user_id, created_at, updated_at) 
     VALUES (?, ?, ?, ?, CURDATE(), CURDATE())
   `;

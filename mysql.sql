@@ -79,7 +79,7 @@ CREATE TABLE student (
     user_id INT NOT NULL,
     created_at DATE NOT NULL,
     updated_at DATE NOT NULL,
-    FOREIGN KEY (group_id) REFERENCES `group`(group_id),
+    FOREIGN KEY (group_id) REFERENCES `group`(student_group_id),
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 

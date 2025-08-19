@@ -12,6 +12,9 @@ const marksRoutes = require("./routes/marksRoutes/index");
 const studentGroupRoutes = require("./routes/student_groupRoutes");
 const studentRoutes = require("./routes/studentRoutes/index");
 const adminRoutes = require("./routes/adminRoutes");
+const mentorRoutes = require("./routes/mentorRoutes");
+
+
 
 const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
 const getAllStudentByCourseName = require("./routes/coordinatorRoutes")
@@ -32,6 +35,7 @@ app.use("/student-group", studentGroupRoutes);
 app.use("/student", studentRoutes);
 app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
+app.use("/mentor", mentorRoutes);
 
 app.use("/course", getAllCourseBatch)
 app.use("/coordinator", getAllStudentByCourseName)

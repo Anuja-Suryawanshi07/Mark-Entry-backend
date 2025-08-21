@@ -1,6 +1,7 @@
 const express = require("express");
 const pool = require("../../config/db");
 const router = express.Router();
+const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
 const { MODULE_TABLE } = require("../../config");
 
@@ -8,7 +9,7 @@ const { MODULE_TABLE } = require("../../config");
 //http://localhost:7777/module/delete-module/2
 
 router.delete("/delete-module/:moduleId",(req,res) => {
-  const { moduleId } = req.params;
+  let { moduleId } = req.params;
 
    moduleId = Number.parseInt(moduleId);
   if (Number.isNaN(moduleId) || moduleId < 0) {

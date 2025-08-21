@@ -3,6 +3,7 @@ const pool = require("../../config/db");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { MODULE_TABLE } = require("../../config");
+const { error } = require("console");
 
 // POST: add new course
 //http://localhost:7777/module/add-module
@@ -14,7 +15,8 @@ const { MODULE_TABLE } = require("../../config");
 // module_id, module_name, course_id
 
 router.post("/add-module", (req, res) => {
-  const { module_name, course_id } = req.body;
+  let { module_name, course_id } = req.body;
+  console.log(error)
 
   if (typeof module_name !== "string" || module_name === "") {
     return res.status(400).json(errorResponse("Invalid Module Name"))

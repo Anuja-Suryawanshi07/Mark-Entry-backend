@@ -2,11 +2,11 @@ mysql> use marksentryportal;
 
 CREATE TABLE user (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(45) NOT NULL,
-    last_name VARCHAR(45) NOT NULL,
-    mobile_number VARCHAR(15) NOT NULL UNIQUE,
-    email VARCHAR(60) NOT NULL UNIQUE,
-    password VARCHAR(60) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    mobile_number VARCHAR(15) UNIQUE NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
     role_id INT,
     FOREIGN KEY (role_id) REFERENCES role(role_id)
 );
@@ -20,15 +20,16 @@ INSERT INTO user (first_name, last_name, mobile_number, email, password, role_id
 
 CREATE TABLE role (
     role_id INT AUTO_INCREMENT PRIMARY KEY,
-    role_name VARCHAR(45) NOT NULL
+    role_name VARCHAR(50) NOT NULL
 );
 
-INSERT INTO role (role_name) VALUES
-('Student'),
-('Staff'),
-('Admin'),
-('Coordinator'),
-('Mentor');
+INSERT INTO role (role_id, role_name) VALUES
+(1, 'Admin'),
+(2, 'Coordinator'),
+(3, 'Mentor'),
+(4, 'Staff'),
+(5, 'Student');
+
 
 CREATE TABLE batch (
     batch_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -44,8 +45,8 @@ INSERT INTO batch (batch_name, is_active) VALUES
 ('0324', 1);
 
 CREATE TABLE course (
-    course_id INT AUTO_INCREMENT PRIMARY KEY,
-    course_name VARCHAR(45) NOT NULL,
+    course_id INT PRIMARY KEY AUTO_INCREMENT,
+    course_name VARCHAR(100) NOT NULL,
     batch_id INT NOT NULL,
     FOREIGN KEY (batch_id) REFERENCES batch(batch_id)
 );
@@ -59,7 +60,7 @@ INSERT INTO course (course_name, batch_id) VALUES
 
 CREATE TABLE student_group (
     group_id INT AUTO_INCREMENT PRIMARY KEY,
-    group_name VARCHAR(45) NOT NULL,
+    group_name VARCHAR(50) NOT NULL,
     course_id INT NOT NULL,
     FOREIGN KEY (course_id) REFERENCES course(course_id)
 );
@@ -73,13 +74,12 @@ INSERT INTO student_group (group_name, course_id) VALUES
 
 CREATE TABLE student (
     student_id INT AUTO_INCREMENT PRIMARY KEY,
-    roll_number INT NOT NULL,
     prn_number INT NOT NULL,
     group_id INT NOT NULL,
     user_id INT NOT NULL,
     created_at DATE NOT NULL,
     updated_at DATE NOT NULL,
-    FOREIGN KEY (group_id) REFERENCES `group`(student_group_id),
+    FOREIGN KEY (group_id) REFERENCES student_group(group_id),
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 
@@ -140,12 +140,8 @@ CREATE TABLE marks (
     CONSTRAINT fk_marks_module FOREIGN KEY (module_id) REFERENCES module(module_id)
 );
 
-INSERT INTO marks 
-(student_id, staff_id, module_id, theory_marks, lab_marks, IA_1, IA_2, start_date, till_date, status)
-VALUES
-(1, 1, 1, 45, 40, 18, 20, '2025-08-01', '2025-08-10', 'Completed'),
-(2, 2, 3, 50, 42, 20, 19, '2025-08-05', '2025-08-15', 'Completed'),
-(3, 3, 5, 38, 35, 15, 18, '2025-08-07', '2025-08-17', 'In Progress'),
-(4, 4, 6, 47, 44, 19, 20, '2025-08-09', '2025-08-19', 'Completed'),
-(5, 5, 4, 40, 39, 16, 17, '2025-08-12', '2025-08-22', 'Pending');
-
+INSERT INTO marks (mark_id, student_id, staff_id, module_id, theory_marks, lab_marks, IA_1, IA_2, start_date, till_date, status) VALUES
+(1, 1, 1, 1, 40, 38, 16, 17, '2025-08-11', '2025-08-21', 'Pending'), -- Rahul graded by Amit
+(2, 2, 2, 2, 42, 36, 18, 19, '2025-08-11', '2025-08-21', 'Pending'), -- Meera graded by Priya
+(3, 3, 3, 3, 45, 40, 19, 18, '2025-08-11', '2025-08-21', 'Completed'), -- Anil graded by Sneha
+(4, 4, 1, 1, 39, 37, 17, 16, '2025-08-11', '2025-08-21', 'Pending');  -- Sara graded by Amit

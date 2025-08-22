@@ -54,3 +54,30 @@ http://localhost:7777/user/update-users/6 ----> Update user
 http://localhost:7777/user/delete-users/7 ----> Delete user
 http://localhost:7777/user/register ----> Register user
 http://localhost:7777/user/login ----> user Login
+
+
+admin api
+http://localhost:7777/admin/all-batch ----> get all batch
+http://localhost:7777/admin/add-batch ----> add batch
+{            
+    "batchName": "mar-2025",
+    "isActive": 0
+}
+http://localhost:7777/admin/update-batch-status/7 ----> update batch(isActive field)
+
+{
+    "isActive": 1
+}
+
+http://localhost:7777/admin/all-courses ----> get all courses
+http://localhost:7777/admin/add-course ----> add course
+{
+    "course_name": "DBDA",
+    "batch_id": 6
+}
+http://localhost:7777/admin/update-course/4 ----> update course
+{
+    "course_name": "DITISS"
+}
+http://localhost:7777/admin/delete-course/10 ----> delete course
+

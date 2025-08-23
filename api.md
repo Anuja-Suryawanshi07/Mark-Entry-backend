@@ -81,3 +81,39 @@ http://localhost:7777/admin/update-course/4 ----> update course
 }
 http://localhost:7777/admin/delete-course/10 ----> delete course
 
+http://localhost:7777/admin/all-modules ----> get all module
+http://localhost:7777/admin/all/course/:courseId ----> get all module by course id
+http://localhost:7777/admin/add-module ----> add module
+{
+    "module_name": "Core Java",
+    "course_id": 2
+}
+
+http://localhost:7777/admin/update-module/:moduleId ----> update module
+
+{
+    "module_name": "python",
+    "course_id": 2
+}
+
+http://localhost:7777/admin/delete-module/:moduleId ----> delete module
+
+
+http://localhost:7777/admin/get-all-groups ----> get all groups
+
+http://localhost:7777/admin/add-student-group ----> add group
+{
+    "group_name": "W1",
+    "course_id": 2
+}
+
+http://localhost:7777/admin/update-group/:groupId ----> update student group
+
+{
+    "group_name": "W3",
+    "course_id": 2
+}
+
+http://localhost:7777/admin/delete-group/:groupId ----> add student to group
+
+

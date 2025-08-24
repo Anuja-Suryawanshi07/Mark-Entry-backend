@@ -2,6 +2,7 @@ const express = require("express");
 const pool = require("../../config/db");
 const router = express.Router();
 const { MODULE_TABLE } = require("../../config");
+const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
 
 
@@ -9,8 +10,8 @@ const { MODULE_TABLE } = require("../../config");
 //http://localhost:7777/module/update-module/3
 
 router.put("/update-module/:moduleId", (req, res) => {
-  const { moduleId } = req.params;
-  const {  module_name, course_id } = req.body;
+  let { moduleId } = req.params;
+  let {  module_name, course_id } = req.body;
 
 
   moduleId = Number.parseInt(moduleId);

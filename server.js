@@ -16,6 +16,9 @@ const mentorRoutes = require("./routes/mentorRoutes");
 
 
 
+const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
+const getAllStudentByCourseName = require("./routes/coordinatorRoutes")
+
 // middleware
 app.use(express.json());
 
@@ -33,6 +36,9 @@ app.use("/student", studentRoutes);
 app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
 app.use("/mentor", mentorRoutes);
+
+app.use("/course", getAllCourseBatch)
+app.use("/coordinator", getAllStudentByCourseName)
 
 app.listen(PORT, () => {
   console.log(`Server Started at http://localhost:${PORT}`);

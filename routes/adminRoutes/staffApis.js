@@ -68,10 +68,17 @@ router.post("/add-staff", (req, res) => {
         return res.status(500).send(errorResponse(error));
       }
       pool.query("select * from user where email=?",[email], (userSelectError, userSelectResult)=>{
+        if(userSelectError){
+          return res.status(500).send(errorResponse(userSelectError));
+        }
         let insertedUser = userSelectResult[0];
         let user_id = insertedUser.user_id;
-        pool.query(sql1, [user_id, role_id, course_id])
-            return res.status(201).send(successResponse("sucessful inserted staff Id"))
+        pool.query(sql1, [user_id, role_id, course_id], (staffInsertError,staffInsertResult)=>{
+          if(staffInsertError){
+            return res.status(500).send(errorResponse(staffInsertError))
+          }
+          return res.status(201).send(successResponse("sucessful inserted staff Id"))
+        })
 
       });
       

@@ -6,7 +6,7 @@ const { STUDENT_GROUP_TABLE, COURSE_TABLE } = require("../../config");
 
 // GET all student groups
 
-// http://localhost:7777/student-groups/get-all-group
+// http://localhost:7777/admin/get-all-group
 
 router.get("/get-all-groups", (req, res) => {
 
@@ -25,6 +25,7 @@ router.get("/get-all-groups", (req, res) => {
   });
 });
 
+//addGroupByCourse
 router.post("/add-student-group", (req, res) => {
   const { group_name, course_id } = req.body;
 

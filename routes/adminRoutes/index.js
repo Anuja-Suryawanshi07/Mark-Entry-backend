@@ -2,12 +2,12 @@
 const express = require("express");
 const router = express.Router();
 
-// const groupApis = require('./GroupApis');
+const groupApis = require('./GroupApis');
 const batchApis = require('./batchApis');
-// const studentApis = require('./StudentApis');
+const studentApis = require('./StudentApis');
 const courseApis = require('./CourseApis');
-// const staffApis = require('./staffApis');
-// const ModuleApis = require('./ModuleApis');
+const staffApis = require('./staffApis');
+const ModuleApis = require('./ModuleApis');
 
 //staff
 
@@ -33,12 +33,12 @@ router.use(dashboard);
 
 
 // router.use( addStudentToGroup);
-// router.use(groupApis)
+router.use(groupApis)
 router.use(batchApis)
-// router.use(studentApis)
+router.use(studentApis)
 router.use(courseApis)
-// router.use(staffApis)
-// router.use(ModuleApis)
+router.use(staffApis)
+router.use(ModuleApis)
 
 
 module.exports = router;

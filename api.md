@@ -54,3 +54,66 @@ http://localhost:7777/user/update-users/6 ----> Update user
 http://localhost:7777/user/delete-users/7 ----> Delete user
 http://localhost:7777/user/register ----> Register user
 http://localhost:7777/user/login ----> user Login
+
+
+admin api
+http://localhost:7777/admin/all-batch ----> get all batch
+http://localhost:7777/admin/add-batch ----> add batch
+{            
+    "batchName": "mar-2025",
+    "isActive": 0
+}
+http://localhost:7777/admin/update-batch-status/7 ----> update batch(isActive field)
+
+{
+    "isActive": 1
+}
+
+http://localhost:7777/admin/all-courses ----> get all courses
+http://localhost:7777/admin/add-course ----> add course
+{
+    "course_name": "DBDA",
+    "batch_id": 6
+}
+http://localhost:7777/admin/update-course/4 ----> update course
+{
+    "course_name": "DITISS"
+}
+http://localhost:7777/admin/delete-course/10 ----> delete course
+
+http://localhost:7777/admin/all-modules ----> get all module
+http://localhost:7777/admin/all/course/:courseId ----> get all module by course id
+http://localhost:7777/admin/add-module ----> add module
+{
+    "module_name": "Core Java",
+    "course_id": 2
+}
+
+http://localhost:7777/admin/update-module/:moduleId ----> update module
+
+{
+    "module_name": "python",
+    "course_id": 2
+}
+
+http://localhost:7777/admin/delete-module/:moduleId ----> delete module
+
+
+http://localhost:7777/admin/get-all-groups ----> get all groups
+
+http://localhost:7777/admin/add-student-group ----> add group
+{
+    "group_name": "W1",
+    "course_id": 2
+}
+
+http://localhost:7777/admin/update-group/:groupId ----> update student group
+
+{
+    "group_name": "W3",
+    "course_id": 2
+}
+
+http://localhost:7777/admin/delete-group/:groupId ----> add student to group
+
+

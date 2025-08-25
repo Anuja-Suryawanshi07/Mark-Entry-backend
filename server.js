@@ -9,7 +9,7 @@ const moduleRoutes = require("./routes/moduleRoutes/index");
 const userRoutes = require("./routes/userRoutes/index");
 const staffRoutes = require("./routes/staffRoutes/index");
 const marksRoutes = require("./routes/marksRoutes/index");
-const studentGroupRoutes = require("./routes/student_groupRoutes");
+const studentGroupRoutes = require("./routes/student_groupRoutes")
 const studentRoutes = require("./routes/studentRoutes/index");
 const adminRoutes = require("./routes/adminRoutes");
 const mentorRoutes = require("./routes/mentorRoutes");
@@ -30,7 +30,7 @@ app.use("/module", moduleRoutes);
 app.use("/staff", staffRoutes);
 app.use("/marks", marksRoutes);
 
-app.use("/student-group", studentGroupRoutes);
+app.use("/student_group", studentGroupRoutes);
 
 app.use("/student", studentRoutes);
 app.use("/user", userRoutes);

@@ -8,29 +8,29 @@ const { STUDENT_TABLE } = require("../../config");
 //http://localhost:7777/student/add-student
 
 /*
- {
-    "student_id": 5,
-    "roll_number": 110,
-    "prn_number": 500010,
+{
+    "student_id": 11,
+    "prn_number": 500015,
+    "student_name": "Neha Jain",
     "group_id": 3,
-    "user_id": 5,
-    "created_at": "2025-08-14",
-    "updated_at": "2025-08-14"
+    "user_id": 5
   }    
 */
 
 router.post("/add-student", (req, res) => {
-  const { roll_number, prn_number, group_id, user_id } = req.body;
+  const { student_id, prn_number, student_name, group_id, user_id } = req.body;
 
-  const sql = `
-    INSERT INTO ${STUDENT_TABLE}
-    (roll_number, prn_number, group_id, user_id, created_at, updated_at) 
-    VALUES (?, ?, ?, ?, CURDATE(), CURDATE())
-  `;
+  
+   const sql = `
+  INSERT INTO ${STUDENT_TABLE}
+  (student_id, prn_number, student_name, group_id, user_id, created_at, updated_at)
+  VALUES (?, ?, ?, ?, ?, CURDATE(), CURDATE())
+`;
+
 
   pool.query(
     sql,
-    [roll_number, prn_number, group_id, user_id],
+    [ student_id, prn_number, student_name, group_id, user_id],
     (error, result) => {
       if (error) {
         return res.status(500).json({ status: "Error", error: error.message });

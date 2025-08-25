@@ -5,7 +5,7 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { STUDENT_GROUP_TABLE } = require("../../config");
 // GET all student groups
 
-// http://localhost:7777/student-groups/get-all-group
+// http://localhost:7777/student-groups/get-all-groups
 
 router.get("/get-all-groups", (req, res) => {
 

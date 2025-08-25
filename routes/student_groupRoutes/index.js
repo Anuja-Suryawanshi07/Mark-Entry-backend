@@ -12,13 +12,13 @@ const getStudentGroupsByCourseId = require("./getStudentGroupsByCourseId");
 
 
 
-
 router.use(addStudentGroupRoutes);
 router.use(allstudentsgroupRoutes);
 router.use(updatestudentGroup);
 router.use(deletestudentgroup);
 router.use(getStudentGroupById);
 router.use(getStudentGroupsByCourseId);
+
 
 
 

@@ -9,9 +9,9 @@ const { STUDENT_TABLE, USER_TABLE } = require("../../config");
 
 router.put("/update-student/:studentId", (req, res) => {
   const { studentId } = req.params;
-  const { roll_number, prn_number, group_id, user_id } = req.body;
+  const { prn_number, student_name, group_id, user_id } = req.body;
 
-  if (!roll_number || !prn_number || !group_id || !user_id) {
+  if (!prn_number  ||!student_name || !group_id || !user_id) {
     return res.send(errorResponse("All fields are required"));
   }
 
@@ -27,11 +27,11 @@ router.put("/update-student/:studentId", (req, res) => {
     // Step 2: Update student record
     const updateSql = `
       UPDATE ${STUDENT_TABLE}
-      SET roll_number = ?, prn_number = ?, group_id = ?, user_id = ?, updated_at = CURDATE()
+      SET prn_number = ?, student_name = ?, group_id = ?, user_id = ?, updated_at = CURDATE()
       WHERE student_id = ?
     `;
 
-    pool.query(updateSql, [roll_number, prn_number, group_id, user_id, studentId], (error, result) => {
+    pool.query(updateSql, [ prn_number, student_name, group_id, user_id, studentId], (error, result) => {
       if (error) {
         return res.send(errorResponse(error));
       }

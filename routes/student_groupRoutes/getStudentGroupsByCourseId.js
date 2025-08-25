@@ -4,8 +4,10 @@ const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { STUDENT_GROUP_TABLE } = require("../../config");
 // GET all student groups by course ID
-// Example: GET http://localhost:7777/student_groups/course/1
+// Example: GET http://localhost:7777/student_group/course/1
+
 router.get("/course/:courseId", (req, res) => {
+  
   const { courseId } = req.params;
 
   const sql = `SELECT * FROM ${ STUDENT_GROUP_TABLE } WHERE course_id = ?`;

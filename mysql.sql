@@ -82,6 +82,16 @@ CREATE TABLE student (
     FOREIGN KEY (group_id) REFERENCES student_group(group_id),
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
+/* Note: Update student table to get 'student name' in get all-students route API */
+/*  
+ALTER TABLE student
+ADD COLUMN student_name VARCHAR(100) AFTER prn_number;
+
+UPDATE student s
+JOIN user u ON s.user_id = u.user_id
+SET s.student_name = CONCAT(u.first_name, ' ', u.last_name)
+WHERE u.role_id = 5;
+*/
 
 INSERT INTO student (roll_number, prn_number, group_id, user_id, created_at, updated_at) VALUES
 (101, 500001, 1, 1, '2025-08-05', '2025-08-05'),

@@ -42,9 +42,9 @@ router.post("/login", (req, res) => {
     const roleId = Number(user.role_id);
 
     let landingPage = "";
-    if (roleId === 1) {
+    if (roleId === 5) {
       landingPage = "/student/dashboard"; //student landing page
-    } else if (roleId === 2 || roleId === 3 || roleId === 4 || roleId === 5) {
+    } else if (roleId === 1 || roleId === 2 || roleId === 3 || roleId === 4) {
       landingPage = "/staff/dashboard"; // staff landing page
     } else {
       landingPage = "/unknown-role";

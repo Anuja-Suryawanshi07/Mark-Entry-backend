@@ -8,7 +8,15 @@ const { USER_TABLE } = require("../../config");
 
 // PUT: update an user by Id
 //http://localhost:7777/user/update-users/6
-
+/*
+  {
+    "firstname": "Zen",
+    "lastname": "Malik",
+    "mobilenumber": "0987654327",
+    "email": "xyz12367@gmail.com",
+    "password": "xyz12367"
+    }
+*/
 router.put("/update-users/:userId", (req, res) => {
   const { userId } = req.params;
   const { firstname, lastname, mobilenumber, email, password } =

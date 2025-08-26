@@ -6,7 +6,7 @@ const { STUDENT_GROUP_TABLE } = require("../../config");
 
 // Your existing route here:
 
-//http://localhost:7777/student-groups/add-student-group
+//http://localhost:7777/student_group/add-student-group
 /*
   {
     "group_id": 11,

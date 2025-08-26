@@ -23,9 +23,14 @@ router.post("/register", (req, res) => {
   }
 
   // Step 1: Insert into user table
-  const sqlUser = `
-    INSERT INTO user (first_name, last_name, email, mobile_number, password)
-    VALUES (?, ?, ?, ?, ?)
+  // const sqlUser = `
+  //   INSERT INTO user (first_name, last_name, email, mobile_number, password)
+  //   VALUES (?, ?, ?, ?, ?)
+  // `;
+
+   const sqlUser = `
+    INSERT INTO user (first_name, last_name, email, mobile_number, password, role_id)
+    VALUES (?, ?, ?, ?, ?, 1)
   `;
 
   pool.query(sqlUser, [first_name, last_name, email, mobile_number, password], (err, userResult) => {

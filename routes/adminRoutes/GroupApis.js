@@ -26,6 +26,7 @@ router.get("/get-all-groups", (req, res) => {
 });
 
 //addGroupByCourse
+//http://localhost:7777/admin/add-student-group
 router.post("/add-student-group", (req, res) => {
   const { group_name, course_id } = req.body;
 
@@ -57,6 +58,7 @@ router.post("/add-student-group", (req, res) => {
   });
 });
 
+//http://localhost:7777/admin/update-group/3
 router.put("/update-group/:groupId", (req, res) => {
   const { groupId } = req.params;
   const { group_name, course_id } = req.body;
@@ -95,6 +97,7 @@ router.put("/update-group/:groupId", (req, res) => {
   });
 });
 
+//http://localhost:7777/admin/delete-group/6
 router.delete("/delete-group/:groupId", (req, res) => {
   const { groupId } = req.params;
 

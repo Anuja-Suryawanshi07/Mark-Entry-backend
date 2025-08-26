@@ -69,6 +69,17 @@ router.post("/add-student", (req, res) => {
   );
 });
 
+//http://localhost:7777/admin/add-student-promise
+// {
+//   "first_name": "Alice",
+//   "last_name": "Smith",
+//   "mobile_number": "9876543137",
+//   "email": "alice.smith7@example.com",
+//   "password": "securePassword123",
+  
+//   "prn_number": "123456789",
+//   "group_id": 2
+// }
 router.post("/add-student-promise", async (req, res) => {
 
   let { first_name, last_name, mobile_number, email, password, roll_number, prn_number, group_id } = req.body;
@@ -102,6 +113,13 @@ router.post("/add-student-promise", async (req, res) => {
   }
 });
 
+//http://localhost:7777/admin/update-student/2
+// {
+  
+//   "prn_number": "1234567890",
+//   "group_id": 2,
+//   "user_id": 2
+// }
 router.put("/update-student/:studentId", (req, res) => {
   const { studentId } = req.params;
   const {  prn_number, group_id, user_id } = req.body;
@@ -140,6 +158,7 @@ router.put("/update-student/:studentId", (req, res) => {
   });
 });
 
+//http://localhost:7777/admin/delete-student/8
 router.delete("/delete-student/:studentId", (req, res) => {
   const { studentId } = req.params;
 

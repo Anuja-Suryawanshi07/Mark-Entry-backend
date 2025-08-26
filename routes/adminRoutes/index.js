@@ -9,6 +9,7 @@ const courseApis = require('./CourseApis');
 const staffApis = require('./staffApis');
 const ModuleApis = require('./ModuleApis');
 const getAllGroupByCourses = require('./getAllGroupByCourse')
+const addStudentToGroup = require('./addStudentToGroup')
 
 //staff
 
@@ -41,6 +42,7 @@ router.use(courseApis)
 router.use(staffApis)
 router.use(ModuleApis)
 router.use(getAllGroupByCourses);
+router.use(addStudentToGroup);
 
 
 module.exports = router;

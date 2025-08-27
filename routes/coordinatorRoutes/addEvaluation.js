@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
+const { STUDENT_TABLE, MARKS_TABLE } = require("../../config/index");
 
 router.post("/assign-tasks", async (req, res) => {
   try {
@@ -59,7 +60,7 @@ router.post("/assign-tasks", async (req, res) => {
             end_date,
             "In Progress",
           ];
-          assignMarksQuery += "(?,?,?,?,?,?,?,?,?,?)";
+          assignMarksQuery += (student != 0 ? "," : "") + "(?,?,?,?,?,?)";
         }
 
         pool.execute(

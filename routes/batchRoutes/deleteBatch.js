@@ -13,6 +13,7 @@ router.delete("/delete-batch/:batchId", (req, res) => {
 
   pool.query(sql, [batchId], (error, result) => {
     if (error) {
+      console.error("SQL ERROR:", error);
       return res
         .status(500)
         .json(errorResponse("An error occurred while deleting the batch."));

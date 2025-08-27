@@ -6,7 +6,7 @@ const { STAFF_TABLE } = require("../../config");
 
 // PUT: update an staff by Id
 
-//http://localhost:7777/staff/update-staff/6
+//http://localhost:7777/staff/update-staff/:staffId
 
 router.put("/update-staff/:staffId", (req, res) => {
   const { staffId } = req.params;

@@ -25,8 +25,9 @@ router.get("/all-modules", (req, res) => {
 });
 
 //getModuleByCourseId
+//http://localhost:7777/admin/all/course/2
 router.get("/all/course/:courseId", (req, res) => {
-  const { courseId } = req.params;
+  let { courseId } = req.params;
  
   courseId = Number.parseInt(courseId);
   if (Number.isNaN(courseId) || courseId < 0) {
@@ -52,6 +53,7 @@ router.get("/all/course/:courseId", (req, res) => {
   );
 });
 
+//http://localhost:7777/admin/add-module
 router.post("/add-module", (req, res) => {
   let { module_name, course_id } = req.body;
 
@@ -89,6 +91,7 @@ router.post("/add-module", (req, res) => {
 });
 });
 
+//http://localhost:7777/admin/update-module/3
 router.put("/update-module/:moduleId", (req, res) => {
   let { moduleId } = req.params;
   let {  module_name, course_id } = req.body;
@@ -131,6 +134,7 @@ router.put("/update-module/:moduleId", (req, res) => {
   );
 });
 
+//http://localhost:7777/admin/delete-module/9
 router.delete("/delete-module/:moduleId",(req,res) => {
   let { moduleId } = req.params;
 

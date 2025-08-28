@@ -85,63 +85,114 @@ http://localhost:7777/user/login ----> user Login
 
 
 admin api
+
  ----> get all batch
 http://localhost:7777/admin/add-batch ----> add batch
+1. http://localhost:7777/admin/all-batch ----> get all batch
+2. http://localhost:7777/admin/add-batch ----> add batch
 {            
     "batchName": "mar-2025",
     "isActive": 0
 }
-http://localhost:7777/admin/update-batch-status/7 ----> update batch(isActive field)
+3. http://localhost:7777/admin/update-batch-status/7 ----> update batch(isActive field)
 
 {
     "isActive": 1
 }
 
-http://localhost:7777/admin/all-courses ----> get all courses
-http://localhost:7777/admin/add-course ----> add course
+4. http://localhost:7777/admin/all-courses ----> get all courses
+5. http://localhost:7777/admin/add-course ----> add course
 {
     "course_name": "DBDA",
     "batch_id": 6
 }
-http://localhost:7777/admin/update-course/4 ----> update course
+6. http://localhost:7777/admin/update-course/4 ----> update course
 {
     "course_name": "DITISS"
 }
-http://localhost:7777/admin/delete-course/10 ----> delete course
+7. http://localhost:7777/admin/delete-course/10 ----> delete course
 
-http://localhost:7777/admin/all-modules ----> get all module
-http://localhost:7777/admin/all/course/:courseId ----> get all module by course id
-http://localhost:7777/admin/add-module ----> add module
+8. http://localhost:7777/admin/all-modules ----> get all module
+9. http://localhost:7777/admin/all/course/:courseId ----> get all module by course id
+10. http://localhost:7777/admin/add-module ----> add module
 {
     "module_name": "Core Java",
     "course_id": 2
 }
 
-http://localhost:7777/admin/update-module/:moduleId ----> update module
+11. http://localhost:7777/admin/update-module/:moduleId ----> update module
 
 {
     "module_name": "python",
     "course_id": 2
 }
 
-http://localhost:7777/admin/delete-module/:moduleId ----> delete module
+12. http://localhost:7777/admin/delete-module/:moduleId ----> delete module
 
 
-http://localhost:7777/admin/get-all-groups ----> get all groups
+13. http://localhost:7777/admin/get-all-groups ----> get all groups
 
-http://localhost:7777/admin/add-student-group ----> add group
+14. http://localhost:7777/admin/add-student-group ----> add group
 {
     "group_name": "W1",
     "course_id": 2
 }
 
-http://localhost:7777/admin/update-group/:groupId ----> update student group
+15. http://localhost:7777/admin/update-group/:groupId ----> update student group
 
 {
     "group_name": "W3",
     "course_id": 2
 }
 
-http://localhost:7777/admin/delete-group/:groupId ----> add student to group
+16. http://localhost:7777/admin/delete-group/:groupId ----> add student to group
+
+17. http://localhost:7777/admin/all-staff ---->all staff
+
+18. http://localhost:7777/admin/add-staff -----> add Staff
+
+{
+  "first_name": "John",
+  "last_name": "Doe",
+  "mobile_number": "9876543216",
+  "email": "john1.doe@example.com",
+  "password": "securePassword123",
+  "course_id": 2,
+  "role_id": 1
+}
+
+19. http://localhost:7777/admin/update-staff/6 -----> update staff
+  {
+    "role_id":1,
+    "course_id":2
+}
+
+20. http://localhost:7777/admin/delete-staff/1 -------> delete staff
+
+21. http://localhost:7777/admin/get-student-details ----> get student
+
+22. http://localhost:7777/admin/add-student-promise ---> add student 
+
+   {
+  "first_name": "Alice",
+  "last_name": "Smith",
+  "mobile_number": "9876543137",
+  "email": "alice.smith7@example.com",
+  "password": "securePassword123",
+  
+  "prn_number": "123456789",
+  "group_id": 2
+}
+
+23. http://localhost:7777/admin/update-student/2 ----> update student
+   {
+  
+  "prn_number": "1234567890",
+  "group_id": 2,
+  "user_id": 2
+}
+24. http://localhost:7777/admin/delete-student/8 -----> delete student
+
+25. http://localhost:7777/admin/group-course/2 --> addGroupByCourse
 
 

@@ -46,8 +46,6 @@ http://localhost:7777/mentor/show-all-approved-task/:staffId ----> Get all Appro
 http://localhost:7777/mentor/dashboard ----> dashboard
 http://localhost:7777/mentor/submit-task/:markId ----> task Assign
 
-
-
 role Routes api
 http://localhost:7777/roles/all-roles ----> All role
 http://localhost:7777/roles/add-role ---->Add role
@@ -87,7 +85,7 @@ http://localhost:7777/user/login ----> user Login
 
 
 admin api
-http://localhost:7777/admin/all-batch ----> get all batch
+ ----> get all batch
 http://localhost:7777/admin/add-batch ----> add batch
 {            
     "batchName": "mar-2025",

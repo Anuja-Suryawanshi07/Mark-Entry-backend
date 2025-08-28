@@ -3,12 +3,6 @@ const pool = require("../../config/db");
 const router = express.Router();
 const { MODULE_TABLE } = require("../../config");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-<<<<<<< HEAD
-
-=======
->>>>>>> f69e486a45fbef0883ba3bf81b3e2db29cba56ac
-
-
 
 // PUT: update an user by Id
 //http://localhost:7777/module/update-module/3

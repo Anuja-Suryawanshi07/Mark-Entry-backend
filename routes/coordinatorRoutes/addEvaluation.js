@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
+const { STUDENT_TABLE, MARKS_TABLE } = require("../../config");
 
 router.post("/assign-tasks", async (req, res) => {
     try {
@@ -33,8 +34,31 @@ router.post("/assign-tasks", async (req, res) => {
             start_date,
             end_date
         };
+        pool.query(`SELECT student_id from ${STUDENT_TABLE} where group_id=?`, [group_id], (error, result) => {
+            let paramsArr = [];
+            let assignMarksQuery = `INSERT INTO ${MARKS_TABLE} (student_id,staff_id,module_id,start_date,till_date ,status) values`;
+            for (let i in result) {
+                let student = result[i];
+                let student_id = student.student_id;
+                paramsArr = [...paramsArr, student_id, staff_id,module_id, start_date, end_date, "In Progress"];
+                assignMarksQuery += (i!=0?",":"")+"(?,?,?,?,?,?)";
+            }
+            console.log("paramsArr",paramsArr)
+            pool.execute(assignMarksQuery, paramsArr, (assignMarksError, assignMarksResult) => {
+                if (assignMarksError) {
+                    console.log(assignMarksError);
+                    return res.status(500).json(errorResponse("Database Error", assignMarksError));
+                }
+                if (assignMarksResult.affectedRows === 0) {
+                    return res.status(404).json(errorResponse("Task not found"));
+                }
+                return res.status(201).json(successResponse(assignTasks, "Task assigned"));
+            })
 
-        return res.status(200).json(successResponse(assignTasks, "Task assigned (not saved)."));
+
+
+        })
+
     } catch (error) {
         console.error(error);
         return res.status(500).json(errorResponse("Internal server error."));

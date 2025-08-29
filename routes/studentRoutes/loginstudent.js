@@ -15,7 +15,7 @@ router.post("/login", (req, res) => {
   }
 
   const sql = `
-    SELECT s.student_id, s.roll_number, s.prn_number, s.group_id, u.user_id, u.first_name, u.last_name
+    SELECT s.student_id, s.prn_number, s.group_id, u.user_id, u.first_name, u.last_name
     FROM student s
     JOIN user u ON s.user_id = u.user_id
     WHERE s.prn_number = ? AND u.password = ?

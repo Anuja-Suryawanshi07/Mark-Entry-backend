@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const { STUDENT_TABLE, MARKS_TABLE } = require("../../config/index");
 
+const { STUDENT_TABLE, MARKS_TABLE } = require("../../config");
 router.post("/assign-tasks", async (req, res) => {
   try {
     const {
@@ -72,7 +72,6 @@ router.post("/assign-tasks", async (req, res) => {
                 .status(500)
                 .json(errorResponse("Database Error", assignMarksError));
             }
-
             if (assignMarksResult.affectedRows === 0) {
               return res.status(404).json(errorResponse("Task not found"));
             }

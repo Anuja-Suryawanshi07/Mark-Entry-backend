@@ -40,15 +40,19 @@ router.get("/all-staff", (req, res) => {
   "role_id": 1
 }
   */
+ //adminAssignCourse
 router.post("/add-staff", (req, res) => {
 
   let {  first_name, last_name, mobile_number, email, password, course_id, role_id} = req.body;
 
-  
+  let staffRoleIds = {1:"admin",2:"coordinator",3:"mentor",4:"staff"}
 
   role_id = Number.parseInt(role_id);
   if (Number.isNaN(role_id) || role_id < 0) {
     return res.status(400).send(errorResponse("Invalid role Id"))
+  }
+  if(!(role_id in staffRoleIds)){
+    return res.status(400).send(errorResponse("Invalid role id for staff. Should be: 1,2,3 or 4"));
   }
 
   course_id = Number.parseInt(course_id);
@@ -77,7 +81,7 @@ router.post("/add-staff", (req, res) => {
           if(staffInsertError){
             return res.status(500).send(errorResponse(staffInsertError))
           }
-          return res.status(201).send(successResponse("sucessful inserted staff Id"))
+          return res.status(201).send(successResponse(`sucessful inserted ${staffRoleIds[role_id]} staff`))
         })
 
       });

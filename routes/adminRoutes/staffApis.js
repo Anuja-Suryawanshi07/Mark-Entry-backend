@@ -57,13 +57,13 @@ router.post("/add-staff", (req, res) => {
   }
 
   //staff name, email, role, course, Action
-    const sql = `INSERT INTO ${USER_TABLE} (  first_name, last_name, mobile_number, email, password) VALUES (?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO ${USER_TABLE} (  first_name, last_name, mobile_number, email, password,role_id) VALUES (?, ?, ?, ?, ?,?)`;
 
   const sql1 = `INSERT INTO ${STAFF_TABLE} (  user_id, role_id, course_id ) VALUES (?, ?, ?)`;
 
 
   pool.query(
-    sql, [first_name, last_name, mobile_number, email, password], (error, result) => {
+    sql, [first_name, last_name, mobile_number, email, password,role_id], (error, result) => {
       if (error) {
         return res.status(500).send(errorResponse(error));
       }

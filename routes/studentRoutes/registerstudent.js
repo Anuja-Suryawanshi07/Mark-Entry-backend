@@ -12,20 +12,19 @@ router.post("/register", (req, res) => {
     email,
     mobile_number,
     password,
-    roll_number,
     prn_number,
     group_id
   } = req.body || {};
 
   // Validate all required fields
-  if (!first_name || !last_name || !email || !mobile_number || !password || !roll_number || !prn_number || !group_id) {
+  if (!first_name || !last_name || !email || !mobile_number || !password || !prn_number || !group_id) {
     return res.status(400).json({ status: "Error", message: "All fields are required" });
   }
 
   // Step 1: Insert into user table
   const sqlUser = `
-    INSERT INTO user (first_name, last_name, email, mobile_number, password)
-    VALUES (?, ?, ?, ?, ?)
+    INSERT INTO user (first_name, last_name, email, mobile_number, password, role_id)
+    VALUES (?, ?, ?, ?, ?, 5)
   `;
 
   pool.query(sqlUser, [first_name, last_name, email, mobile_number, password], (err, userResult) => {
@@ -34,14 +33,15 @@ router.post("/register", (req, res) => {
     }
 
     const user_id = userResult.insertId;
+    const student_name = `${first_name} ${last_name}`; 
 
     // Step 2: Insert into student table
     const sqlStudent = `
-      INSERT INTO student (roll_number, prn_number, group_id, user_id, created_at, updated_at)
+      INSERT INTO student (prn_number, student_name, group_id, user_id, created_at, updated_at)
       VALUES (?, ?, ?, ?, CURDATE(), CURDATE())
     `;
 
-    pool.query(sqlStudent, [roll_number, prn_number, group_id, user_id], (err2, studentResult) => {
+    pool.query(sqlStudent, [prn_number, student_name, group_id, user_id], (err2, studentResult) => {
       if (err2) {
         return res.status(500).json({ status: "Error", message: err2.message });
       }

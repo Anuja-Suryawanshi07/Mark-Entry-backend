@@ -5,8 +5,9 @@ const { MARKS_TABLE, STUDENT_TABLE, USER_TABLE, MODULE_TABLE } = require("../../
 
 const router = express.Router();
 
-// GET all completed tasks for a staff
-router.get("/show-all-completed-task/:staffId", (req, res) => {
+// GET all approved tasks for a staff
+//http://localhost:7777/mentor/show-all-approved-task/:staffId
+router.get("/show-all-approved-task/:staffId", (req, res) => {
   const { staffId } = req.params;
 
   const sql = `
@@ -24,7 +25,7 @@ router.get("/show-all-completed-task/:staffId", (req, res) => {
 
   pool.query(sql, [staffId], (error, results) => {
     if (error) return res.send(errorResponse(error));
-    if (results.length === 0) return res.send(successResponse("No completed tasks found."));
+    if (results.length === 0) return res.send(successResponse("No Approved tasks found."));
     return res.send(successResponse(results));
   });
 });

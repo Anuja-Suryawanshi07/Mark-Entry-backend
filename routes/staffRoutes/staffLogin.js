@@ -2,8 +2,8 @@ const express = require("express");
 const pool = require("../../config/db");
 const router = express.Router();
 
-// POST: Student Login
-// Example: POST http://localhost:7777/student/login
+// POST: Staff Login
+// Example: POST http://localhost:7777/staff/login
 router.post("/login", (req, res) => {
   const { email, password } = req.body || {};
 
@@ -12,12 +12,13 @@ router.post("/login", (req, res) => {
     return res.status(400).json({ status: "Error", message: "Email and password are required" });
   }
 
-  // Step 1: Check if user exists with role_id = 5 (student)
+  // Step 1: Check if user exists with role_id = 4 (staff)
   const sql = `
-    SELECT u.user_id, u.first_name, u.last_name, u.email, u.password, s.student_id, s.group_id
+    SELECT u.user_id, u.first_name, u.last_name, u.email, u.password,
+           s.staff_id, s.staff_name, s.course_id
     FROM user u
-    INNER JOIN student s ON u.user_id = s.user_id
-    WHERE u.email = ? AND u.role_id = 5
+    INNER JOIN staff s ON u.user_id = s.user_id
+    WHERE u.email = ? AND u.role_id = 4
   `;
 
   pool.query(sql, [email], (err, results) => {
@@ -31,7 +32,7 @@ router.post("/login", (req, res) => {
 
     const user = results[0];
 
-    // Step 2: Check password (plain text check for now ⚠️)
+    // Step 2: Check password
     if (user.password !== password) {
       return res.status(401).json({ status: "Error", message: "Invalid email or password" });
     }
@@ -42,11 +43,11 @@ router.post("/login", (req, res) => {
       message: "Login successful",
       user: {
         user_id: user.user_id,
-        student_id: user.student_id,
-        student_name: user.student_name,
+        staff_id: user.staff_id,
+        staff_name: user.staff_name,
         email: user.email,
-        group_id: user.group_id,
-      },
+        course_id: user.course_id
+      }
     });
   });
 });

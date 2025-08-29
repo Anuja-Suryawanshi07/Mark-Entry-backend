@@ -4,6 +4,8 @@ const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { BATCH_TABLE } = require("../../config");
 
+//http://localhost:7777/batch/update-batch-status/:batchId
+
 router.put("/update-batch-status/:batchId", (req, res) => {
   const { batchId } = req.params;
   const { isActive } = req.body;

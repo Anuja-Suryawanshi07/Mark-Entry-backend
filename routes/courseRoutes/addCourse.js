@@ -8,15 +8,9 @@ const { COURSE_TABLE } = require("../../config");
 // POST: add new course
 //http://localhost:7777/course/add-course
 
-//  {
-//             "course_id": 1,
-//             "course_name": "DMC",
-//             "batch_id": 1
-//         },
 // {
-
-//     "course_name": "DBDA",
-//     "batch_id": 1
+//   "course_name": "DBDA",
+//   "batch_id": 1
 // }
 
 router.post("/add-course", (req, res) => {

@@ -34,7 +34,7 @@ router.post("/add-student-group", (req, res) => {
     return res.status(400).send(errorResponse("Group name and Course ID are required"));
   }
 
-  const checkCourseSql = `SELECT * FROM \`${STUDENT_GROUP_TABLE}\` WHERE course_id = ?`;
+  const checkCourseSql = `SELECT * FROM \`${COURSE_TABLE}\` WHERE course_id = ?`;
 
   pool.query(checkCourseSql, [course_id], (err, courseResults) => {
     if (err) {

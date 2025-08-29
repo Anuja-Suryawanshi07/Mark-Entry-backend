@@ -24,6 +24,25 @@ router.get("/all-courses", (req, res) => {
   });
 });
 
+//http://localhost:7777/admin/get-all-courses-by-batch?batch_name=0323
+router.get("/get-all-courses-by-batch", (req, res) => {
+  const { batch_name} = req.query;
+
+  const sql = `select c.course_id, b.batch_name, c.course_name from ${BATCH_TABLE} b 
+  join ${COURSE_TABLE} c on b.batch_id = c.batch_id where b.batch_name = ?;`;
+
+  pool.query(sql, [batch_name],(error, results) => {
+    if (error) {
+      return res.status(500).send(errorResponse(error)); // 500 means vo jiska reason apne ko pata nahi
+    }
+
+    if (results.length === 0) {
+      return res.status(404).send(errorResponse("No Such Course.")); // 404 means not found
+    }
+    return res.status(200).send(successResponse(results)); // 200 means success 
+  });
+});
+
 //http://localhost:7777/admin/add-course
 router.post("/add-course", (req, res) => {
 

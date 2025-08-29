@@ -10,6 +10,7 @@ const staffApis = require('./staffApis');
 const ModuleApis = require('./ModuleApis');
 const getAllGroupByCourses = require('./getAllGroupByCourse')
 const addStudentToGroup = require('./addStudentToGroup')
+const showAllCoOrdinators = require('./showAllCoOrdinators')
 
 //staff
 
@@ -43,6 +44,8 @@ router.use(staffApis)
 router.use(ModuleApis)
 router.use(getAllGroupByCourses);
 router.use(addStudentToGroup);
+router.use(showAllCoOrdinators);
+
 
 
 module.exports = router;

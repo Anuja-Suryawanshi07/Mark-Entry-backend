@@ -10,7 +10,7 @@ const { STUDENT_TABLE, BATCH_TABLE, COURSE_TABLE, USER_TABLE, STUDENT_GROUP_TABL
 
 //getStudentDetails
 router.get("/get-student-details", (req, res) => {
-  const sql = `select s.student_id, concat(u.first_name, ' ', u.last_name) staff_name, 
+  const sql = `select s.student_id, concat(u.first_name, ' ', u.last_name) student_name, 
   s.prn_number, g.group_name, c.course_name, b.batch_name from ${STUDENT_TABLE} s
   join ${USER_TABLE} u on  u.user_id = s.user_id
   join \`${STUDENT_GROUP_TABLE}\` g on s.group_id=g.group_id 

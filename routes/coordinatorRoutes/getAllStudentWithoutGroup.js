@@ -5,6 +5,8 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { STUDENT_TABLE, STUDENT_GROUP_TABLE } = require("../../config");
 
 // Get all students without a group
+//http://localhost:7777/coordinator/students-without-group
+
 router.get("/students-without-group", async (req, res) => {
   try {
     const [results] = await pool.promise().query(

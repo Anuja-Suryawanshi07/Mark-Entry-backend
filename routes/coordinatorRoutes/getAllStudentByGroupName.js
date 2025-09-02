@@ -5,6 +5,8 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { STUDENT_TABLE, STUDENT_GROUP_TABLE } = require("../../config");
 
 // Get all students by group name
+//http://localhost:7777/coordinator/all-students-with-group?groupName=W1
+
 router.get("/all-students-with-group", (req, res) => {
   const { groupName } = req.query;
 

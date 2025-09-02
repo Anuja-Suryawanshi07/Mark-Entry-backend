@@ -5,6 +5,14 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { STUDENT_TABLE, STUDENT_GROUP_TABLE } = require("../../config");
 
 // PUT /assign-group-to-student
+//http://localhost:7777/coordinator/assign-group-to-student
+/*
+  {
+  "studentId": 14,
+  "groupName": "W3"
+  }
+ */
+
 router.put("/assign-group-to-student", async (req, res) => {
   const {
     studentId,

@@ -3,6 +3,18 @@ const router = express.Router();
 const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
+//http://localhost:7777/coordinator/assign-tasks
+/*
+    {
+        "module_id": 2,
+        "group_id": 1,
+        "staff_id": 3,
+        "types": ["Theory", "Lab", "IA-1", "IA-2"],
+        "start_date": "2025-09-05",
+        "end_date": "2025-09-30"
+    }
+ */
+
 router.post("/assign-tasks", async (req, res) => {
     try {
         const {

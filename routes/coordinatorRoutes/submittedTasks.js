@@ -3,8 +3,9 @@ const pool = require("../../config/db");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
-// ✅ GET: All tasks submitted by mentors (waiting for coordinator approval)
+// GET: All tasks submitted by mentors (waiting for coordinator approval)
 // Example: GET http://localhost:7777/coordinator/submitted-tasks
+
 router.get("/submitted-tasks", (req, res) => {
   const sql = `
     SELECT 

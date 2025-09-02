@@ -4,7 +4,7 @@ const showPendingTask = require("./showPendingTask");
 const showApprovedTask = require("./showApprovedTask");
 const addMark = require("./addMark");
 const dashboard = require("./dashboard");
-const taskAssigned = require("./taskAssign");
+const taskAssigned = require("./taskAssignToMentor");
 
 router.use(taskAssigned);
 router.use(showPendingTask);

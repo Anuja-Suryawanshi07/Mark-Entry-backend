@@ -12,7 +12,7 @@ const dashboard = require("./dashboard");
 const staffRoutes = require("./allTasks");
 const staffRegister = require("./staffRegister");
 const staffLogin = require("./staffLogin");
-
+const assignStaffToCourse = require("./assignStaffToCourse");
 
 router.use(getAllStaff);
 router.use(addStaff);
@@ -22,6 +22,8 @@ router.use(dashboard);
 router.use(staffRoutes);
 router.use(staffRegister);
 router.use(staffLogin);
+router.use(assignStaffToCourse);
+
 
 module.exports = router;
 

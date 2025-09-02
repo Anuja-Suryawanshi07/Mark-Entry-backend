@@ -5,7 +5,7 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { MODULE_TABLE } = require("../../config");
 
 
-// POST: add new course
+// POST: add new Module in a Specific Course
 //http://localhost:7777/module/add-module
 //  {
 //     "module_name": "Advance Java",

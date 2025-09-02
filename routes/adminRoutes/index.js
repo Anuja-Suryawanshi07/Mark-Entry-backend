@@ -12,6 +12,16 @@ const getAllGroupByCourses = require('./getAllGroupByCourse')
 const addStudentToGroup = require('./addStudentToGroup')
 const showAllCoOrdinators = require('./showAllCoOrdinators')
 
+//Admin flow
+const dashboard = require ("./dashboard");
+const AllStudents = require("./allStudents");
+const AssignPRN = require("./assignPRN");
+const AddStudentToBatch = require("./addStudentToBatch");
+//const AddMultipleStudentToBatch = require("./addMultipleStudentToBatch");
+const AssignCourseToStudent = require("./AssignCourseToStudent");
+const UpdateStudents = require("./updateStudent");
+
+
 //staff
 
 // const getAllStaff = require("./getallstaff");
@@ -20,7 +30,6 @@ const showAllCoOrdinators = require('./showAllCoOrdinators')
 // const deletestaff = require("./deleteStaff");
 // const getAllStudents = require('./getallstudents');
 // const addStudentToGroup = require('./addStudentToGroup');
-const dashboard = require ("./dashboard");
 // const getAllCourses = require("./getAllCourses");
 // const getStudentDetails = require('./getStudentDetails');
 
@@ -30,7 +39,6 @@ const dashboard = require ("./dashboard");
 // router.use(deletestaff);
 // router.use(getAllStudents);
 // router.use(addStudentToGroup);
-router.use(dashboard);
 // router.use(getAllCourses);
 // router.use(getStudentDetails);
 
@@ -47,7 +55,13 @@ router.use(addStudentToGroup);
 router.use(showAllCoOrdinators);
 
 
-
+router.use(dashboard);
+router.use(AllStudents)
+router.use(AssignPRN)
+router.use(AddStudentToBatch);
+//router.use(AddMultipleStudentToBatch);
+router.use(AssignCourseToStudent);
+router.use(UpdateStudents);
 module.exports = router;
 
 

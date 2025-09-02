@@ -1,5 +1,6 @@
 const express = require("express");
 const pool = require("../../config/db");
+const promisePool = require("../../config/db-promise");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { STUDENT_TABLE, BATCH_TABLE, COURSE_TABLE, USER_TABLE, STUDENT_GROUP_TABLE } = require("../../config");
@@ -9,7 +10,7 @@ const { STUDENT_TABLE, BATCH_TABLE, COURSE_TABLE, USER_TABLE, STUDENT_GROUP_TABL
 
 //getStudentDetails
 router.get("/get-student-details", (req, res) => {
-  const sql = `select s.student_id, concat(u.first_name, ' ', u.last_name) staff_name, 
+  const sql = `select s.student_id, concat(u.first_name, ' ', u.last_name) student_name, 
   s.prn_number, g.group_name, c.course_name, b.batch_name from ${STUDENT_TABLE} s
   join ${USER_TABLE} u on  u.user_id = s.user_id
   join \`${STUDENT_GROUP_TABLE}\` g on s.group_id=g.group_id 
@@ -31,7 +32,7 @@ router.get("/get-student-details", (req, res) => {
 //http://localhost:7777/admin/add-staff
 router.post("/add-student", (req, res) => {
 
-  let {  first_name, last_name, mobile_number, email, password, roll_number, prn_number, group_id} = req.body;
+  let { first_name, last_name, mobile_number, email, password, roll_number, prn_number, group_id } = req.body;
 
   // course_id = Number.parseInt(course_id);
   // if (Number.isNaN(course_id) || course_id < 0) {
@@ -39,33 +40,91 @@ router.post("/add-student", (req, res) => {
   // }
 
   //staff name, email, role, course, Action
-    const sql = `INSERT INTO ${USER_TABLE} (  first_name, last_name, mobile_number, email, password) VALUES (?, ?, ?, ?, ?)`;
+  const sql = `INSERT INTO ${USER_TABLE} (  first_name, last_name, mobile_number, email, password) VALUES (?, ?, ?, ?, ?)`;
 
-  const sql1 = `INSERT INTO ${STUDENT_TABLE} ( roll_number, prn_number, group_id ) VALUES (?, ?, ?)`;
+  const sql1 = `INSERT INTO ${STUDENT_TABLE} ( user_id, prn_number, group_id ) VALUES (?, ?, ?)`;
 
 
   pool.query(
-    sql, [first_name, last_name, mobile_number, email, password, roll_number, prn_number, group_id], (error, result) => {
+    sql, [first_name, last_name, mobile_number, email, password], (error, result) => {
       if (error) {
         return res.status(500).send(errorResponse(error));
       }
-      pool.query("select * from user where email=?",[email], (userSelectError, userSelectResult)=>{
+      pool.query("select * from user where email=?", [email], (userSelectError, userSelectResult) => {
+        if (userSelectError) {
+          return res.status(500).send(errorResponse(userSelectError));
+        }
         let insertedUser = userSelectResult[0];
         let user_id = insertedUser.user_id;
-        pool.query(sql1, [user_id])
-            return res.status(201).send(successResponse("sucessful inserted student Id"))
+        pool.query(sql1, [user_id, prn_number, group_id], (staffInsertError, staffInsertResult) => {
+          if (staffInsertError) {
+            return res.status(500).send(errorResponse(staffInsertError))
+          }
+          return res.status(201).send(successResponse("sucessful inserted student Id"))
+        })
 
       });
-      
+
     }
   );
 });
 
+//http://localhost:7777/admin/add-student-promise
+// {
+//   "first_name": "Alice",
+//   "last_name": "Smith",
+//   "mobile_number": "9876543137",
+//   "email": "alice.smith7@example.com",
+//   "password": "securePassword123",
+  
+//   "prn_number": "123456789",
+//   "group_id": 2
+// }
+router.post("/add-student-promise", async (req, res) => {
+
+  let { first_name, last_name, mobile_number, email, password, roll_number, prn_number, group_id } = req.body;
+
+  // course_id = Number.parseInt(course_id);
+  // if (Number.isNaN(course_id) || course_id < 0) {
+  //   return res.status(400).send(errorResponse("Invalid course Id"))
+  // }
+
+  //staff name, email, role, course, Action
+  const sql = `INSERT INTO ${USER_TABLE} (  first_name, last_name, mobile_number, email, password,role_id) VALUES (?, ?, ?, ?, ?, 5)`;
+
+  const sql1 = `INSERT INTO ${STUDENT_TABLE} ( user_id, prn_number, group_id,created_at,updated_at ) VALUES (?, ?, ?,curdate(),curdate())`;
+  let connection = null;
+  try {
+    connection = await promisePool.getConnection();
+    await connection.beginTransaction();
+    const userInsertResult = await connection.query(sql, [first_name, last_name, mobile_number, email, password]);
+    const userSelectResult = await connection.query("select * from user where email=?", [email]);
+    let insertedUser = userSelectResult[0][0];
+    let user_id = insertedUser.user_id;
+    let staffInsertResult = await connection.query(sql1, [user_id, prn_number, group_id]);
+    await connection.commit();
+    return res.status(201).send(successResponse("sucessful inserted student Id"));
+  }
+  catch (error) {
+    if (connection !== null) {
+      await connection.rollback();
+    }
+    return res.status(500).send(errorResponse(error));
+  }
+});
+
+//http://localhost:7777/admin/update-student/2
+// {
+  
+//   "prn_number": "1234567890",
+//   "group_id": 2,
+//   "user_id": 2
+// }
 router.put("/update-student/:studentId", (req, res) => {
   const { studentId } = req.params;
-  const { roll_number, prn_number, group_id, user_id } = req.body;
+  const {  prn_number, group_id, user_id } = req.body;
 
-  if (!roll_number || !prn_number || !group_id || !user_id) {
+  if ( !prn_number || !group_id || !user_id) {
     return res.send(errorResponse("All fields are required"));
   }
 
@@ -81,11 +140,11 @@ router.put("/update-student/:studentId", (req, res) => {
     // Step 2: Update student record
     const updateSql = `
       UPDATE ${STUDENT_TABLE}
-      SET roll_number = ?, prn_number = ?, group_id = ?, user_id = ?, updated_at = CURDATE()
+      SET  prn_number = ?, group_id = ?, user_id = ?, updated_at = CURDATE()
       WHERE student_id = ?
     `;
 
-    pool.query(updateSql, [roll_number, prn_number, group_id, user_id, studentId], (error, result) => {
+    pool.query(updateSql, [ prn_number, group_id, user_id, studentId], (error, result) => {
       if (error) {
         return res.send(errorResponse(error));
       }
@@ -99,6 +158,7 @@ router.put("/update-student/:studentId", (req, res) => {
   });
 });
 
+//http://localhost:7777/admin/delete-student/8
 router.delete("/delete-student/:studentId", (req, res) => {
   const { studentId } = req.params;
 

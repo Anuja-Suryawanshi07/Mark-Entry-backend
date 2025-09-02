@@ -5,8 +5,12 @@ const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { STUDENT_TABLE } = require("../../config");
 
 // PUT: update a student by Id
-//http://localhost:7777/student/update-student/5
+//http://localhost:7777/admin/add-student-to-group
 
+// {
+//     "student_id":1,
+//     "group_id":1 
+// }
 router.put("/add-student-to-group", (req, res) => {
 
   let { student_id, group_id } = req.body;

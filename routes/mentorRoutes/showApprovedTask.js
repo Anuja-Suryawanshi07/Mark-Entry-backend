@@ -1,6 +1,7 @@
 const express = require("express");
 const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
+const { MARKS_TABLE, STUDENT_TABLE, USER_TABLE, MODULE_TABLE } = require("../../config");
 
 const router = express.Router();
 
@@ -12,14 +13,14 @@ router.get("/show-all-approved-task/:staffId", (req, res) => {
   const sql = `
     SELECT m.*, 
            u.first_name, 
-           u.last_name,  
+           u.last_name, 
            st.prn_number, 
            \`module\`.module_name
-    FROM marks m
-    JOIN student st ON m.student_id = st.student_id
-    JOIN user u ON st.user_id = u.user_id
-    JOIN \`module\` ON m.module_id = \`module\`.module_id
-    WHERE m.staff_id = ? AND m.status = 'Approved'
+    FROM ${MARKS_TABLE} m
+    JOIN ${STUDENT_TABLE} st ON m.student_id = st.student_id
+    JOIN ${USER_TABLE} u ON st.user_id = u.user_id
+    JOIN ${MODULE_TABLE} ON m.module_id = \`module\`.module_id
+    WHERE m.staff_id = ? AND m.status = 'Completed'
   `;
 
   pool.query(sql, [staffId], (error, results) => {

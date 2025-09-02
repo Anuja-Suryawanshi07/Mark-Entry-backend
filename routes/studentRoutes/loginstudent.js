@@ -14,7 +14,7 @@ router.post("/login", (req, res) => {
 
   // Step 1: Check if user exists with role_id = 5 (student)
   const sql = `
-    SELECT u.user_id, u.first_name, u.last_name, u.email, u.password, s.student_id, s.student_name, s.group_id
+    SELECT u.user_id, u.first_name, u.last_name, u.email, u.password, s.student_id, s.group_id
     FROM user u
     INNER JOIN student s ON u.user_id = s.user_id
     WHERE u.email = ? AND u.role_id = 5

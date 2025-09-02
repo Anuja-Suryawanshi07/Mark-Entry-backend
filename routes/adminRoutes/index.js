@@ -8,6 +8,9 @@ const studentApis = require('./StudentApis');
 const courseApis = require('./CourseApis');
 const staffApis = require('./staffApis');
 const ModuleApis = require('./ModuleApis');
+const getAllGroupByCourses = require('./getAllGroupByCourse')
+const addStudentToGroup = require('./addStudentToGroup')
+const showAllCoOrdinators = require('./showAllCoOrdinators')
 
 //Admin flow
 const dashboard = require ("./dashboard");
@@ -47,6 +50,10 @@ router.use(studentApis)
 router.use(courseApis)
 router.use(staffApis)
 router.use(ModuleApis)
+router.use(getAllGroupByCourses);
+router.use(addStudentToGroup);
+router.use(showAllCoOrdinators);
+
 
 router.use(dashboard);
 router.use(AllStudents)

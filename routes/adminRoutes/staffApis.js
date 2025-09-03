@@ -46,6 +46,12 @@ router.post("/add-staff", async (req, res) => {
 
   let { first_name, last_name, mobile_number, email, password, course_id } = req.body;
 
+  if (!first_name || !last_name || !email || !mobile_number || !password ) {
+    return res
+      .status(400)
+      .json({ status: "Error", message: "All fields are required" });
+  }
+
   let staffRoleIds = { 1: "admin", 2: "coordinator", 3: "mentor", 4: "staff" }
 
   // if(role_id)
@@ -56,6 +62,7 @@ router.post("/add-staff", async (req, res) => {
   // if (!(role_id in staffRoleIds)) {
   //   return res.status(400).send(errorResponse("Invalid role id for staff. Should be: 1,2,3 or 4"));
   // }
+
   const role_id = 4;
 
   if (course_id) {
@@ -64,6 +71,8 @@ router.post("/add-staff", async (req, res) => {
       return res.status(400).send(errorResponse("Invalid course Id"))
     }
   }
+
+  
 const staff_name = `${first_name} ${last_name}`;
   //staff name, email, role, course, Action
   const sql = `INSERT INTO ${USER_TABLE} (  first_name, last_name, mobile_number, email, password,role_id) VALUES (?, ?, ?, ?, ?,?)`;

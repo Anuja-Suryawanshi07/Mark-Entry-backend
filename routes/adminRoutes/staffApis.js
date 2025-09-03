@@ -1,5 +1,6 @@
 const express = require("express");
 const pool = require("../../config/db");
+const promisePool = require('../../config/db-promise')
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { STAFF_TABLE, ROLE_TABLE, USER_TABLE, COURSE_TABLE } = require("../../config");
@@ -40,54 +41,58 @@ router.get("/all-staff", (req, res) => {
   "role_id": 1
 }
   */
- //adminAssignCourse
-router.post("/add-staff", (req, res) => {
+//adminAssignCourse
+router.post("/add-staff", async (req, res) => {
 
-  let {  first_name, last_name, mobile_number, email, password, course_id, role_id} = req.body;
+  let { first_name, last_name, mobile_number, email, password, course_id } = req.body;
 
-  let staffRoleIds = {1:"admin",2:"coordinator",3:"mentor",4:"staff"}
+  let staffRoleIds = { 1: "admin", 2: "coordinator", 3: "mentor", 4: "staff" }
 
-  role_id = Number.parseInt(role_id);
-  if (Number.isNaN(role_id) || role_id < 0) {
-    return res.status(400).send(errorResponse("Invalid role Id"))
-  }
-  if(!(role_id in staffRoleIds)){
-    return res.status(400).send(errorResponse("Invalid role id for staff. Should be: 1,2,3 or 4"));
-  }
+  // if(role_id)
+  // role_id = Number.parseInt(role_id);
+  // if (Number.isNaN(role_id) || role_id < 0) {
+  //   return res.status(400).send(errorResponse("Invalid role Id"))
+  // }
+  // if (!(role_id in staffRoleIds)) {
+  //   return res.status(400).send(errorResponse("Invalid role id for staff. Should be: 1,2,3 or 4"));
+  // }
+  const role_id = 4;
 
-  course_id = Number.parseInt(course_id);
-  if (Number.isNaN(course_id) || course_id < 0) {
-    return res.status(400).send(errorResponse("Invalid course Id"))
-  }
-
-  //staff name, email, role, course, Action
-    const sql = `INSERT INTO ${USER_TABLE} (  first_name, last_name, mobile_number, email, password,role_id) VALUES (?, ?, ?, ?, ?,?)`;
-
-  const sql1 = `INSERT INTO ${STAFF_TABLE} (  user_id, role_id, course_id ) VALUES (?, ?, ?)`;
-
-
-  pool.query(
-    sql, [first_name, last_name, mobile_number, email, password,role_id], (error, result) => {
-      if (error) {
-        return res.status(500).send(errorResponse(error));
-      }
-      pool.query("select * from user where email=?",[email], (userSelectError, userSelectResult)=>{
-        if(userSelectError){
-          return res.status(500).send(errorResponse(userSelectError));
-        }
-        let insertedUser = userSelectResult[0];
-        let user_id = insertedUser.user_id;
-        pool.query(sql1, [user_id, role_id, course_id], (staffInsertError,staffInsertResult)=>{
-          if(staffInsertError){
-            return res.status(500).send(errorResponse(staffInsertError))
-          }
-          return res.status(201).send(successResponse(`sucessful inserted ${staffRoleIds[role_id]} staff`))
-        })
-
-      });
-      
+  if (course_id) {
+    course_id = Number.parseInt(course_id);
+    if (Number.isNaN(course_id) || course_id < 0) {
+      return res.status(400).send(errorResponse("Invalid course Id"))
     }
-  );
+  }
+const staff_name = `${first_name} ${last_name}`;
+  //staff name, email, role, course, Action
+  const sql = `INSERT INTO ${USER_TABLE} (  first_name, last_name, mobile_number, email, password,role_id) VALUES (?, ?, ?, ?, ?,?)`;
+
+  const sql1 = `INSERT INTO ${STAFF_TABLE} ( staff_name, user_id, role_id,course_id ) VALUES (?, ?, ?, ?)`;
+  let connection = null;
+  try {
+    connection = await promisePool.getConnection();
+    connection.beginTransaction();
+
+    let [insertUserResult] = await connection.query(
+      sql, [first_name, last_name, mobile_number, email, password, role_id]);
+    let [userSelectResult] = await connection.query("select * from user where email=?", [email]);
+
+    let insertedUser = userSelectResult[0];
+    let user_id = insertedUser.user_id;
+
+    let [insertedStaffResult] = await connection.query(sql1, [staff_name, user_id, role_id, course_id]);
+    connection.commit();
+    return res.status(201).send(successResponse(`sucessful inserted ${staffRoleIds[role_id]} staff`));
+
+  } catch (err) {
+    if (connection !== null) {
+      await connection.rollback();
+    }
+    console.log(err)
+    return res.status(500).send(errorResponse(err));
+
+  }
 });
 
 // PUT: update an user by Id // assign course to co-ordinator

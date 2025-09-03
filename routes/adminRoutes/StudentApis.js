@@ -76,32 +76,70 @@ router.post("/add-student", (req, res) => {
 //   "mobile_number": "9876543137",
 //   "email": "alice.smith7@example.com",
 //   "password": "securePassword123",
-  
+
 //   "prn_number": "123456789",
 //   "group_id": 2
 // }
+
 router.post("/add-student-promise", async (req, res) => {
 
-  let { first_name, last_name, mobile_number, email, password, roll_number, prn_number, group_id } = req.body;
+  let {
+    first_name,
+    last_name,
+    email,
+    mobile_number,
+    password,
+    prn_number, // optional, can be empty initially
+    group_id,   // optional, can be empty initially
+  } = req.body || {};
+
 
   // course_id = Number.parseInt(course_id);
   // if (Number.isNaN(course_id) || course_id < 0) {
   //   return res.status(400).send(errorResponse("Invalid course Id"))
   // }
+  if (!first_name || !last_name || !email || !mobile_number || !password) {
+    return res.status(400).json({
+      status: "Error",
+      message: "First name, Last name, Email, Mobile number and Password are required",
+    });
+  }
 
-  //staff name, email, role, course, Action
-  const sql = `INSERT INTO ${USER_TABLE} (  first_name, last_name, mobile_number, email, password,role_id) VALUES (?, ?, ?, ?, ?, 5)`;
-
-  const sql1 = `INSERT INTO ${STUDENT_TABLE} ( user_id, prn_number, group_id,created_at,updated_at ) VALUES (?, ?, ?,curdate(),curdate())`;
   let connection = null;
   try {
     connection = await promisePool.getConnection();
     await connection.beginTransaction();
-    const userInsertResult = await connection.query(sql, [first_name, last_name, mobile_number, email, password]);
-    const userSelectResult = await connection.query("select * from user where email=?", [email]);
-    let insertedUser = userSelectResult[0][0];
-    let user_id = insertedUser.user_id;
-    let staffInsertResult = await connection.query(sql1, [user_id, prn_number, group_id]);
+
+    const checkUserSql = `
+    SELECT * FROM user WHERE email = ? OR mobile_number = ?
+  `;
+    let [checkUserResult] = await connection.query(checkUserSql, [email, mobile_number]);
+    if (checkUserResult.length > 0) {
+      return res.status(400).json(errorResponse(
+        "Email or Mobile number already registered"
+      ));
+    }
+    const insertUserSql = `
+      INSERT INTO user (first_name, last_name, email, mobile_number, password, role_id)
+      VALUES (?, ?, ?, ?, ?, 5)
+    `;
+    let [insertUserResult] = await connection.query(
+      insertUserSql,
+      [first_name, last_name, email, mobile_number, password]);
+
+    const user_id = insertUserResult.insertId; // Newly created user ID
+    const student_name = `${first_name} ${last_name}`;
+
+    const safePrn = prn_number && prn_number.toString().trim() !== "" ? prn_number : null;
+    const safeGroup = group_id && group_id.toString().trim() !== "" ? group_id : null;
+
+    const insertStudentSql = `
+          INSERT INTO student (prn_number, student_name, group_id, user_id, created_at, updated_at)
+          VALUES (?, ?, ?, ?, CURDATE(), CURDATE())
+        `;
+    const [insertStudentResult] = await connection.query(
+      insertStudentSql,
+      [safePrn, student_name, safeGroup, user_id]);
     await connection.commit();
     return res.status(201).send(successResponse("sucessful inserted student Id"));
   }
@@ -115,16 +153,16 @@ router.post("/add-student-promise", async (req, res) => {
 
 //http://localhost:7777/admin/update-student/2
 // {
-  
+
 //   "prn_number": "1234567890",
 //   "group_id": 2,
 //   "user_id": 2
 // }
 router.put("/update-student/:studentId", (req, res) => {
   const { studentId } = req.params;
-  const {  prn_number, group_id, user_id } = req.body;
+  const { prn_number, group_id, user_id } = req.body;
 
-  if ( !prn_number || !group_id || !user_id) {
+  if (!prn_number || !group_id || !user_id) {
     return res.send(errorResponse("All fields are required"));
   }
 
@@ -144,7 +182,7 @@ router.put("/update-student/:studentId", (req, res) => {
       WHERE student_id = ?
     `;
 
-    pool.query(updateSql, [ prn_number, group_id, user_id, studentId], (error, result) => {
+    pool.query(updateSql, [prn_number, group_id, user_id, studentId], (error, result) => {
       if (error) {
         return res.send(errorResponse(error));
       }

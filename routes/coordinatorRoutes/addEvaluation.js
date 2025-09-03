@@ -68,6 +68,7 @@ router.post("/assign-tasks", async (req, res) => {
           paramsArr,
           (assignMarksError, assignMarksResult) => {
             if (assignMarksError) {
+              console.log(assignMarksError);
               return res
                 .status(500)
                 .json(errorResponse("Database Error", assignMarksError));

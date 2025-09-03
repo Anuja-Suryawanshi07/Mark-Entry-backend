@@ -8,7 +8,7 @@ router.post("/register", (req, res) => {
   const { first_name, last_name, email, mobile_number, password, course_id } = req.body || {};
 
   // Validate all required fields
-  if (!first_name || !last_name || !email || !mobile_number || !password || !course_id) {
+  if (!first_name || !last_name || !email || !mobile_number || !password) {
     return res
       .status(400)
       .json({ status: "Error", message: "All fields are required" });

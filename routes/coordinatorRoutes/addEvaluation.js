@@ -50,18 +50,23 @@ router.post("/assign-tasks", async (req, res) => {
         let paramsArr = [];
         let assignMarksQuery = `INSERT INTO ${MARKS_TABLE} (student_id, staff_id, module_id, start_date, till_date, status) values`;
 
-        for (let student of result) {
+        for (let index in result) {
+          let student = result[index];
           let student_id = student.student_id;
           paramsArr = [
             ...paramsArr,
             student_id,
+            staff_id,
             module_id,
             start_date,
             end_date,
             "In Progress",
           ];
-          assignMarksQuery += (student != 0 ? "," : "") + "(?,?,?,?,?,?)";
+          assignMarksQuery += (index != 0 ? "," : "") + "(?,?,?,?,?,?)";
         }
+
+        // console.log("paramsArr:: ", paramsArr)
+        // console.log("assignMarksQuery:: ", assignMarksQuery)
 
         pool.execute(
           assignMarksQuery,

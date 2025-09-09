@@ -60,7 +60,7 @@ router.post("/assign-tasks", async (req, res) => {
             module_id,
             start_date,
             end_date,
-            "In Progress",
+            "Pending",
           ];
           assignMarksQuery += (index != 0 ? "," : "") + "(?,?,?,?,?,?)";
         }

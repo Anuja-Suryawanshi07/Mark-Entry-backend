@@ -9,6 +9,7 @@
   "author": "anuja",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
     "express": "^5.1.0",
     "helmet": "^8.1.0",

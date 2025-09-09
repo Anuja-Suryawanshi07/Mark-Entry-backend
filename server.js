@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const { PORT } = require("./config");
+const cors = require("cors")
 
 const roleRoutes = require("./routes/roleRoutes/index");
 const batchRoutes = require("./routes/batchRoutes/index");
@@ -21,6 +22,7 @@ const getAllStudentByCourseName = require("./routes/coordinatorRoutes")
 
 // middleware
 app.use(express.json());
+app.use(cors())
 
 //routes
 app.use("/roles", roleRoutes);

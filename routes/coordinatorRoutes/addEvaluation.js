@@ -44,29 +44,36 @@ router.post("/assign-tasks", async (req, res) => {
     };
 
     pool.query(
-      `SELECT student_id from ${STUDENT_TABLE} where group_id=?`,
+      `SELECT student_id FROM ${STUDENT_TABLE} WHERE group_id=?`,
       [group_id],
       (error, result) => {
-        let paramsArr = [];
-        let assignMarksQuery = `INSERT INTO ${MARKS_TABLE} (student_id, staff_id, module_id, start_date, till_date, status) values`;
+        if (error) {
+          return res.status(500).json(errorResponse("Database Error", error));
+        }
 
-        for (let index in result) {
-          let student = result[index];
+        if (result.length === 0) {
+          return res
+            .status(404)
+            .json(errorResponse("No students found in the selected group."));
+        }
+
+        let paramsArr = [];
+        let assignMarksQuery = `INSERT INTO ${MARKS_TABLE} (student_id, staff_id, module_id, start_date, till_date, status) VALUES `;
+
+        for (let i = 0; i < result.length; i++) {
+          let student = result[i];
           let student_id = student.student_id;
-          paramsArr = [
-            ...paramsArr,
+
+          assignMarksQuery += (i !== 0 ? "," : "") + "(?,?,?,?,?,?)";
+          paramsArr.push(
             student_id,
             staff_id,
             module_id,
             start_date,
             end_date,
-            "Pending",
-          ];
-          assignMarksQuery += (index != 0 ? "," : "") + "(?,?,?,?,?,?)";
+            "Pending"
+          );
         }
-
-        // console.log("paramsArr:: ", paramsArr)
-        // console.log("assignMarksQuery:: ", assignMarksQuery)
 
         pool.execute(
           assignMarksQuery,
@@ -78,9 +85,11 @@ router.post("/assign-tasks", async (req, res) => {
                 .status(500)
                 .json(errorResponse("Database Error", assignMarksError));
             }
+
             if (assignMarksResult.affectedRows === 0) {
-              return res.status(404).json(errorResponse("Task not found"));
+              return res.status(404).json(errorResponse("Task not created"));
             }
+
             return res
               .status(201)
               .json(successResponse(assignTasks, "Task assigned"));
@@ -88,7 +97,6 @@ router.post("/assign-tasks", async (req, res) => {
         );
       }
     );
-    // return res.status(200).json(successResponse(assignTasks, "Task assigned (not saved)."));
   } catch (error) {
     console.error(error);
     return res.status(500).json(errorResponse("Internal server error."));

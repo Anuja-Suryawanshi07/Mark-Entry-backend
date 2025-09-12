@@ -62,13 +62,13 @@ router.get("/show-all-pending-tasks/:staffId", (req, res) => {
       return res.status(404).json(errorResponse("No tasks found for this mentor"));
     }
 
-    // ✅ apply dynamic status logic
+    //  apply dynamic status logic
     const updatedResult = results.map(task => {
       if (
-        task.theory_marks == null ||
-        task.lab_marks == null ||
-        task.IA_1 == null ||
-        task.IA_2 == null
+        task.theory_marks == 0 ||
+        task.lab_marks == 0 ||
+        task.IA_1 == 0 ||
+        task.IA_2 == 0
       ) {
         task.status = "Pending";
       } else if (task.status !== "Completed") {

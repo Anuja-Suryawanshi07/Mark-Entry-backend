@@ -68,6 +68,20 @@ router.post("/assign-tasks/:student_id", async (req, res) => {
     //  Debug logs
     console.log("Running SQL:", sql);
     console.log("Values:", values);
+        for (let index in result) {
+          let student = result[index];
+          let student_id = student.student_id;
+          paramsArr = [
+            ...paramsArr,
+            student_id,
+            staff_id,
+            module_id,
+            start_date,
+            end_date,
+            "Pending",
+          ];
+          assignMarksQuery += (index != 0 ? "," : "") + "(?,?,?,?,?,?)";
+        }
 
     //  Execute query
     await pool.promise().execute(sql, values);

@@ -29,7 +29,7 @@ router.get("/get-course-by-batch/:batchId", (req, res) => {
         .status(404)
         .send(errorResponse("No Course found with this ID: " + batchId));
     }
-    return res.status(200).send(successResponse(result[0]));
+    return res.status(200).send(successResponse(result));
   });
 });
 

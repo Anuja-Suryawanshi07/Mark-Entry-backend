@@ -128,7 +128,7 @@ router.put("/update-staff/:staff_id", (req, res) => {
 
 
   const sql = `UPDATE ${STAFF_TABLE}
-                SET course_id = ?
+                SET role_id, course_id = ?
                 WHERE staff_id = ?`;
 
   pool.query(

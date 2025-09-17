@@ -6,7 +6,7 @@ const { MARKS_TABLE, STUDENT_TABLE, USER_TABLE, MODULE_TABLE } = require("../../
 const router = express.Router();
 
 // GET all approved tasks for a staff
-//http://localhost:7777/mentor/show-all-approved-task/:staffId
+//http://localhost:5555/mentor/show-all-approved-task/:staffId
 router.get("/show-all-approved-task/:staffId", (req, res) => {
   const { staffId } = req.params;
 
@@ -20,7 +20,7 @@ router.get("/show-all-approved-task/:staffId", (req, res) => {
     JOIN ${STUDENT_TABLE} st ON m.student_id = st.student_id
     JOIN ${USER_TABLE} u ON st.user_id = u.user_id
     JOIN ${MODULE_TABLE} ON m.module_id = \`module\`.module_id
-    WHERE m.staff_id = ? AND m.status = 'Completed'
+    WHERE m.staff_id = ? AND m.status = 'Approved'
   `;
 
   pool.query(sql, [staffId], (error, results) => {

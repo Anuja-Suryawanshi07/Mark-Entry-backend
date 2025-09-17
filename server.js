@@ -2,14 +2,12 @@ const express = require("express");
 const cors = require("cors");
 const { PORT } = require("./config");
 const app = express();
+//const { checkAuth } = require("./middleware/checkAuth");
 
-const cors = require("cors");
-
-const { checkAuth } = require("./middleware/checkAuth");
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use(checkAuth)
+//app.use(checkAuth)
 
 
 // Import routes
@@ -29,7 +27,6 @@ const coordinatorRoutes = require("./routes/coordinatorRoutes");
 //  Mount routes (no duplicates!)
 app.use("/staff", staffRoutes);
 
-const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
 const getAllStudentByCourseName = require("./routes/coordinatorRoutes")
 
 // middleware

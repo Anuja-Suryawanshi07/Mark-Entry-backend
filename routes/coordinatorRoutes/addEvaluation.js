@@ -62,44 +62,61 @@ router.post("/assign-tasks/:student_id", async (req, res) => {
       ia2,
       start_date,
       end_date,
-      status
     ];
 
-    //  Debug logs
-    console.log("Running SQL:", sql);
-    console.log("Values:", values);
-        for (let index in result) {
-          let student = result[index];
+    pool.query(
+      `SELECT student_id FROM ${STUDENT_TABLE} WHERE group_id=?`,
+      [group_id],
+      (error, result) => {
+        if (error) {
+          return res.status(500).json(errorResponse("Database Error", error));
+        }
+
+        if (result.length === 0) {
+          return res
+            .status(404)
+            .json(errorResponse("No students found in the selected group."));
+        }
+
+        let paramsArr = [];
+        let assignMarksQuery = `INSERT INTO ${MARKS_TABLE} (student_id, staff_id, module_id, start_date, till_date, status) VALUES `;
+
+        for (let i = 0; i < result.length; i++) {
+          let student = result[i];
           let student_id = student.student_id;
-          paramsArr = [
-            ...paramsArr,
+
+          assignMarksQuery += (i !== 0 ? "," : "") + "(?,?,?,?,?,?)";
+          paramsArr.push(
             student_id,
             staff_id,
             module_id,
             start_date,
             end_date,
-            "Pending",
-          ];
-          assignMarksQuery += (index != 0 ? "," : "") + "(?,?,?,?,?,?)";
+            "Pending"
+          );
         }
 
-    //  Execute query
-    await pool.promise().execute(sql, values);
+        pool.execute(
+          assignMarksQuery,
+          paramsArr,
+          (assignMarksError, assignMarksResult) => {
+            if (assignMarksError) {
+              console.log(assignMarksError);
+              return res
+                .status(500)
+                .json(errorResponse("Database Error", assignMarksError));
+            }
 
-    //  Success response
-    return res.status(200).json(
-      successResponse(
-        {
-          student_id,
-          staff_id,
-          module_id,
-          typeFlags,
-          start_date,
-          end_date,
-          status
-        },
-        "Task assigned and saved successfully."
-      )
+            if (assignMarksResult.affectedRows === 0) {
+              return res.status(404).json(errorResponse("Task not created"));
+            }
+
+            return res
+              .status(201)
+              .json(successResponse(assignTasks, "Task assigned"));
+          }
+        );
+      }
     );
   } catch (error) {
     console.error(" Error in /assign-tasks:", error);

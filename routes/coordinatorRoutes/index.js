@@ -12,6 +12,7 @@ const dashboard = require("./dashboard");
 const taskApproved = require("./taskApprove");
 const submittedTasks = require("./submittedTasks")
 const allApprovedTasks = require("./allApprovedTask");
+const getAllPendingTask = require("./getAllPendingTask")
 
 // module level middleware
 //router.use(checkCoordinatorRole);
@@ -26,6 +27,7 @@ router.use(getAllStudentWithoutGroup);
 router.use(getAllStaffByCourseName);
 router.use(addEvaluation);
 router.use(dashboard);
+router.use(getAllPendingTask)
 
 
 module.exports = router;

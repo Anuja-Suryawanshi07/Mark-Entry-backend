@@ -41,6 +41,19 @@ router.post("/add-batch", (req, res) => {
   if (isActive !== 1 && isActive !== 0) {
     return res.status(400).json(errorResponse("Invalid is active field"))
   }
+ 
+  const checkBatchName = `select * from batch where batch_name=?`
+
+   pool.query(checkBatchName, [batchName], (checkBatchError, checkBatchResult) =>{
+     if (checkBatchError) {
+          return res.status(500).send(errorResponse(checkBatchError));
+        }
+        if (checkBatchResult.length > 0) {
+      return res.status(400).json(errorResponse(
+        "Batch name already registered"
+      ));
+    }
+   
 
   pool.query(sql, [batchName, isActive], (error, result) => {
     if (error) {
@@ -56,6 +69,7 @@ router.post("/add-batch", (req, res) => {
       })
     );
   });
+});
 });
 
 //http://localhost:7777/admin/update-batch-status/7

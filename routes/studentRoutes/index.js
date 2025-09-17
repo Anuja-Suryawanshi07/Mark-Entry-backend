@@ -1,9 +1,5 @@
 const express = require("express");
 const router = express.Router();
-//const  { checkAuth } = require("../../middleware/checkAuth");
-const { checkStudentRole } = require("../../middleware/checkAuth");
-
-
 const getallstudent = require("./getallstudents");
 const addstudent = require("./addstudent");
 const updatestudent = require("./updatestudent");
@@ -15,23 +11,14 @@ const dashboard = require("./dashboard");
 // const getStudentGroupsByCourseId = require("./getStudentGroupsByCourseId");
 const getStudentInAGroup = require("./getStudentInAGroup");
 
-router.use(registerstudent);
-router.use(loginstudent);
-
-
-//router.use(checkAuth);
-
-//Module level middleware
-router.use(checkStudentRole);
-
 router.use(getallstudent);
 router.use(addstudent);
 router.use(updatestudent);
 router.use(deletestudent);
+router.use(loginstudent);
+router.use(registerstudent);
 router.use(getMarksByStudentId);
 router.use(dashboard);
 //router.use(getStudentGroupsByCourseId);
 router.use(getStudentInAGroup);
-
-
 module.exports = router;

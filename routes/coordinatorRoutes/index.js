@@ -12,6 +12,7 @@ const taskApproved = require("./taskApproved");
 const submittedTasks = require("./submittedTasks")
 const allApprovedTasks = require("./allApprovedTask");
 const getAllPendingTask = require("./getAllPendingTask")
+const getAllCompletedTask = require("./getAllCompletedTask")
 
 
 router.use(allApprovedTasks);
@@ -24,7 +25,8 @@ router.use(getAllStudentWithoutGroup);
 router.use(getAllStaffByCourseName);
 router.use(addEvaluation);
 router.use(dashboard);
-router.use(getAllPendingTask)
+router.use(getAllPendingTask);
+router.use(getAllCompletedTask);
 
 
 module.exports = router;

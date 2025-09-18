@@ -1,23 +1,28 @@
 const express = require("express");
 const app = express();
-const { PORT } = require("./config");
-const cors = require("cors")
+//const { checkAuth } = require("./middleware/checkAuth");
 
-const roleRoutes = require("./routes/roleRoutes/index");
-const batchRoutes = require("./routes/batchRoutes/index");
-const courseRoutes = require("./routes/courseRoutes/index");
-const moduleRoutes = require("./routes/moduleRoutes/index");
-const userRoutes = require("./routes/userRoutes/index");
-const staffRoutes = require("./routes/staffRoutes/index");
-const marksRoutes = require("./routes/marksRoutes/index");
-const studentGroupRoutes = require("./routes/student_groupRoutes")
-const studentRoutes = require("./routes/studentRoutes/index");
+// Middleware
+app.use(express.json());
+app.use(cors());
+//app.use(checkAuth)
+
+
+// Import routes
+const roleRoutes = require("./routes/roleRoutes");
+const batchRoutes = require("./routes/batchRoutes");
+const courseRoutes = require("./routes/courseRoutes");
+const moduleRoutes = require("./routes/moduleRoutes");
+const userRoutes = require("./routes/userRoutes");
+const staffRoutes = require("./routes/staffRoutes");
+const marksRoutes = require("./routes/marksRoutes");
+const studentGroupRoutes = require("./routes/student_groupRoutes");
+const studentRoutes = require("./routes/studentRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const mentorRoutes = require("./routes/mentorRoutes");
 const coordinatorRoutes = require("./routes/coordinatorRoutes")
 
 
-const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
 const getAllStudentByCourseName = require("./routes/coordinatorRoutes")
 
 // middleware

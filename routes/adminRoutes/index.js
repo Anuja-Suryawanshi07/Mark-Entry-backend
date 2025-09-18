@@ -23,8 +23,6 @@ const AssignCourseToStudent = require("./AssignCourseToStudent");
 const UpdateStudents = require("./updateStudent");
 
 
-
-
 //staff
 
 // const getAllStaff = require("./getallstaff");

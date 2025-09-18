@@ -1,6 +1,7 @@
 
 const express = require("express");
 const router = express.Router();
+//const { checkAdminRole} = require("../../middleware/checkAuth");
 
 const groupApis = require('./GroupApis');
 const batchApis = require('./batchApis');
@@ -32,6 +33,10 @@ const UpdateStudents = require("./updateStudent");
 // const addStudentToGroup = require('./addStudentToGroup');
 // const getAllCourses = require("./getAllCourses");
 // const getStudentDetails = require('./getStudentDetails');
+
+// module level middleware
+//router.use(checkAdminRole);
+
 
 // router.use(getAllStaff);
 // router.use(addStaff);

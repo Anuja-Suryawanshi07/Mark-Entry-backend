@@ -4,18 +4,16 @@ const router = express.Router();
 const { COURSE_TABLE, BATCH_TABLE } = require("../../config");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
-// GET: get an user by Id
-//http://localhost:7777/course/get-course-by-batch/7
+// GET: get courses by batch ID
+// http://localhost:7777/course/get-course-by-batch/:batchId
 
 router.get("/get-course-by-batch/:batchId", (req, res) => {
   let { batchId } = req.params;
 
   batchId = Number.parseInt(batchId);
   if (Number.isNaN(batchId) || batchId < 0) {
-    return res.status(400).send(errorResponse("Invalid course Id"));
+    return res.status(400).send(errorResponse("Invalid batch Id"));
   }
-
-  // const sql = `SELECT * FROM ${COURSE_TABLE} WHERE batch_id = ?`;
 
   const sql = `SELECT course_table.*, batch_table.* FROM ${COURSE_TABLE} course_table JOIN ${BATCH_TABLE} batch_table ON course_table.batch_id = batch_table.batch_id WHERE course_table.batch_id = ?;`;
 
@@ -27,7 +25,7 @@ router.get("/get-course-by-batch/:batchId", (req, res) => {
     if (result.length === 0) {
       return res
         .status(404)
-        .send(errorResponse("No Course found with this ID: " + batchId));
+        .send(errorResponse("No Course found with this batch ID: " + batchId));
     }
     return res.status(200).send(successResponse(result));
   });

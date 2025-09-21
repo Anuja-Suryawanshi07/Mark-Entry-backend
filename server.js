@@ -1,7 +1,6 @@
 const express = require("express");
-const cors = require("cors");
-const { PORT } = require("./config");
 const app = express();
+const { PORT } = require("./config");
 //const { checkAuth } = require("./middleware/checkAuth");
 
 // Middleware
@@ -23,30 +22,30 @@ const studentGroupRoutes = require("./routes/student_groupRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const mentorRoutes = require("./routes/mentorRoutes");
-const coordinatorRoutes = require("./routes/coordinatorRoutes");
+const coordinatorRoutes = require("./routes/coordinatorRoutes")
 
-//  Mount routes (no duplicates!)
-app.use("/staff", staffRoutes);
 
 const getAllStudentByCourseName = require("./routes/coordinatorRoutes")
 
 
 //routes
-
 app.use("/roles", roleRoutes);
 app.use("/batch", batchRoutes);
 app.use("/course", courseRoutes);
 app.use("/module", moduleRoutes);
-
+app.use("/staff", staffRoutes);
 app.use("/marks", marksRoutes);
+
 app.use("/student_group", studentGroupRoutes);
+
 app.use("/student", studentRoutes);
 app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
 app.use("/mentor", mentorRoutes);
 app.use("/coordinator", coordinatorRoutes);
+app.use("/course", getAllCourseBatch);
+app.use("/coordinator", getAllStudentByCourseName);
 
-// Start server
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server Started at http://localhost:${PORT}`);
 });

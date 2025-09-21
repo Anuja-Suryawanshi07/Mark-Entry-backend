@@ -1,8 +1,6 @@
 
 const express = require("express");
 const router = express.Router();
-const { checkStaffRole } = require("../../middleware/checkAuth");
-
 
 //staff
 
@@ -28,6 +26,8 @@ router.use(updateStaff);
 router.use(deletestaff);
 router.use(dashboard);
 router.use(staffRoutes);
+router.use(staffRegister);
+router.use(staffLogin);
 router.use(assignStaffToCourse);
 
 

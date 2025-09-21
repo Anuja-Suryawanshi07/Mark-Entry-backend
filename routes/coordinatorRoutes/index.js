@@ -7,12 +7,13 @@ const getAllStudentByGroupName = require("./getAllStudentByGroupName")
 const assignGroupToStudent = require("./assignGroupToStudent")
 const getAllStudentWithoutGroup = require("./getAllStudentWithoutGroup")
 const getAllStaffByCourseName = require("./getAllStaffByCourseName")
-const addEvaluation = require("./addEvaluation");
+const addEvaluation = require("./addEvaluation")
 const dashboard = require("./dashboard");
 const taskApproved = require("./taskApprove");
 const submittedTasks = require("./submittedTasks")
 const allApprovedTasks = require("./allApprovedTask");
 const getAllPendingTask = require("./getAllPendingTask")
+const getAllCompletedTask = require("./getAllCompletedTask")
 
 // module level middleware
 //router.use(checkCoordinatorRole);
@@ -27,7 +28,8 @@ router.use(getAllStudentWithoutGroup);
 router.use(getAllStaffByCourseName);
 router.use(addEvaluation);
 router.use(dashboard);
-router.use(getAllPendingTask)
+router.use(getAllPendingTask);
+router.use(getAllCompletedTask);
 
 
 module.exports = router;

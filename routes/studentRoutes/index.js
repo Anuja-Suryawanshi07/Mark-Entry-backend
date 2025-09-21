@@ -28,10 +28,10 @@ router.use(getallstudent);
 router.use(addstudent);
 router.use(updatestudent);
 router.use(deletestudent);
+router.use(loginstudent);
+router.use(registerstudent);
 router.use(getMarksByStudentId);
 router.use(dashboard);
 //router.use(getStudentGroupsByCourseId);
 router.use(getStudentInAGroup);
-
-
 module.exports = router;

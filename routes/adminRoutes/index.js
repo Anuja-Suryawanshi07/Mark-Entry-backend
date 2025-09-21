@@ -37,7 +37,7 @@ const UpdateStudents = require("./updateStudent");
 // const getStudentDetails = require('./getStudentDetails');
 
 // module level middleware
-router.use(checkAdminRole);
+//router.use(checkAdminRole);
 
 
 // router.use(getAllStaff);

@@ -20,7 +20,7 @@ router.use(staffLogin);
 router.use(staffRegister);
 
 //Module level middleware
-router.use(checkStaffRole);
+//router.use(checkStaffRole);
 
 router.use(getAllStaff);
 router.use(addStaff);

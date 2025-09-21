@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-//const  { checkAuth } = require("../../middleware/checkAuth");
+const  { checkAuth } = require("../../middleware/checkAuth");
 const { checkStudentRole } = require("../../middleware/checkAuth");
 
 
@@ -19,7 +19,7 @@ router.use(registerstudent);
 router.use(loginstudent);
 
 
-//router.use(checkAuth);
+router.use(checkAuth);
 
 //Module level middleware
 router.use(checkStudentRole);

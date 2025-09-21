@@ -8,6 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 //app.use(checkAuth)
+//app.use(checkAuth)
 
 
 // Import routes
@@ -29,9 +30,6 @@ app.use("/staff", staffRoutes);
 
 const getAllStudentByCourseName = require("./routes/coordinatorRoutes")
 
-// middleware
-app.use(express.json());
-app.use(cors())
 
 //routes
 

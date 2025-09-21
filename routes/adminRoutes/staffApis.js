@@ -11,9 +11,9 @@ const { STAFF_TABLE, ROLE_TABLE, USER_TABLE, COURSE_TABLE } = require("../../con
 
 router.get("/all-staff", (req, res) => {
   const sql = `Select staff_id , concat(u.first_name, ' ', u.last_name) staff_name, u.email, r.role_name, c.course_name  from ${STAFF_TABLE} s
- join ${ROLE_TABLE} r on s.role_id = r.role_id  
- join ${USER_TABLE} u on s.user_id = u.user_id 
- join ${COURSE_TABLE} c on s.course_id = c.course_id;
+ left join ${ROLE_TABLE} r on s.role_id = r.role_id  
+ left join ${USER_TABLE} u on s.user_id = u.user_id 
+ left join ${COURSE_TABLE} c on s.course_id = c.course_id;
 `;
 
   pool.query(sql, (error, results) => {
@@ -72,16 +72,25 @@ router.post("/add-staff", async (req, res) => {
     }
   }
 
+      const checkUserSql = `
+    SELECT * FROM user WHERE email = ? OR mobile_number = ?
+  `;
   
 const staff_name = `${first_name} ${last_name}`;
   //staff name, email, role, course, Action
-  const sql = `INSERT INTO ${USER_TABLE} (  first_name, last_name, mobile_number, email, password,role_id) VALUES (?, ?, ?, ?, ?,?)`;
+  const sql = `INSERT INTO ${USER_TABLE} (  first_name, last_name, mobile_number, email, password) VALUES (?, ?, ?, ?, ?)`;
 
-  const sql1 = `INSERT INTO ${STAFF_TABLE} ( staff_name, user_id, role_id,course_id ) VALUES (?, ?, ?, ?)`;
+  const sql1 = `INSERT INTO ${STAFF_TABLE} ( staff_name, user_id, role_id ) VALUES (?, ?, ?)`;
   let connection = null;
   try {
     connection = await promisePool.getConnection();
     connection.beginTransaction();
+    let [checkUserResult] = await connection.query(checkUserSql, [email, mobile_number]);
+    if (checkUserResult.length > 0) {
+      return res.status(400).json(errorResponse(
+        "Email or Mobile number already registered"
+      ));
+    }
 
     let [insertUserResult] = await connection.query(
       sql, [first_name, last_name, mobile_number, email, password, role_id]);
@@ -90,7 +99,7 @@ const staff_name = `${first_name} ${last_name}`;
     let insertedUser = userSelectResult[0];
     let user_id = insertedUser.user_id;
 
-    let [insertedStaffResult] = await connection.query(sql1, [staff_name, user_id, role_id, course_id]);
+    let [insertedStaffResult] = await connection.query(sql1, [staff_name, user_id, role_id]);
     connection.commit();
     return res.status(201).send(successResponse(`sucessful inserted ${staffRoleIds[role_id]} staff`));
 

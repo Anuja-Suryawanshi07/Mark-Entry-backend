@@ -8,6 +8,7 @@ const showApprovedTask = require("./showApprovedTask");
 const addMark = require("./addMark");
 const dashboard = require("./dashboard");
 const taskAssigned = require("./taskAssignToMentor");
+const pendingTasksByStaffId = require("./pendingTasksByStaffId");
 
 //Module level middleware
 //router.use(checkMentorRole);
@@ -17,5 +18,6 @@ router.use(showPendingTask);
 router.use(showApprovedTask);
 router.use(addMark);
 router.use(dashboard);
+router.use(pendingTasksByStaffId);
 
 module.exports = router;

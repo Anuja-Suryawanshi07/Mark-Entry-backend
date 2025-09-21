@@ -28,7 +28,7 @@ const router = express.Router();
 
  */
 
-router.get("/show-all-pending-tasks", (req, res) => {
+router.get("/show-all-pending-tasks/:staffId", (req, res) => {
   const { staffId } = req.params;
   console.log(req.params);
 
@@ -51,17 +51,17 @@ router.get("/show-all-pending-tasks", (req, res) => {
     LEFT JOIN staff AS st ON m.staff_id = st.staff_id
     LEFT JOIN student_group AS g ON s.group_id = g.group_id
     LEFT JOIN module AS mod_table ON m.module_id = mod_table.module_id
-    WHERE  status = "Pending";
+    WHERE st.staff_id = ? AND m.status = "Pending";
   `;
 
   pool.query(sql, [staffId], (error, results) => {
     if (error) {
-      console.log(error);
+      console.error("SQL Error:", error);
       return res.status(500).json(errorResponse("Database Error", error));
     }
 
-    if (res.length === 0) {
-      console.log(error);
+    if (results.length === 0) {
+      //console.log(error);
       return res.status(404).json(errorResponse("No tasks found for this mentor"));
     }
 

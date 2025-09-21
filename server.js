@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 //const { checkAuth } = require("./middleware/checkAuth");
 
@@ -23,7 +24,8 @@ const mentorRoutes = require("./routes/mentorRoutes");
 const coordinatorRoutes = require("./routes/coordinatorRoutes")
 
 
-const getAllStudentByCourseName = require("./routes/coordinatorRoutes")
+const getAllStudentByCourseName = require("./routes/coordinatorRoutes");
+const { PORT } = require("./config");
 
 // middleware
 app.use(express.json());
@@ -44,9 +46,9 @@ app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
 app.use("/mentor", mentorRoutes);
 app.use("/coordinator", coordinatorRoutes);
-app.use("/course", getAllCourseBatch);
+//app.use("/course", getAllCourseBatch);
 app.use("/coordinator", getAllStudentByCourseName);
 
 app.listen(PORT, () => {
-  console.log(`Server Started at http://localhost:${PORT}`);
+console.log(`Server Started at http://localhost:${PORT}`);
 });

@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const { PORT } = require("./config");
+const cors = require('cors')
 //const { checkAuth } = require("./middleware/checkAuth");
 
 // Middleware
@@ -43,7 +44,7 @@ app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
 app.use("/mentor", mentorRoutes);
 app.use("/coordinator", coordinatorRoutes);
-app.use("/course", getAllCourseBatch);
+// app.use("/course", getAllCourseBatch);
 app.use("/coordinator", getAllStudentByCourseName);
 
 app.listen(PORT, () => {

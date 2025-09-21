@@ -2,6 +2,7 @@ const express = require("express");
 const pool = require("../../config/db");
 const promisePool = require('../../config/db-promise')
 const router = express.Router();
+const crypto = require('crypto-js')
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const { STAFF_TABLE, ROLE_TABLE, USER_TABLE, COURSE_TABLE } = require("../../config");
 
@@ -44,9 +45,9 @@ router.get("/all-staff", (req, res) => {
 //adminAssignCourse
 router.post("/add-staff", async (req, res) => {
 
-  let { first_name, last_name, mobile_number, email, password, course_id } = req.body;
+  let { first_name, last_name, mobile_number, email, password, course_id, role_id } = req.body;
 
-  if (!first_name || !last_name || !email || !mobile_number || !password ) {
+  if (!first_name || !last_name || !email || !mobile_number || !password) {
     return res
       .status(400)
       .json({ status: "Error", message: "All fields are required" });
@@ -63,7 +64,10 @@ router.post("/add-staff", async (req, res) => {
   //   return res.status(400).send(errorResponse("Invalid role id for staff. Should be: 1,2,3 or 4"));
   // }
 
-  const role_id = 4;
+  // store hashed password in the database
+  password = String(crypto.SHA256(password.trim()));
+
+  role_id = role_id || 4;
 
   if (course_id) {
     course_id = Number.parseInt(course_id);
@@ -72,13 +76,13 @@ router.post("/add-staff", async (req, res) => {
     }
   }
 
-      const checkUserSql = `
+  const checkUserSql = `
     SELECT * FROM user WHERE email = ? OR mobile_number = ?
   `;
-  
-const staff_name = `${first_name} ${last_name}`;
+
+  const staff_name = `${first_name} ${last_name}`;
   //staff name, email, role, course, Action
-  const sql = `INSERT INTO ${USER_TABLE} (  first_name, last_name, mobile_number, email, password) VALUES (?, ?, ?, ?, ?)`;
+  const sql = `INSERT INTO ${USER_TABLE} (  first_name, last_name, mobile_number, email, password, role_id) VALUES (?, ?, ?, ?, ?,?)`;
 
   const sql1 = `INSERT INTO ${STAFF_TABLE} ( staff_name, user_id, role_id ) VALUES (?, ?, ?)`;
   let connection = null;
@@ -152,7 +156,14 @@ router.put("/update-staff/:staff_id", (req, res) => {
       if (result.affectedRows === 0) {
         return res.status(404).send(errorResponse("No staff found with this ID: " + staff_id));
       }
-      return res.status(200).send(successResponse("Staff details updated Successfully with ID: " + staff_id));
+      pool.query(`update ${USER_TABLE} set role_id=? where user_id = (select user_id from ${STAFF_TABLE} where staff_id=?)`, [role_id, staff_id], (updUserErr, updUserRes) => {
+        if (updUserErr) {
+          return res.status(500).send(errorResponse(error));
+        }
+        console.log("result: ", result);
+
+        return res.status(200).send(successResponse("Staff details updated Successfully with ID: " + staff_id));
+      });
     }
   );
 });

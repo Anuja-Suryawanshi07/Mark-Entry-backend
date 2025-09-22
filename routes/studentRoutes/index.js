@@ -1,5 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const  { checkAuth } = require("../../middleware/checkAuth");
+// const { checkStudentRole } = require("../../middleware/checkAuth");
+
+
 const getallstudent = require("./getallstudents");
 const addstudent = require("./addstudent");
 const updatestudent = require("./updatestudent");
@@ -10,6 +14,15 @@ const getMarksByStudentId = require("./getMarksByStudentId");
 const dashboard = require("./dashboard");
 // const getStudentGroupsByCourseId = require("./getStudentGroupsByCourseId");
 const getStudentInAGroup = require("./getStudentInAGroup");
+
+router.use(registerstudent);
+router.use(loginstudent);
+
+
+router.use(checkAuth);
+
+//Module level middleware
+// router.use(checkStudentRole);
 
 router.use(getallstudent);
 router.use(addstudent);

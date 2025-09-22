@@ -14,6 +14,12 @@ const staffRegister = require("./staffRegister");
 const staffLogin = require("./staffLogin");
 const assignStaffToCourse = require("./assignStaffToCourse");
 
+router.use(staffLogin);
+router.use(staffRegister);
+
+//Module level middleware
+//router.use(checkStaffRole);
+
 router.use(getAllStaff);
 router.use(addStaff);
 router.use(updateStaff);

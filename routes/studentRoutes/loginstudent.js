@@ -1,6 +1,9 @@
 const express = require("express");
 const pool = require("../../config/db");
 const router = express.Router();
+const crypto = require('crypto-js')
+const jwt = require('jsonwebtoken')
+const {SECRET_KEY} = require('../../config')
 
 // POST: Student Login
 // Example: POST http://localhost:7777/student/login
@@ -32,23 +35,32 @@ router.post("/login", (req, res) => {
     const user = results[0];
 
     // Step 2: Check password (plain text check for now ⚠️)
-    if (user.password !== password) {
+    if (user.password !== crypto.SHA256(password).toString()) {
       return res.status(401).json({ status: "Error", message: "Invalid email or password" });
     }
 
     // Step 3: Login success
-    return res.status(200).json({
-      status: "Success",
-      message: "Login successful",
-      user: {
+   
+      const payload ={
         user_id: user.user_id,
         student_id: user.student_id,
         student_name: user.student_name,
         email: user.email,
         group_id: user.group_id,
-      },
+      };
+      
+ 
+     // Generate JWT token
+    const token = jwt.sign(payload, SECRET_KEY);
+
+
+    // Step 3: Login success
+    return res.status(200).json({
+      status: "Success",
+      message: "Login successful",
+      token,
     });
   });
-});
+   });
 
 module.exports = router;

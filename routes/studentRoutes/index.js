@@ -14,7 +14,7 @@ const getMarksByStudentId = require("./getMarksByStudentId");
 const dashboard = require("./dashboard");
 // const getStudentGroupsByCourseId = require("./getStudentGroupsByCourseId");
 const getStudentInAGroup = require("./getStudentInAGroup");
-
+const getStudentDetails = require("./getStudentDetails")
 router.use(registerstudent);
 router.use(loginstudent);
 
@@ -32,6 +32,7 @@ router.use(loginstudent);
 router.use(registerstudent);
 router.use(getMarksByStudentId);
 router.use(dashboard);
+router.use(getStudentDetails);
 //router.use(getStudentGroupsByCourseId);
 router.use(getStudentInAGroup);
 module.exports = router;

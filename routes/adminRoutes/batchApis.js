@@ -22,6 +22,21 @@ router.get("/all-batch", (req, res) => {
   });
 });
 
+router.get("/all-batch-isActive", (req, res) => {
+  const sql = `SELECT * FROM ${BATCH_TABLE} where is_active=1`;
+
+  pool.query(sql, (error, results) => {
+    if (error) {
+      return res.send(errorResponse(error));
+    }
+
+    if (results.length === 0) {
+      return res.send(successResponse("No Such Batches."));
+    }
+    return res.send(successResponse(results));
+  });
+});
+
 //http://localhost:7777/admin/add-batch
 router.post("/add-batch", (req, res) => {
   let { batchName, isActive } = req.body;

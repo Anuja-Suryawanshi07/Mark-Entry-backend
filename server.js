@@ -25,6 +25,7 @@ const studentRoutes = require("./routes/studentRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const mentorRoutes = require("./routes/mentorRoutes");
 const coordinatorRoutes = require("./routes/coordinatorRoutes")
+const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
 
 
 const getAllStudentByCourseName = require("./routes/coordinatorRoutes");
@@ -47,12 +48,12 @@ app.use("/admin", adminRoutes);
 app.use("/mentor", mentorRoutes);
 app.use("/coordinator", coordinatorRoutes);
 //app.use("/course", getAllCourseBatch);
-// app.use("/course", getAllCourseBatch);
+app.use("/course", getAllCourseBatch);
 app.use("/coordinator", getAllStudentByCourseName);
 
 app.listen(PORT, () => {
 console.log(`Server Started at http://localhost:${PORT}`);
 });
 app.listen(1111, (err)=>{
-  console.log(err);
+  console.log("serveerr 1111",err);
 })

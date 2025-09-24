@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 //const { SECRET_KEY } = require("../config");
 const { errorResponse } = require("../utils/apiResponse");
+const {SECRET_KEY} = require("../config")
 
 const checkAuth = (request, response, next) => {
     if (request.url === "/staff/register" || request.url === "/staff/login") {
@@ -25,6 +26,7 @@ const checkAuth = (request, response, next) => {
 
         return next();
     }catch(error) {
+        console.log(error)
         return response.send(errorResponse("Invalid or Expired Token!"));
     }
 };

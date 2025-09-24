@@ -6,9 +6,8 @@ const { STUDENT_TABLE } = require("../../config");
 // GET marks of a student by studentId
 // http://localhost:7777/student/marks/:studentId
 
-router.get("/marks/:studentId", (req, res) => {
-  const { studentId } = req.params;
-
+router.get("/marks", (req, res) => {
+  const  studentId  = req.user.student_id;
   if (!studentId) {
     return res
       .status(400)

@@ -14,6 +14,7 @@ const submittedTasks = require("./submittedTasks")
 const allApprovedTasks = require("./allApprovedTask");
 const getAllPendingTask = require("./getAllPendingTask")
 const getAllCompletedTask = require("./getAllCompletedTask")
+const allCourses = require("./allCourses")
 
 // module level middleware
 router.use(checkCoordinatorRole);
@@ -30,6 +31,7 @@ router.use(addEvaluation);
 router.use(dashboard);
 router.use(getAllPendingTask);
 router.use(getAllCompletedTask);
+router.use(allCourses);
 
 
 module.exports = router;

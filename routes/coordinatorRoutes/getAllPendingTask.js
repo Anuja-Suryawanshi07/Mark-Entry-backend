@@ -14,7 +14,7 @@ const {
 // GET: All pending marks (no staff filter)
 router.get("/pending", async (req, res) => {
   try {
-    const query = `SELECT staff_table.staff_name, student_table.student_name, student_group_table.group_name, module_table.module_name, mark_table.theory_marks,mark_table.lab_marks, mark_table.IA_1, mark_table.IA_2, mark_table.start_date, mark_table.till_date FROM ${MARKS_TABLE} mark_table JOIN ${STAFF_TABLE} staff_table ON staff_table.staff_id = mark_table.staff_id JOIN ${STUDENT_TABLE} student_table ON student_table.student_id = mark_table.student_id JOIN ${STUDENT_GROUP_TABLE} student_group_table ON student_group_table.group_id = student_table.group_id JOIN ${MODULE_TABLE} module_table ON module_table.module_id = mark_table.module_id WHERE mark_table.status = 'Pending'`;
+    const query = `SELECT staff_table.staff_name, student_table.student_name, student_group_table.group_name, module_table.module_name, mark_table.theory_marks,mark_table.lab_marks, mark_table.IA_1, mark_table.IA_2, mark_table.start_date, mark_table.till_date, mark_table.status FROM ${MARKS_TABLE} mark_table JOIN ${STAFF_TABLE} staff_table ON staff_table.staff_id = mark_table.staff_id JOIN ${STUDENT_TABLE} student_table ON student_table.student_id = mark_table.student_id JOIN ${STUDENT_GROUP_TABLE} student_group_table ON student_group_table.group_id = student_table.group_id JOIN ${MODULE_TABLE} module_table ON module_table.module_id = mark_table.module_id WHERE mark_table.status = 'Pending'`;
 
     pool.execute(query, (error, results) => {
       if (error) {

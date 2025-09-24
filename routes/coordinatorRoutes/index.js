@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-//const { checkCoordinatorRole } = require("../../middleware/checkAuth");
+const { checkCoordinatorRole } = require("../../middleware/checkAuth");
 
 const getAllStudentByCourseName = require("./getAllStudentByCourseName");
 const getAllStudentByGroupName = require("./getAllStudentByGroupName")
@@ -16,7 +16,7 @@ const getAllPendingTask = require("./getAllPendingTask")
 const getAllCompletedTask = require("./getAllCompletedTask")
 
 // module level middleware
-//router.use(checkCoordinatorRole);
+router.use(checkCoordinatorRole);
 
 router.use(allApprovedTasks);
 router.use(submittedTasks);

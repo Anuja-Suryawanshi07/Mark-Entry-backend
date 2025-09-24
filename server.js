@@ -3,12 +3,12 @@ const cors = require("cors");
 const app = express();
 const { PORT } = require("./config");
 
-//const { checkAuth } = require("./middleware/checkAuth");
+const { checkAuth } = require("./middleware/checkAuth");
 
 // Middleware
 app.use(express.json());
 app.use(cors());
-//app.use(checkAuth)
+app.use(checkAuth);
 //app.use(checkAuth)
 
 
@@ -24,8 +24,10 @@ const studentGroupRoutes = require("./routes/student_groupRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const mentorRoutes = require("./routes/mentorRoutes");
+
 const coordinatorRoutes = require("./routes/coordinatorRoutes")
 const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
+const marksSchemeRoute = require("./routes/marksSchemeRoutes");
 
 
 const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
@@ -50,6 +52,7 @@ app.use("/mentor", mentorRoutes);
 app.use("/coordinator", coordinatorRoutes);
 app.use("/course", getAllCourseBatch);
 app.use("/coordinator", getAllStudentByCourseName);
+app.use("/marksScheme", marksSchemeRoute);
 
 app.listen(PORT, () => {
 console.log(`Server Started at http://localhost:${PORT}`);

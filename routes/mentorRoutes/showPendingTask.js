@@ -36,6 +36,7 @@ router.get("/show-all-pending-tasks", (req, res) => {
     SELECT 
       m.mark_id,
       CONCAT(student_user.first_name, ' ', student_user.last_name) AS student_name,
+      st.staff_name,   -- Use staff_name from staff table
       g.group_name,
       mod_table.module_name,
       m.theory_marks,
@@ -49,9 +50,9 @@ router.get("/show-all-pending-tasks", (req, res) => {
     LEFT JOIN student AS s ON m.student_id = s.student_id
     LEFT JOIN user AS student_user ON s.user_id = student_user.user_id
     LEFT JOIN staff AS st ON m.staff_id = st.staff_id
-    LEFT JOIN student_group AS g ON s.group_id = g.group_id
     LEFT JOIN module AS mod_table ON m.module_id = mod_table.module_id
-    WHERE  status = "Pending";
+    LEFT JOIN student_group AS g ON s.group_id = g.group_id
+    WHERE m.status = "Pending";
   `;
 
   pool.query(sql, [staffId], (error, results) => {

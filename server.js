@@ -47,7 +47,7 @@ app.use("/mentor", mentorRoutes);
 app.use("/coordinator", coordinatorRoutes);
 app.use("/course", getAllCourseBatch);
 app.use("/coordinator", getAllStudentByCourseName);
-app.use("/marksScheme", marksSchemeRoute);
+app.use("/marks-scheme", marksSchemeRoute);
 
 app.listen(PORT, () => {
 console.log(`Server Started at http://localhost:${PORT}`);

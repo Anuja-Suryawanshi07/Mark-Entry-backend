@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-//const { checkCoordinatorRole } = require("../../middleware/checkAuth");
+const { checkCoordinatorRole } = require("../../middleware/checkAuth");
 
 const getAllStudentByCourseName = require("./getAllStudentByCourseName");
 const getAllStudentByGroupName = require("./getAllStudentByGroupName")
@@ -14,9 +14,10 @@ const submittedTasks = require("./submittedTasks")
 const allApprovedTasks = require("./allApprovedTask");
 const getAllPendingTask = require("./getAllPendingTask")
 const getAllCompletedTask = require("./getAllCompletedTask")
+const allCourses = require("./allCourses")
 
 // module level middleware
-//router.use(checkCoordinatorRole);
+router.use(checkCoordinatorRole);
 
 router.use(allApprovedTasks);
 router.use(submittedTasks);
@@ -30,6 +31,7 @@ router.use(addEvaluation);
 router.use(dashboard);
 router.use(getAllPendingTask);
 router.use(getAllCompletedTask);
+router.use(allCourses);
 
 
 module.exports = router;

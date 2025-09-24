@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
-//const { SECRET_KEY } = require("../config");
+const { SECRET_KEY } = require("../config");
 const { errorResponse } = require("../utils/apiResponse");
-const {SECRET_KEY} = require("../config")
+
 
 const checkAuth = (request, response, next) => {
     if (request.url === "/staff/register" || request.url === "/staff/login") {
@@ -10,15 +10,19 @@ const checkAuth = (request, response, next) => {
 
     const authToken = request.headers.authorization;
     if (!authToken) {
-        return response.send(errorResponse("Token is Missing!"));   
-    }
+        
+        return response.status(401).send(errorResponse("Token is Missing!"));
 
+    }
+    console.log(authToken);
     try {
         const token = authToken.split(" ")[1];
-        //console.log("token: ", token);
+        console.log("token: ", token);
 
         const decodedToken = jwt.verify(token, SECRET_KEY);
-        //console.log("decodedToken: ",decodedToken);
+        console.log("decodedToken: ",decodedToken);
+        console.log("decodedToken: ",decodedToken);
+
 
         request.user = decodedToken;
         //console.log("user: ", request.user);
@@ -27,7 +31,7 @@ const checkAuth = (request, response, next) => {
         return next();
     }catch(error) {
         console.log(error)
-        return response.send(errorResponse("Invalid or Expired Token!"));
+        return response.status(401).send(errorResponse("Invalid or Expired Token!"));
     }
 };
 
@@ -35,39 +39,41 @@ const checkAdminRole = (request, response, next) => {
     //check if role is admin
     //if yes then allow the request
 
-    if (request.user.role === "admin") {
+    if (request.user.role === "Admin") {
         return next();
     }
 
     //if no then send an error message
-    return response.send(errorResponse("UnAuthorized Access! Admins only"));
+    return response.status(403).send(errorResponse("UnAuthorized Access! Admins only"));
 };
 
 const checkCoordinatorRole = (request, response, next) => {
     // check if role is coordinator 
     // if yes then allow the request
 
-    if (request.user.role === "coordinator") {
+    if (request.user.role === "Coordinator") {
         return next();
     }
 
     //if no then send an error message 
-    return response.send(errorResponse("UnAuthorized Access! Coordinator only"));
+    return response.status(403).send(errorResponse("UnAuthorized Access! Coordinator only"));
 };
 
 const checkMentorRole = (request, response, next) => {
     // check if role is Mentor 
     // if yes then allow the request
 
-    if (request.user.role === "mentor") {
+    if (request.user.role === "Mentor") {
         return next();
     }
 
     //if no then send an error message 
-    return response.send(errorResponse("UnAuthorized Access! Mentor only"));
+    return response.status(403).send(errorResponse("UnAuthorized Access! Mentor only"));
 };
 
 module.exports = {
     checkAuth,
     checkAdminRole,
+    checkCoordinatorRole,
+    checkMentorRole
 };

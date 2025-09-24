@@ -3,12 +3,12 @@ const cors = require("cors");
 const app = express();
 const { PORT } = require("./config");
 
-//const { checkAuth } = require("./middleware/checkAuth");
+const { checkAuth } = require("./middleware/checkAuth");
 
 // Middleware
 app.use(express.json());
 app.use(cors());
-//app.use(checkAuth)
+app.use(checkAuth);
 //app.use(checkAuth)
 
 
@@ -24,9 +24,11 @@ const studentGroupRoutes = require("./routes/student_groupRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const mentorRoutes = require("./routes/mentorRoutes");
+
 const coordinatorRoutes = require("./routes/coordinatorRoutes")
 
 const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
+const marksSchemeRoute = require("./routes/marksSchemeRoutes");
 const getAllStudentByCourseName = require("./routes/coordinatorRoutes");
 
 //routes
@@ -46,10 +48,11 @@ app.use("/mentor", mentorRoutes);
 app.use("/coordinator", coordinatorRoutes);
 app.use("/course", getAllCourseBatch);
 app.use("/coordinator", getAllStudentByCourseName);
+app.use("/marks-scheme", marksSchemeRoute);
 
 app.listen(PORT, () => {
 console.log(`Server Started at http://localhost:${PORT}`);
 });
 // app.listen(1111, (err)=>{
-//   console.log(err);
+//   console.log("serveerr 1111",err);
 // })

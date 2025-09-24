@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const pool = require("../../config/db");
+const pool = require("../../config/db-promise");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
 // ✅ Get all modules (for dropdown in Add Marks form)

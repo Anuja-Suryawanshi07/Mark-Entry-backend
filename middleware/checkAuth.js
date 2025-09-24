@@ -11,7 +11,7 @@ const checkAuth = (request, response, next) => {
     const authToken = request.headers.authorization;
     if (!authToken) {
         
-        return response.send(errorResponse("Token is Missing!"));
+        return response.status(401).send(errorResponse("Token is Missing!"));
 
     }
     console.log(authToken);
@@ -31,7 +31,7 @@ const checkAuth = (request, response, next) => {
         return next();
     }catch(error) {
         console.log(error)
-        return response.send(errorResponse("Invalid or Expired Token!"));
+        return response.status(401).send(errorResponse("Invalid or Expired Token!"));
     }
 };
 
@@ -44,7 +44,7 @@ const checkAdminRole = (request, response, next) => {
     }
 
     //if no then send an error message
-    return response.send(errorResponse("UnAuthorized Access! Admins only"));
+    return response.status(403).send(errorResponse("UnAuthorized Access! Admins only"));
 };
 
 const checkCoordinatorRole = (request, response, next) => {
@@ -56,7 +56,7 @@ const checkCoordinatorRole = (request, response, next) => {
     }
 
     //if no then send an error message 
-    return response.send(errorResponse("UnAuthorized Access! Coordinator only"));
+    return response.status(403).send(errorResponse("UnAuthorized Access! Coordinator only"));
 };
 
 const checkMentorRole = (request, response, next) => {
@@ -68,7 +68,7 @@ const checkMentorRole = (request, response, next) => {
     }
 
     //if no then send an error message 
-    return response.send(errorResponse("UnAuthorized Access! Mentor only"));
+    return response.status(403).send(errorResponse("UnAuthorized Access! Mentor only"));
 };
 
 module.exports = {

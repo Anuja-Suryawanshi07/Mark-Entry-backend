@@ -28,6 +28,7 @@ const coordinatorRoutes = require("./routes/coordinatorRoutes")
 const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
 
 
+const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
 const getAllStudentByCourseName = require("./routes/coordinatorRoutes");
 
 
@@ -47,7 +48,6 @@ app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
 app.use("/mentor", mentorRoutes);
 app.use("/coordinator", coordinatorRoutes);
-//app.use("/course", getAllCourseBatch);
 app.use("/course", getAllCourseBatch);
 app.use("/coordinator", getAllStudentByCourseName);
 

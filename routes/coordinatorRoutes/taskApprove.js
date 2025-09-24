@@ -18,7 +18,7 @@ router.put("/approve-task/:markId", (req, res) => {
 
   const sql = `
     UPDATE marks
-    SET status = 'Approved'
+    SET status = 'Completed'
     WHERE mark_id = ?
   `;
 

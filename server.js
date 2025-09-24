@@ -29,8 +29,6 @@ const coordinatorRoutes = require("./routes/coordinatorRoutes")
 const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
 const getAllStudentByCourseName = require("./routes/coordinatorRoutes");
 
-
-
 //routes
 app.use("/roles", roleRoutes);
 app.use("/batch", batchRoutes);

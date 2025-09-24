@@ -25,8 +25,6 @@ const studentRoutes = require("./routes/studentRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const mentorRoutes = require("./routes/mentorRoutes");
 const coordinatorRoutes = require("./routes/coordinatorRoutes")
-const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
-
 
 const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
 const getAllStudentByCourseName = require("./routes/coordinatorRoutes");

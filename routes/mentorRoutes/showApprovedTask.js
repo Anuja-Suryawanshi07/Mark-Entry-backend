@@ -7,13 +7,14 @@ const router = express.Router();
 
 // GET all approved tasks for a staff
 //http://localhost:5555/mentor/show-all-approved-task/:staffId
-router.get("/show-all-approved-task/:staffId", (req, res) => {
-  const { staffId } = req.params;
+router.get("/show-all-approved-task", (req, res) => {
+  const staffId = req.staff_id;
+
 
   const sql = `
     SELECT m.*, 
            u.first_name, 
-           u.last_name, 
+           u.last_name, st.student_name, 
            st.prn_number, 
            \`module\`.module_name
     FROM ${MARKS_TABLE} m

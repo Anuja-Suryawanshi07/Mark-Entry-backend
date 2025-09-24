@@ -28,12 +28,7 @@ const mentorRoutes = require("./routes/mentorRoutes");
 const coordinatorRoutes = require("./routes/coordinatorRoutes")
 const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
 const marksSchemeRoute = require("./routes/marksSchemeRoutes");
-
-
-const getAllCourseBatch = require("./routes/courseByBatchRoutes/index")
 const getAllStudentByCourseName = require("./routes/coordinatorRoutes");
-
-
 
 //routes
 app.use("/roles", roleRoutes);
@@ -58,5 +53,5 @@ app.listen(PORT, () => {
 console.log(`Server Started at http://localhost:${PORT}`);
 });
 // app.listen(1111, (err)=>{
-//   console.log(err);
+//   console.log("serveerr 1111",err);
 // })

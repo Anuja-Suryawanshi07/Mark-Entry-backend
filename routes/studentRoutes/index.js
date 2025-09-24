@@ -16,9 +16,10 @@ const dashboard = require("./dashboard");
 const getStudentInAGroup = require("./getStudentInAGroup");
 const getStudentDetails = require("./getStudentDetails")
 const scoresstudent = require("./scoresstudent");
+const studentRegistration = require("./studentRegistration")
 router.use(registerstudent);
 router.use(loginstudent);
-
+router.use(studentRegistration)
 
 router.use(checkAuth);
 

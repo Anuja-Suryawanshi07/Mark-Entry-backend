@@ -8,7 +8,6 @@ const { checkAuth } = require("./middleware/checkAuth");
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use(checkAuth);
 //app.use(checkAuth)
 
 

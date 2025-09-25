@@ -18,7 +18,7 @@ router.get("/marks", (req, res) => {
   SELECT 
     CONCAT(u.first_name, ' ', u.last_name) AS student_name,
     g.group_name,
-    mod_table.module_name,
+    modu.module_name,
     m.theory_marks,
     m.lab_marks,
     m.IA_1,
@@ -27,7 +27,7 @@ router.get("/marks", (req, res) => {
   LEFT JOIN user AS u ON s.user_id = u.user_id
   LEFT JOIN student_group AS g ON s.group_id = g.group_id
   LEFT JOIN marks AS m ON s.student_id = m.student_id
-  LEFT JOIN module AS mod_table ON m.module_id = mod_table.module_id
+  LEFT JOIN module AS modu ON m.module_id = modu.module_id
   WHERE s.student_id = ?`;
 
   /*On Frontend we are showing Student Name, Group Name, Module Name,Theory,Lab, IA-1, IA-2

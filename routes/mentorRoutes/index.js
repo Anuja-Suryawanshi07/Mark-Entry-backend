@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { checkMentorRole } = require("../../middleware/checkAuth");
+const { checkMentorRole,checkAuth } = require("../../middleware/checkAuth");
 
 
 const showPendingTask = require("./showPendingTask");
@@ -16,6 +16,7 @@ const getGroups = require("./getGroups");
 
 
 //Module level middleware
+router.use(checkAuth);
 router.use(checkMentorRole);
 
 router.use(taskAssigned);

@@ -37,6 +37,6 @@ router.use(dashboard);
 router.use(getStudentDetails);
 //router.use(getStudentGroupsByCourseId);
 router.use(getStudentInAGroup);
-router.use("/marks", scoresstudent); 
+router.use(scoresstudent); 
 
 module.exports = router;

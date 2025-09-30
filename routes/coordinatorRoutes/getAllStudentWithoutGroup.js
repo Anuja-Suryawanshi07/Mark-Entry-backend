@@ -34,7 +34,7 @@ const {
 // });
 
 router.get("/students-without-group", (req, res) => {
-  const { courseName } = req.query;
+  const { courseName, batchId} = req.query;
 
   if (!courseName) {
     return res
@@ -51,11 +51,12 @@ router.get("/students-without-group", (req, res) => {
     FROM ${STUDENT_TABLE} student
     JOIN ${COURSE_TABLE} course ON student.course_id = course.course_id
     WHERE student.group_id IS NULL
-      AND course.course_name = ?;
+      AND course.course_name = ? AND student.batch_id=?;
   `;
-
-  pool.query(sql, [courseName], (error, results) => {
+console.log(sql,courseName);
+  pool.query(sql, [courseName, batchId], (error, results) => {
     if (error) {
+      console.log(error)
       return res
         .status(500)
         .json(errorResponse("Database query failed.", error));
@@ -66,7 +67,7 @@ router.get("/students-without-group", (req, res) => {
         .status(200)
         .json(successResponse("No students found without a group."));
     }
-
+    console.log(results)
     return res.status(200).json(successResponse(results));
   });
 });

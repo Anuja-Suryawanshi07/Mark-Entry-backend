@@ -16,6 +16,7 @@ const getAllPendingTask = require("./getAllPendingTask")
 const getAllCompletedTask = require("./getAllCompletedTask")
 const allCourses = require("./allCourses")
 const getAllGroupByCourse = require("./getAllGroupByCourse")
+const CoBatchIsActive = require("./CoBatchIsActive")
 // module level middleware
 //router.use(checkCoordinatorRole);
 
@@ -33,6 +34,7 @@ router.use(getAllPendingTask);
 router.use(getAllCompletedTask);
 router.use(allCourses);
 router.use(getAllGroupByCourse)
+router.use(CoBatchIsActive);
 
 
 module.exports = router;

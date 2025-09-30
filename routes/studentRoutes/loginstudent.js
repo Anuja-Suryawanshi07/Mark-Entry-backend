@@ -9,7 +9,7 @@ const {SECRET_KEY} = require('../../config')
 // Example: POST http://localhost:7777/student/login
 router.post("/login", (req, res) => {
   const { email, password } = req.body || {};
-
+ //console.log({email,password});
   // Validate required fields
   if (!email || !password) {
     return res.status(400).json({ status: "Error", message: "Email and password are required" });
@@ -25,10 +25,12 @@ router.post("/login", (req, res) => {
 
   pool.query(sql, [email], (err, results) => {
     if (err) {
+      console.log(err);
       return res.status(500).json({ status: "Error", message: err.message });
     }
 
     if (results.length === 0) {
+      console.log("No email user found");
       return res.status(401).json({ status: "Error", message: "Invalid email or password" });
     }
 
@@ -36,6 +38,8 @@ router.post("/login", (req, res) => {
 
     // Step 2: Check password (plain text check for now ⚠️)
     if (user.password !== crypto.SHA256(password).toString()) {
+      console.log("stored hash",user.password);
+      console.log("request password hash",crypto.SHA256(password).toString());
       return res.status(401).json({ status: "Error", message: "Invalid email or password" });
     }
 

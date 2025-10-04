@@ -1,8 +1,8 @@
 const express = require("express");
-const pool = require("../../config/db");
+
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const { COURSE_TABLE } = require("../../config");
+
 
 
 // GET all Courses

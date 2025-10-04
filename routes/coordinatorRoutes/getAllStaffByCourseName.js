@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const pool = require("../../config/db");
+
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const { STAFF_TABLE, COURSE_TABLE, USER_TABLE } = require("../../config");
+
 
 // Get all staffs by course name
 router.get("/all-staff-with-course", (req, res) => {
@@ -30,3 +30,4 @@ router.get("/all-staff-with-course", (req, res) => {
 });
 
 module.exports = router;
+

@@ -2,14 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const {
-  MARKS_TABLE,
-  STUDENT_GROUP_TABLE,
-  MODULE_TABLE,
-  USER_TABLE,
-  STAFF_TABLE,
-  STUDENT_TABLE,
-} = require("../../config");
+
 
 // GET: All pending marks (no staff filter)
 router.get("/pending", async (req, res) => {
@@ -37,4 +30,5 @@ router.get("/pending", async (req, res) => {
 });
 
 module.exports = router;
+
 

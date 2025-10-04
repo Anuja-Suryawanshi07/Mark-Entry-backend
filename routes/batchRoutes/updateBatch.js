@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const pool = require("../../config/db");
+
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const { BATCH_TABLE } = require("../../config");
+
 
 //http://localhost:7777/batch/update-batch/batchId
 
@@ -40,3 +40,4 @@ router.put("/update-batch/:batchId", (req, res) => {
 });
 
 module.exports = router;
+

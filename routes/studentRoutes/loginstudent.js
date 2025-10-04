@@ -1,9 +1,10 @@
 const express = require("express");
-const pool = require("../../config/db");
+
 const router = express.Router();
 const crypto = require('crypto-js')
 const jwt = require('jsonwebtoken')
-const {SECRET_KEY} = require('../../config')
+const SECRET_KEY = process.env.SECRET_KEY;
+
 
 // POST: Student Login
 // Example: POST http://localhost:7777/student/login

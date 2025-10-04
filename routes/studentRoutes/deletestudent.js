@@ -1,5 +1,5 @@
 const express = require("express");
-const pool = require("../../config/db");
+
 const router = express.Router();
 const { STUDENT_TABLE } = require("../../config"); // Make sure STUDENT_TABLE = 'student' in config
 

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../config/db"); 
+
 
 //Admin Add MULTIPLE Students to Batch API
 //Endpoint: POST /admin/add-students-to-batch

@@ -1,6 +1,6 @@
 // routes/student.js
 const express = require("express");
-const pool = require("../../config/db");
+
 const router = express.Router();
 const { STUDENT_TABLE } = require("../../config");
 

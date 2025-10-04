@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const pool = require("../../config/db");
+
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const { BATCH_TABLE } = require("../../config");
+
 
 
 //http://localhost:7777/batch/all-batch
@@ -21,5 +21,6 @@ router.get("/all-batch", (req, res) => {
     return res.send(successResponse(results));
   });
 });
+
 
 module.exports = router;

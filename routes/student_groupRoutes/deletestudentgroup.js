@@ -1,8 +1,7 @@
 const express = require("express");
-const pool = require("../../config/db");
+
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const { STUDENT_GROUP_TABLE } = require("../../config");
 
 // DELETE: delete a student group by group_id
 // http://localhost:7777/student-groups/delete-group/11

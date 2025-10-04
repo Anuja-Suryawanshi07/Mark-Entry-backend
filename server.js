@@ -2,6 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const { PORT } = require("./config");
 
+
+// Import the DB pool
+const db = require("./config/db");
+
 const app = express();
 app.use(express.json());
 app.use(cors());

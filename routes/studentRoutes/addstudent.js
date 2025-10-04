@@ -2,7 +2,7 @@
 const express = require("express");
 
 const router = express.Router();
-const { STUDENT_TABLE } = require("../../config");
+
 
 // POST: add new student
 //http://localhost:7777/student/add-student

@@ -3,6 +3,9 @@
 
 const express = require("express");
 const cors = require("cors");
+
+// Import the DB pool
+const db = require("./config/db");
 const app = express();
 const PORT = process.env.PORT || 7777;
 

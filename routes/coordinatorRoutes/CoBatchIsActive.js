@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const pool = require("../../config/db");
+
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const { BATCH_TABLE } = require("../../config");
+
 
 
 router.get("/all-batch-isActive", (req, res) => {

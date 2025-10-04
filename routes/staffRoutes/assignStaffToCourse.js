@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const { STAFF_TABLE, COURSE_TABLE } = require("../../config");
+
 
 /*
  * PUT: Assign / Update Staff Course

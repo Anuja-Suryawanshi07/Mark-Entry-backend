@@ -1,8 +1,8 @@
 const express = require("express");
-const pool = require("../../config/db");
+
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const { STUDENT_GROUP_TABLE } = require("../../config");
+
 // PUT: update a student group by group_id
 
 // Example: PUT http://localhost:7777/student-groups/update-group/11

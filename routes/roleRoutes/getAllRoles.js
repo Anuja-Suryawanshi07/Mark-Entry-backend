@@ -4,7 +4,7 @@ const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
 
-const { ROLE_TABLE } = require("../../config");
+
 
 //http://localhost:7777/roles/all-roles
 
@@ -25,3 +25,4 @@ router.get("/all-roles", (req, res) => {
 
 
 module.exports = router;
+

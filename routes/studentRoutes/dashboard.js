@@ -1,7 +1,7 @@
 const express = require("express");
-;
+
 const router = express.Router();
-const { USER_TABLE } = require("../../config");
+
 
 // POST: Student Login & Dashboard
 // http://localhost:7777/student/dashboard

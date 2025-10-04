@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const { STUDENT_TABLE, STUDENT_GROUP_TABLE, USER_TABLE, COURSE_TABLE, BATCH_TABLE } = require("../../config");
+
 
 // GET all students
 // http://localhost:7777/student/get-student-details

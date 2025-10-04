@@ -1,7 +1,7 @@
 const express = require("express");
-const pool = require("../../config/db");
+
 const router = express.Router();
-const { MODULE_TABLE } = require("../../config");
+
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
 // PUT: update an user by Id

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const { ROLE_TABLE } = require("../../config");
+
 
 //http://localhost:7777/roles/update-role/6
 
@@ -39,4 +39,5 @@ router.put("/update-role/:roleId", (req, res) => {
 });
 
 module.exports = router;
+
 

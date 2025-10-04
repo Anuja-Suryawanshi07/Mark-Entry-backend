@@ -1,7 +1,7 @@
 // db.js
 const mysql = require('mysql2'); // use promise wrapper
 const fs = require('fs');
-const { HOST, USERNAME, PASSWORD, DATABASE, PORT, DB_PORT } = require('../config');
+
 
 const HOST = process.env.DB_HOST;
 const USERNAME = process.env.DB_USERNAME ; 

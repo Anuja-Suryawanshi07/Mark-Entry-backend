@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { PORT } = require("./config");
+const PORT = process.env.PORT || 7777;
 
 
 // Import the DB pool

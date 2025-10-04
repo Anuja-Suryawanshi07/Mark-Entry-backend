@@ -1,5 +1,5 @@
 const express = require("express");
-const pool = require("../../config/db");
+
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
 const router = express.Router();

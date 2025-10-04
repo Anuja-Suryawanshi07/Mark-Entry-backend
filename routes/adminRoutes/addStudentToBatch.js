@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../config/db"); 
+
 
 /**
  * ✅ Admin Add Student to Batch API (Single Student)

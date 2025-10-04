@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const pool = require("../../config/db");
+
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const {
   MARKS_TABLE,
@@ -37,3 +37,4 @@ router.get("/pending", async (req, res) => {
 });
 
 module.exports = router;
+

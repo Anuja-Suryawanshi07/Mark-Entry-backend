@@ -1,7 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
-const { STUDENT_TABLE } = require("../../config");
+
 
 // GET marks of a student by studentId
 // http://localhost:7777/student/marks/:studentId

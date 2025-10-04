@@ -1,8 +1,8 @@
 const express = require("express");
-const pool = require("../../config/db");
+
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const { STUDENT_TABLE, USER_TABLE } = require("../../config");
+
 
 // PUT: update a student by Id
 //http://localhost:7777/student/update-student/5

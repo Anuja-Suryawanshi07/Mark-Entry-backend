@@ -1,8 +1,8 @@
 const express = require("express");
-const pool = require("../../config/db");
+
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-const { MARKS_TABLE } = require("../../config");
+
 
 // PUT: update marks by Id
 // http://localhost:7777/marks/update-marks/6

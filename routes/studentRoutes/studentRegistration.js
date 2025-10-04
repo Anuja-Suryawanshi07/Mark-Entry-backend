@@ -71,6 +71,7 @@ router.post("/add-student-promise", async (req, res) => {
     return res.status(201).send(successResponse("sucessful inserted student Id"));
   }
   catch (error) {
+    console.log(err);
     if (connection !== null) {
       await connection.rollback();
     }

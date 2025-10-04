@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const pool = require("../../config/db");
+
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
 
@@ -22,5 +22,6 @@ router.get("/all-roles", (req, res) => {
     return res.send(successResponse(results));
   });
 });
+
 
 module.exports = router;

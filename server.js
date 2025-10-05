@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 const express = require("express");
 const cors = require("cors");
 const PORT = process.env.PORT || 7777;
@@ -49,8 +52,8 @@ app.get("/", (req, res) => {
   res.send("Backend deployed successfully on Vercel 🚀");
 });
 
-// ❌ Remove manual app.listen() — Vercel handles this
-// app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
+// Remove manual app.listen() — Vercel handles this
+ app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
 
 // ✅ Export the app for Vercel
 module.exports = app;

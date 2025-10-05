@@ -1,8 +1,8 @@
 const express = require("express");
-
+const pool = require("../../config/db");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { STAFF_TABLE } = require("../../config");
 
 // DELETE: delete an staff
 //http://localhost:7777/staff/delete-staff/6

@@ -1,8 +1,8 @@
 const express = require("express");
-
+const pool = require("../../config/db");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { COURSE_TABLE, BATCH_TABLE } = require("../../config");
 
 router.get("/all-courses", (req, res) => {
   const sql = `select c.course_id, b.batch_name, c.course_name from ${BATCH_TABLE} b 

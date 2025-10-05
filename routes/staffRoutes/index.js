@@ -32,6 +32,3 @@ router.use(assignStaffToCourse);
 
 
 module.exports = router;
-
-
-

@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-
+const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { MARKS_TABLE } = require("../../config");
 
 router.post("/assign-tasks/:student_id", async (req, res) => {
     try {
@@ -42,7 +42,6 @@ router.post("/assign-tasks/:student_id", async (req, res) => {
         return res.status(500).json(errorResponse("Internal server error."));
     }
 });
-
 
 
 module.exports = router;

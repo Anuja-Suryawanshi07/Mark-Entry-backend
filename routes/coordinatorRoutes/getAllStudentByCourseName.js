@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-
+const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { STUDENT_TABLE, COURSE_TABLE, STUDENT_GROUP_TABLE } = require("../../config");
 
 // Get all students by course name
 router.get("/all-students-with-course", (req, res) => {
@@ -30,4 +30,3 @@ router.get("/all-students-with-course", (req, res) => {
 });
 
 module.exports = router;
-

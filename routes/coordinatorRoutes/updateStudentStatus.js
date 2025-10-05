@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-
+const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { STUDENT_TABLE } = require("../../config");
 
 router.put("/update-student-status/:studentId", (req, res) => {
   const { studentId } = req.params;
@@ -34,5 +34,3 @@ router.put("/update-student-status/:studentId", (req, res) => {
 });
 
 module.exports = router;
-
-

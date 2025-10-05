@@ -1,5 +1,5 @@
 const express = require("express");
-
+//const pool = require("../../config/db");
 const promisePool = require("../../config/db-promise");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 const crypto = require('crypto-js')
@@ -71,7 +71,6 @@ router.post("/add-student-promise", async (req, res) => {
     return res.status(201).send(successResponse("sucessful inserted student Id"));
   }
   catch (error) {
-    console.log(err);
     if (connection !== null) {
       await connection.rollback();
     }

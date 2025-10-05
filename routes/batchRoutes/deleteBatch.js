@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-
+const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { BATCH_TABLE } = require("../../config");
 
 //http://localhost:7777/batch/delete-batch/7
 
@@ -35,4 +35,3 @@ router.delete("/delete-batch/:batchId", (req, res) => {
 });
 
 module.exports = router;
-

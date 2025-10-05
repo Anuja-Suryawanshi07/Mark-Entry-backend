@@ -1,8 +1,9 @@
+
 const express = require('express');
 const router = express.Router();
-
+const pool = require('../../config/db');
 const { successResponse, errorResponse } = require('../../utils/apiResponse');
-
+const { STUDENT_GROUP_TABLE } = require("../../config");
 
 // Your existing route here:
 

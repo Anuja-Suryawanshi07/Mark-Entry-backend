@@ -1,8 +1,8 @@
 const express = require("express");
-
+const pool = require("../../config/db");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { COURSE_TABLE } = require("../../config");
 
 
 // GET all Courses
@@ -13,6 +13,7 @@ router.get("/all-courses", (req, res) => {
 
   pool.query(sql, (error, results) => {
     if (error) {
+      console.error(error);
       return res.status(500).send(errorResponse(error)); // 500 means vo jiska reason apne ko pata nahi
     }
 

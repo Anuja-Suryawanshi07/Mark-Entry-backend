@@ -1,10 +1,10 @@
 const express = require("express");
-
+const pool = require("../../config/db");
 const promisePool = require('../../config/db-promise')
 const router = express.Router();
 const crypto = require('crypto-js')
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { STAFF_TABLE, ROLE_TABLE, USER_TABLE, COURSE_TABLE } = require("../../config");
 
 // GET all Staff
 
@@ -195,4 +195,3 @@ router.delete("/delete-staff/:staffId", (req, res) => {
 });
 
 module.exports = router;
-

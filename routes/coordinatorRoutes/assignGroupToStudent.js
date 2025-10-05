@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-
+const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { STUDENT_TABLE, STUDENT_GROUP_TABLE } = require("../../config");
 
 // PUT /assign-group-to-student
 //http://localhost:7777/coordinator/assign-group-to-student
@@ -75,4 +75,3 @@ router.put("/assign-group-to-student", async (req, res) => {
 });
 
 module.exports = router;
-

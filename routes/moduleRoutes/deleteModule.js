@@ -1,9 +1,9 @@
 const express = require("express");
-
+const pool = require("../../config/db");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
 
-
+const { MODULE_TABLE } = require("../../config");
 
 // DELETE: delete an user
 //http://localhost:7777/module/delete-module/2

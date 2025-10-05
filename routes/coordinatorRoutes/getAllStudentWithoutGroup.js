@@ -1,8 +1,13 @@
 const express = require("express");
 const router = express.Router();
-
+const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const {
+  STUDENT_TABLE,
+  STUDENT_GROUP_TABLE,
+  USER_TABLE,
+  COURSE_TABLE,
+} = require("../../config");
 
 // Get all students without a group
 //http://localhost:7777/coordinator/students-without-group
@@ -68,4 +73,3 @@ console.log(sql,courseName);
 });
 
 module.exports = router;
-

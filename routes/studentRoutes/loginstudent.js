@@ -1,16 +1,15 @@
 const express = require("express");
-
+const pool = require("../../config/db");
 const router = express.Router();
 const crypto = require('crypto-js')
 const jwt = require('jsonwebtoken')
-const SECRET_KEY = process.env.SECRET_KEY;
-
+const {SECRET_KEY} = require('../../config')
 
 // POST: Student Login
 // Example: POST http://localhost:7777/student/login
 router.post("/login", (req, res) => {
   const { email, password } = req.body || {};
- console.log({email,password});
+ //console.log({email,password});
   // Validate required fields
   if (!email || !password) {
     return res.status(400).json({ status: "Error", message: "Email and password are required" });
@@ -23,7 +22,7 @@ router.post("/login", (req, res) => {
     INNER JOIN student s ON u.user_id = s.user_id
     WHERE u.email = ? AND u.role_id = 5
   `;
-  console.log(sql);
+
   pool.query(sql, [email], (err, results) => {
     if (err) {
       console.log(err);
@@ -53,12 +52,10 @@ router.post("/login", (req, res) => {
         email: user.email,
         group_id: user.group_id,
       };
-      console.log(payload);
       
  
      // Generate JWT token
     const token = jwt.sign(payload, SECRET_KEY);
-    console.log(token);
 
 
     // Step 3: Login success

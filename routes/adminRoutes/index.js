@@ -70,6 +70,3 @@ router.use(AssignCourseToStudent);
 router.use(UpdateStudents);
 router.use(AllStudentsMarks)
 module.exports = router;
-
-
-

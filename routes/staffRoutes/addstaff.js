@@ -1,8 +1,9 @@
-const express = require("express");
 
+const express = require("express");
+const pool = require("../../config/db");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { STAFF_TABLE } = require("../../config");
 
 // POST: add new Staff
 
@@ -37,5 +38,3 @@ router.post("/add-staff", (req,res) => {
 });
 
 module.exports = router;
-
-

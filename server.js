@@ -47,13 +47,8 @@ app.use("/course", getAllCourseBatch);
 app.use("/coordinator", getAllStudentByCourseName);
 app.use("/marks-scheme", marksSchemeRoute);
 
-// ✅ Test route (optional)
-app.get("/", (req, res) => {
-  res.send("Backend deployed successfully on Vercel 🚀");
-});
 
-// Remove manual app.listen() — Vercel handles this
+
  app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
 
-// ✅ Export the app for Vercel
 module.exports = app;

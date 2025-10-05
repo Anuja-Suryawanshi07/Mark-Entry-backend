@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
-
+const pool = require("../../config/db");
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const {
+  STUDENT_TABLE,
+  STUDENT_GROUP_TABLE,
+  COURSE_TABLE,
+} = require("../../config");
 
 // Get all students by group name
 //http://localhost:7777/coordinator/all-students-with-group?groupName=W1
@@ -81,5 +85,3 @@ router.get("/students-by-course-and-group", (req, res) => {
 });
 
 module.exports = router;
-
-

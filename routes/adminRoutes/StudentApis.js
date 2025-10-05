@@ -1,9 +1,9 @@
 const express = require("express");
-
+const pool = require("../../config/db");
 const promisePool = require("../../config/db-promise");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { STUDENT_TABLE, BATCH_TABLE, COURSE_TABLE, USER_TABLE, STUDENT_GROUP_TABLE } = require("../../config");
 
 // GET all students
 // http://localhost:7777/admin/get-student-details

@@ -1,8 +1,8 @@
 const express = require("express");
-
+const pool = require("../../config/db");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { STUDENT_TABLE, STUDENT_GROUP_TABLE, COURSE_TABLE } = require("../../config");
 
 /**
  * GET: Students in a particular group by Course

@@ -1,7 +1,8 @@
 const express = require("express");
+const pool = require("../../config/db");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { MODULE_TABLE } = require("../../config");
 
 
 // POST: add new Module in a Specific Course

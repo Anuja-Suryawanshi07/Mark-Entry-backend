@@ -1,8 +1,8 @@
 const express = require("express");
-
+const pool = require("../../config/db");
 const router = express.Router();
 const { successResponse, errorResponse } = require("../../utils/apiResponse");
-
+const { MARKS_TABLE } = require("../../config");
 
 // POST: add marks
 
@@ -44,4 +44,3 @@ router.post("/add-marks", (req,res) => {
 });
 
 module.exports = router;
-

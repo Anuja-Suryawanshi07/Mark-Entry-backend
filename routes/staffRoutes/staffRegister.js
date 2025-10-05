@@ -1,5 +1,5 @@
 const express = require("express");
-
+const pool = require("../../config/db");
 const router = express.Router();
 
 // POST: Register a new staff
